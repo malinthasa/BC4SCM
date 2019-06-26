@@ -1,0 +1,28 @@
+---
+name: network-org3
+version: 1.0.0
+client:
+  organization: Org3
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Org3:
+    mspid: Org3MSP
+    peers:
+    - peer0.org3.bc4scm.de
+    - peer1.org3.bc4scm.de
+peers:
+  peer0.org3.bc4scm.de:
+    url: grpcs://localhost:11051
+    tlsCACerts:
+      path: org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.org3.bc4scm.de-cert.pem
+    grpcOptions:
+      ssl-target-name-override: peer0.org3.bc4scm.de
+  peer1.org3.bc4scm.de:
+    url: grpcs://localhost:12051
+    tlsCACerts:
+      path: org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.org3.bc4scm.de-cert.pem
+    grpcOptions:
+      ssl-target-name-override: peer1.org3.bc4scm.de

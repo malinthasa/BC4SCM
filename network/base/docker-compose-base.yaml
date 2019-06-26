@@ -1,0 +1,110 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer.bc4scm.de:
+    container_name: orderer.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/tls/:/var/hyperledger/orderer/tls
+        - orderer.bc4scm.de:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.ibo.bc4scm.de:
+    container_name: peer0.ibo.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.ibo.bc4scm.de
+      - CORE_PEER_ADDRESS=peer0.ibo.bc4scm.de:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.ibo.bc4scm.de:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.ibo.bc4scm.de:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ibo.bc4scm.de:7051
+      - CORE_PEER_LOCALMSPID=IBOMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+        - peer0.ibo.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 7051:7051
+
+  peer1.ibo.bc4scm.de:
+    container_name: peer1.ibo.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.ibo.bc4scm.de
+      - CORE_PEER_ADDRESS=peer1.ibo.bc4scm.de:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.ibo.bc4scm.de:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.ibo.bc4scm.de:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ibo.bc4scm.de:7051
+      - CORE_PEER_LOCALMSPID=IBOMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer1.ibo.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer1.ibo.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+        - peer1.ibo.bc4scm.de:/var/hyperledger/production
+
+    ports:
+      - 8051:8051
+
+  peer0.retailer.bc4scm.de:
+    container_name: peer0.retailer.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.retailer.bc4scm.de
+      - CORE_PEER_ADDRESS=peer0.retailer.bc4scm.de:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.retailer.bc4scm.de:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.bc4scm.de:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.retailer.bc4scm.de:10051
+      - CORE_PEER_LOCALMSPID=RetailerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+        - peer0.retailer.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 9051:9051
+
+  peer1.retailer.bc4scm.de:
+    container_name: peer1.retailer.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.retailer.bc4scm.de
+      - CORE_PEER_ADDRESS=peer1.retailer.bc4scm.de:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.retailer.bc4scm.de:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.retailer.bc4scm.de:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.bc4scm.de:9051
+      - CORE_PEER_LOCALMSPID=RetailerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer1.retailer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer1.retailer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+        - peer1.retailer.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 10051:10051

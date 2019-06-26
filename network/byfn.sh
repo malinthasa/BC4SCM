@@ -163,6 +163,7 @@ function networkUp() {
     COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_CA}"
     export BYFN_CA1_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/ibo.bc4scm.de/ca && ls *_sk)
     export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
+    export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
   fi
   if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
     COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
@@ -221,6 +222,7 @@ function upgradeNetwork() {
       COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_CA}"
       export BYFN_CA1_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/ibo.bc4scm.de/ca && ls *_sk)
       export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
+      export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
     fi
     if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
       COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
@@ -240,7 +242,7 @@ function upgradeNetwork() {
     docker cp -a orderer.bc4scm.de:/var/hyperledger/production/orderer $LEDGERS_BACKUP/orderer.bc4scm.de
     docker-compose $COMPOSE_FILES up -d --no-deps orderer.bc4scm.de
 
-    for PEER in peer0.ibo.bc4scm.de peer1.ibo.bc4scm.de peer0.retailer.bc4scm.de peer1.retailer.bc4scm.de; do
+    for PEER in peer0.ibo.bc4scm.de peer1.ibo.bc4scm.de peer0.retailer.bc4scm.de peer1.retailer.bc4scm.de peer0.supplier.bc4scm.de peer1.supplier.bc4scm.de; do
       echo "Upgrading peer $PEER"
 
       # Stop the peer and backup its ledger
@@ -320,6 +322,10 @@ function replacePrivateKey() {
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/CA2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed $OPTS "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
   # If MacOSX, remove the temporary backup of the docker-compose file
   if [ "$ARCH" == "Darwin" ]; then
     rm docker-compose-e2e.yamlt
@@ -475,6 +481,21 @@ function generateChannelArtifacts() {
   set +x
   if [ $res -ne 0 ]; then
     echo "Failed to generate anchor peer update for RetailerMSP..."
+    exit 1
+  fi
+  echo
+
+  echo
+  echo "#################################################################"
+  echo "#######    Generating anchor peer update for SupplierMSP   ##########"
+  echo "#################################################################"
+  set -x
+  configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate \
+    ./channel-artifacts/SupplierMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierMSP
+  res=$?
+  set +x
+  if [ $res -ne 0 ]; then
+    echo "Failed to generate anchor peer update for SupplierMSP..."
     exit 1
   fi
   echo

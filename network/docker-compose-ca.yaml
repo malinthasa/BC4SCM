@@ -44,3 +44,21 @@ services:
     container_name: ca_peerRetailer
     networks:
       - byfn
+
+  ca2:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-supplier
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supplier.bc4scm.de-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${BYFN_CA2_PRIVATE_KEY}
+      - FABRIC_CA_SERVER_PORT=9054
+    ports:
+      - "9054:9054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.supplier.bc4scm.de-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${BYFN_CA2_PRIVATE_KEY} -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/supplier.bc4scm.de/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerSupplier
+    networks:
+      - byfn

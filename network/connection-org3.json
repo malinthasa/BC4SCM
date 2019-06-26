@@ -1,8 +1,8 @@
 {
-    "name": "network-org3",
+    "name": "network-supplier",
     "version": "1.0.0",
     "client": {
-        "organization": "Org3",
+        "organization": "Supplier",
         "connection": {
             "timeout": {
                 "peer": {
@@ -12,31 +12,31 @@
         }
     },
     "organizations": {
-        "Org3": {
-            "mspid": "Org3MSP",
+        "Supplier": {
+            "mspid": "SupplierMSP",
             "peers": [
-                "peer0.org3.bc4scm.de",
-                "peer1.org3.bc4scm.de"
+                "peer0.supplier.bc4scm.de",
+                "peer1.supplier.bc4scm.de"
             ]
         }
     },
     "peers": {
-        "peer0.org3.bc4scm.de": {
+        "peer0.supplier.bc4scm.de": {
             "url": "grpcs://localhost:11051",
             "tlsCACerts": {
-                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.org3.bc4scm.de-cert.pem"
+                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.org3.bc4scm.de"
+                "ssl-target-name-override": "peer0.supplier.bc4scm.de"
             }
         },
-        "peer1.org3.bc4scm.de": {
+        "peer1.supplier.bc4scm.de": {
             "url": "grpcs://localhost:12051",
             "tlsCACerts": {
-                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.org3.bc4scm.de-cert.pem"
+                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer1.org3.bc4scm.de"
+                "ssl-target-name-override": "peer1.supplier.bc4scm.de"
             }
         }
     }

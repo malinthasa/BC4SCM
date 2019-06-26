@@ -9,7 +9,7 @@
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp/tlscacerts/tlsca.bc4scm.de-cert.pem
 PEER0_IBO_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls/ca.crt
 PEER0_Retailer_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls/ca.crt
-PEER0_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.bc4scm.de/peers/peer0.org3.bc4scm.de/tls/ca.crt
+PEER0_Supplier_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/supplier.bc4scm.de/peers/peer0.supplier.bc4scm.de/tls/ca.crt
 
 # verify the result of the end-to-end test
 verifyResult() {
@@ -19,6 +19,7 @@ verifyResult() {
     echo
     exit 1
   fi
+  echo "-----------------------Verified-------------------------------------"
 }
 
 # Set OrdererOrg.Admin globals
@@ -51,13 +52,13 @@ setGlobals() {
     fi
 
   elif [ $ORG -eq 3 ]; then
-    CORE_PEER_LOCALMSPID="Org3MSP"
-    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG3_CA
-    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.bc4scm.de/users/Admin@org3.bc4scm.de/msp
+    CORE_PEER_LOCALMSPID="SupplierMSP"
+    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_Supplier_CA
+    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/supplier.bc4scm.de/users/Admin@supplier.bc4scm.de/msp
     if [ $PEER -eq 0 ]; then
-      CORE_PEER_ADDRESS=peer0.org3.bc4scm.de:11051
+      CORE_PEER_ADDRESS=peer0.supplier.bc4scm.de:11051
     else
-      CORE_PEER_ADDRESS=peer1.org3.bc4scm.de:12051
+      CORE_PEER_ADDRESS=peer1.supplier.bc4scm.de:12051
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="

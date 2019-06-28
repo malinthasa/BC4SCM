@@ -164,8 +164,13 @@ function networkUp() {
     export BYFN_CA1_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/ibo.bc4scm.de/ca && ls *_sk)
     export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
     export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
+    # export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
   fi
-  
+  if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
+    COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
+  elif [ "${CONSENSUS_TYPE}" == "etcdraft" ]; then
+    COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_RAFT2}"
+  fi
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
     COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
   fi
@@ -174,6 +179,18 @@ function networkUp() {
   if [ $? -ne 0 ]; then
     echo "ERROR !!!! Unable to start network"
     exit 1
+  fi
+
+  if [ "$CONSENSUS_TYPE" == "kafka" ]; then
+    sleep 1
+    echo "Sleeping 10s to allow $CONSENSUS_TYPE cluster to complete booting"
+    sleep 9
+  fi
+
+  if [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
+    sleep 1
+    echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
+    sleep 14
   fi
 
   # now run the end to end script
@@ -207,6 +224,12 @@ function upgradeNetwork() {
       export BYFN_CA1_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/ibo.bc4scm.de/ca && ls *_sk)
       export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
       export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
+      # export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
+    fi
+    if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
+      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
+    elif [ "${CONSENSUS_TYPE}" == "etcdraft" ]; then
+      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_RAFT2}"
     fi
     if [ "${IF_COUCHDB}" == "couchdb" ]; then
       COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
@@ -254,7 +277,7 @@ function upgradeNetwork() {
 
 # Tear down running network
 function networkDown() {
-  # stop org3 containers also in addition to ibo and retailer, in case we were running sample to add org3
+
   # stop kafka and zookeeper containers in case we're running with kafka consensus-type
   docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_RAFT2 -f $COMPOSE_FILE_CA -f $COMPOSE_FILE_ORG3 down --volumes --remove-orphans
 
@@ -303,6 +326,10 @@ function replacePrivateKey() {
   sed $OPTS "s/CA2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
   cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca/
   PRIV_KEY=$(ls *_sk)
+  # cd "$CURRENT_DIR"
+  # sed $OPTS "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  # cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca/
+  # PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
   # If MacOSX, remove the temporary backup of the docker-compose file
@@ -408,6 +435,10 @@ function generateChannelArtifacts() {
   set -x
   if [ "$CONSENSUS_TYPE" == "solo" ]; then
     configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+  elif [ "$CONSENSUS_TYPE" == "kafka" ]; then
+    configtxgen -profile SampleDevModeKafka -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+  elif [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
+    configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
   else
     set +x
     echo "unrecognized CONSESUS_TYPE='$CONSENSUS_TYPE'. exiting"
@@ -474,6 +505,21 @@ function generateChannelArtifacts() {
     exit 1
   fi
   echo
+
+  # echo
+  # echo "#################################################################"
+  # echo "#######    Generating anchor peer update for LogisticMSP   ##########"
+  # echo "#################################################################"
+  # set -x
+  # configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate \
+  #   ./channel-artifacts/LogisticMSPanchors.tx -channelID $CHANNEL_NAME -asOrg LogisticMSP
+  # res=$?
+  # set +x
+  # if [ $res -ne 0 ]; then
+  #   echo "Failed to generate anchor peer update for LogisticMSP..."
+  #   exit 1
+  # fi
+  # echo
 }
 
 # Obtain the OS and Architecture string that will be used to select the correct
@@ -593,6 +639,8 @@ elif [ "${MODE}" == "generate" ]; then ## Generate Artifacts
 elif [ "${MODE}" == "restart" ]; then ## Restart the network
   networkDown
   networkUp
+elif [ "${MODE}" == "upgrade" ]; then ## Upgrade the network from version 1.2.x to 1.3.x
+  upgradeNetwork
 else
   printHelp
   exit 1

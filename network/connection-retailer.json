@@ -1,0 +1,58 @@
+{
+    "name": "network-retailer",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Retailer",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Retailer": {
+            "mspid": "RetailerMSP",
+            "peers": [
+                "peer0.retailer.bc4scm.de",
+                "peer1.retailer.bc4scm.de"
+            ],
+            "certificateAuthorities": [
+                "ca.retailer.bc4scm.de"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.retailer.bc4scm.de": {
+            "url": "grpcs://localhost:9051",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/retailer.bc4scm.de/tlsca/tlsca.retailer.bc4scm.de-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.retailer.bc4scm.de"
+            }
+        },
+        "peer1.retailer.bc4scm.de": {
+            "url": "grpcs://localhost:10051",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/retailer.bc4scm.de/tlsca/tlsca.retailer.bc4scm.de-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.retailer.bc4scm.de"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.retailer.bc4scm.de": {
+            "url": "https://localhost:8054",
+            "caName": "ca-retailer",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/retailer.bc4scm.de/tlsca/tlsca.retailer.bc4scm.de-cert.pem"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

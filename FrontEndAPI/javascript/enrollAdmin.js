@@ -16,7 +16,7 @@ const ccp = JSON.parse(ccpJSON);
 async function main() {
     try {
 
-      
+
 
         // Create a new CA client for interacting with the CA.
         const caInfo = ccp.certificateAuthorities['ca.ibo.bc4scm.de'];

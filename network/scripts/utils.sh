@@ -10,6 +10,7 @@ ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrga
 PEER0_IBO_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls/ca.crt
 PEER0_Retailer_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls/ca.crt
 PEER0_Supplier_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/supplier.bc4scm.de/peers/peer0.supplier.bc4scm.de/tls/ca.crt
+PEER0_Logistic_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/logistic.bc4scm.de/peers/peer0.logistic.bc4scm.de/tls/ca.crt
 
 # verify the result of the end-to-end test
 verifyResult() {
@@ -59,6 +60,16 @@ setGlobals() {
       CORE_PEER_ADDRESS=peer0.supplier.bc4scm.de:11051
     else
       CORE_PEER_ADDRESS=peer1.supplier.bc4scm.de:12051
+    fi
+
+  elif [ $ORG -eq 4 ]; then
+    CORE_PEER_LOCALMSPID="LogisticMSP"
+    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_Logistic_CA
+    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/logistic.bc4scm.de/users/Admin@logistic.bc4scm.de/msp
+    if [ $PEER -eq 0 ]; then
+      CORE_PEER_ADDRESS=peer0.logistic.bc4scm.de:13051
+    else
+      CORE_PEER_ADDRESS=peer1.logistic.bc4scm.de:14051
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="

@@ -153,3 +153,47 @@ services:
       - peer1.supplier.bc4scm.de:/var/hyperledger/production
     ports:
     - 12051:12051
+
+  peer0.logistic.bc4scm.de:
+    container_name: peer0.logistic.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.logistic.bc4scm.de
+      - CORE_PEER_ADDRESS=peer0.logistic.bc4scm.de:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.logistic.bc4scm.de:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.logistic.bc4scm.de:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.logistic.bc4scm.de:13051
+      - CORE_PEER_LOCALMSPID=LogisticMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/logistic.bc4scm.de/peers/peer0.logistic.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/logistic.bc4scm.de/peers/peer0.logistic.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer0.logistic.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 13051:13051
+
+  peer1.logistic.bc4scm.de:
+    container_name: peer1.logistic.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.logistic.bc4scm.de
+      - CORE_PEER_ADDRESS=peer1.logistic.bc4scm.de:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.logistic.bc4scm.de:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.logistic.bc4scm.de:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.logistic.bc4scm.de:14051
+      - CORE_PEER_LOCALMSPID=LogisticMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/logistic.bc4scm.de/peers/peer1.logistic.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/logistic.bc4scm.de/peers/peer1.logistic.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer1.logistic.bc4scm.de:/var/hyperledger/production
+    ports:
+    - 14051:14051

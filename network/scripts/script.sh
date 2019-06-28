@@ -1,14 +1,5 @@
 #!/bin/bash
 
-echo
-echo " ____    _____      _      ____    _____ "
-echo "/ ___|  |_   _|    / \    |  _ \  |_   _|"
-echo "\___ \    | |     / _ \   | |_) |   | |  "
-echo " ___) |   | |    / ___ \  |  _ <    | |  "
-echo "|____/    |_|   /_/   \_\ |_| \_\   |_|  "
-echo
-echo "Build your first network (BYFN) end-to-end test"
-echo
 CHANNEL_NAME="$1"
 DELAY="$2"
 LANGUAGE="$3"
@@ -85,6 +76,8 @@ echo "Updating anchor peers for retailer..."
 updateAnchorPeers 0 2
 echo "Updating anchor peers for supplier..."
 updateAnchorPeers 0 3
+echo "Updating anchor peers for logistic..."
+updateAnchorPeers 0 4
 
 if [ "${NO_CHAINCODE}" != "true" ]; then
 
@@ -95,6 +88,8 @@ if [ "${NO_CHAINCODE}" != "true" ]; then
 	installChaincode 0 2
 	echo "Install chaincode on peer0.supplier..."
 	installChaincode 0 3
+	echo "Install chaincode on peer0.logistic..."
+	installChaincode 0 4
 
 	# Instantiate chaincode on peer0.retailer
 	echo "Instantiating chaincode on peer0.retailer..."
@@ -118,16 +113,7 @@ if [ "${NO_CHAINCODE}" != "true" ]; then
 
 fi
 
-echo
-echo "========= All GOOD, BYFN execution completed =========== "
-echo
-
-echo
-echo " _____   _   _   ____   "
-echo "| ____| | \ | | |  _ \  "
-echo "|  _|   |  \| | | | | | "
-echo "| |___  | |\  | | |_| | "
-echo "|_____| |_| \_| |____/  "
+echo "========= Network execution completed =========== "
 echo
 
 exit 0

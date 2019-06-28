@@ -180,18 +180,6 @@ function networkUp() {
     exit 1
   fi
 
-  if [ "$CONSENSUS_TYPE" == "kafka" ]; then
-    sleep 1
-    echo "Sleeping 10s to allow $CONSENSUS_TYPE cluster to complete booting"
-    sleep 9
-  fi
-
-  if [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
-    sleep 1
-    echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
-    sleep 14
-  fi
-
   # now run the end to end script
   docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE $NO_CHAINCODE
   if [ $? -ne 0 ]; then
@@ -223,11 +211,6 @@ function upgradeNetwork() {
       export BYFN_CA1_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/ibo.bc4scm.de/ca && ls *_sk)
       export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
       export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
-    fi
-    if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
-      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
-    elif [ "${CONSENSUS_TYPE}" == "etcdraft" ]; then
-      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_RAFT2}"
     fi
     if [ "${IF_COUCHDB}" == "couchdb" ]; then
       COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
@@ -429,10 +412,6 @@ function generateChannelArtifacts() {
   set -x
   if [ "$CONSENSUS_TYPE" == "solo" ]; then
     configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
-  elif [ "$CONSENSUS_TYPE" == "kafka" ]; then
-    configtxgen -profile SampleDevModeKafka -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
-  elif [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
-    configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
   else
     set +x
     echo "unrecognized CONSESUS_TYPE='$CONSENSUS_TYPE'. exiting"
@@ -618,8 +597,6 @@ elif [ "${MODE}" == "generate" ]; then ## Generate Artifacts
 elif [ "${MODE}" == "restart" ]; then ## Restart the network
   networkDown
   networkUp
-elif [ "${MODE}" == "upgrade" ]; then ## Upgrade the network from version 1.2.x to 1.3.x
-  upgradeNetwork
 else
   printHelp
   exit 1

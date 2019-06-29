@@ -128,76 +128,6 @@ function networkUp() {
   fi
 }
 
-# Upgrade the network components which are at version 1.3.x to 1.4.x
-# Stop the orderer and peers, backup the ledger for orderer and peers, cleanup chaincode containers and images
-# and relaunch the orderer and peers with latest tag
-function upgradeNetwork() {
-  if [[ "$IMAGETAG" == *"1.4"* ]] || [[ $IMAGETAG == "latest" ]]; then
-    docker inspect -f '{{.Config.Volumes}}' orderer.bc4scm.de | grep -q '/var/hyperledger/production/orderer'
-    if [ $? -ne 0 ]; then
-      echo "ERROR !!!! This network does not appear to start with fabric-samples >= v1.3.x?"
-      exit 1
-    fi
-
-    LEDGERS_BACKUP=./ledgers-backup
-
-    # create ledger-backup directory
-    mkdir -p $LEDGERS_BACKUP
-
-    export IMAGE_TAG=$IMAGETAG
-    COMPOSE_FILES="-f ${COMPOSE_FILE}"
-    if [ "${CERTIFICATE_AUTHORITIES}" == "true" ]; then
-      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_CA}"
-      export BYFN_CA1_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/ibo.bc4scm.de/ca && ls *_sk)
-      export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
-      export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
-      export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
-    fi
-
-    if [ "${IF_COUCHDB}" == "couchdb" ]; then
-      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
-    fi
-
-    # removing the cli container
-    docker-compose $COMPOSE_FILES stop cli
-    docker-compose $COMPOSE_FILES up -d --no-deps cli
-
-    echo "Upgrading orderer"
-    docker-compose $COMPOSE_FILES stop orderer.bc4scm.de
-    docker cp -a orderer.bc4scm.de:/var/hyperledger/production/orderer $LEDGERS_BACKUP/orderer.bc4scm.de
-    docker-compose $COMPOSE_FILES up -d --no-deps orderer.bc4scm.de
-
-    for PEER in peer0.ibo.bc4scm.de peer1.ibo.bc4scm.de peer0.retailer.bc4scm.de peer1.retailer.bc4scm.de peer0.supplier.bc4scm.de peer1.supplier.bc4scm.de peer0.logistic.bc4scm.de peer1.logistic.bc4scm.de; do
-      echo "Upgrading peer $PEER"
-
-      # Stop the peer and backup its ledger
-      docker-compose $COMPOSE_FILES stop $PEER
-      docker cp -a $PEER:/var/hyperledger/production $LEDGERS_BACKUP/$PEER/
-
-      # Remove any old containers and images for this peer
-      CC_CONTAINERS=$(docker ps | grep dev-$PEER | awk '{print $1}')
-      if [ -n "$CC_CONTAINERS" ]; then
-        docker rm -f $CC_CONTAINERS
-      fi
-      CC_IMAGES=$(docker images | grep dev-$PEER | awk '{print $1}')
-      if [ -n "$CC_IMAGES" ]; then
-        docker rmi -f $CC_IMAGES
-      fi
-
-      # Start the peer again
-      docker-compose $COMPOSE_FILES up -d --no-deps $PEER
-    done
-
-    docker exec cli scripts/upgrade_to_v14.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
-    if [ $? -ne 0 ]; then
-      echo "ERROR !!!! Test failed"
-      exit 1
-    fi
-  else
-    echo "ERROR !!!! Pass the v1.4.x image tag"
-  fi
-}
-
 # Tear down running network
 function networkDown() {
 
@@ -318,7 +248,7 @@ function generateChannelArtifacts() {
   echo "### Generating channel configuration transaction 'channel.tx' ###"
   echo "#################################################################"
   set -x
-  configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+  configtxgen -profile IBOCommonChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
   res=$?
   set +x
   if [ $res -ne 0 ]; then
@@ -331,7 +261,7 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for iboMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors.tx -channelID $CHANNEL_NAME -asOrg IBOMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors.tx -channelID $CHANNEL_NAME -asOrg IBOMSP
   res=$?
   set +x
   if [ $res -ne 0 ]; then
@@ -344,7 +274,7 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for retailerMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate \
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate \
     ./channel-artifacts/RetailerMSPanchors.tx -channelID $CHANNEL_NAME -asOrg RetailerMSP
   res=$?
   set +x
@@ -359,7 +289,7 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for SupplierMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate \
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate \
     ./channel-artifacts/SupplierMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierMSP
   res=$?
   set +x
@@ -374,7 +304,7 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for LogisticMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate \
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate \
     ./channel-artifacts/LogisticMSPanchors.tx -channelID $CHANNEL_NAME -asOrg LogisticMSP
   res=$?
   set +x
@@ -496,8 +426,6 @@ elif [ "${MODE}" == "generate" ]; then ## Generate Artifacts
 elif [ "${MODE}" == "restart" ]; then ## Restart the network
   networkDown
   networkUp
-elif [ "${MODE}" == "upgrade" ]; then ## Upgrade the network from version 1.2.x to 1.3.x
-  upgradeNetwork
 else
   printHelp
   exit 1

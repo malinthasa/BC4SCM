@@ -189,7 +189,7 @@ Profiles:
                     - *Retailer
                     - *Supplier
                     - *Logistic
-    TwoOrgsChannel:
+    IBOCommonChannel:
         Consortium: SCMConsortium
         <<: *ChannelDefaults
         Application:

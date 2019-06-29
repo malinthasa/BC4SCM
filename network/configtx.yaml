@@ -183,14 +183,14 @@ Profiles:
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
-            SCMConsortium:
+            SampleConsortium:
                 Organizations:
                     - *IBO
                     - *Retailer
                     - *Supplier
                     - *Logistic
     IBOCommonChannel:
-        Consortium: SCMConsortium
+        Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -203,7 +203,7 @@ Profiles:
                 <<: *ApplicationCapabilities
 
     IBOCustomerChannel:
-        Consortium: SCMConsortium
+        Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -213,7 +213,7 @@ Profiles:
                 <<: *ApplicationCapabilities
 
     IBOSupplierChannel:
-        Consortium: SCMConsortium
+        Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -224,7 +224,7 @@ Profiles:
                 <<: *ApplicationCapabilities
 
     IBOLogisticChannel:
-        Consortium: SCMConsortium
+        Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults

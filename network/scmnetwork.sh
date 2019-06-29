@@ -32,6 +32,7 @@ function askProceed() {
   esac
 }
 
+
 # Obtain CONTAINER_IDS and remove them
 # TODO Might want to make this optional - could clear other containers
 function clearContainers() {
@@ -251,6 +252,12 @@ function generateChannelArtifacts() {
   configtxgen -profile IBOCommonChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
   res=$?
   set +x
+
+  set -x
+  configtxgen -profile IBOSupplierChannel -outputCreateChannelTx ./channel-artifacts/channelIBOSupplier.tx -channelID $CHANNEL_IBO_SUPPLIER_NAME
+  res=$?
+  set +x
+
   if [ $res -ne 0 ]; then
     echo "Failed to generate channel configuration transaction..."
     exit 1
@@ -264,6 +271,12 @@ function generateChannelArtifacts() {
   configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors.tx -channelID $CHANNEL_NAME -asOrg IBOMSP
   res=$?
   set +x
+
+  set -x
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors.tx -channelID $CHANNEL_IBO_SUPPLIER_NAME -asOrg IBOMSP
+  res=$?
+  set +x
+
   if [ $res -ne 0 ]; then
     echo "Failed to generate anchor peer update for IBOMSP..."
     exit 1
@@ -325,6 +338,8 @@ CLI_TIMEOUT=10
 CLI_DELAY=3
 # channel name defaults to "iboretailerchannel"
 CHANNEL_NAME="iboretailerchannel"
+
+CHANNEL_IBO_SUPPLIER_NAME="ibosupplierchannel"
 # use this as the default docker-compose yaml definition
 COMPOSE_FILE=docker-compose-cli.yaml
 #

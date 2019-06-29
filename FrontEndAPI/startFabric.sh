@@ -19,8 +19,8 @@ rm -rf ./hfc-key-store
 
 # launch network; create channel and join peer to channel
 cd ../network
-echo y | ./byfn.sh down
-echo y | ./byfn.sh up -a -n -s couchdb
+echo y | ./scmnetwork.sh down
+echo y | ./scmnetwork.sh up -a -n -s couchdb
 
 CONFIG_ROOT=/opt/gopath/src/github.com/hyperledger/fabric/peer
 IBO_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/ibo.bc4scm.de/users/Admin@ibo.bc4scm.de/msp

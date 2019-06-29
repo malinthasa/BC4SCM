@@ -183,14 +183,14 @@ Profiles:
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
-            SampleConsortium:
+            SCMConsortium:
                 Organizations:
                     - *IBO
                     - *Retailer
                     - *Supplier
                     - *Logistic
     TwoOrgsChannel:
-        Consortium: SampleConsortium
+        Consortium: SCMConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -202,81 +202,34 @@ Profiles:
             Capabilities:
                 <<: *ApplicationCapabilities
 
-    SampleDevModeKafka:
+    IBOCustomerChannel:
+        Consortium: SCMConsortium
         <<: *ChannelDefaults
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: kafka
-            Kafka:
-                Brokers:
-                - kafka.bc4scm.de:9092
-
-            Organizations:
-            - *OrdererOrg
-            Capabilities:
-                <<: *OrdererCapabilities
         Application:
             <<: *ApplicationDefaults
             Organizations:
-            - <<: *OrdererOrg
-        Consortiums:
-            SampleConsortium:
-                Organizations:
                 - *IBO
-                - *Retailer
-                - *Supplier
-                - *Logistic
-
-    SampleMultiNodeEtcdRaft:
-        <<: *ChannelDefaults
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: etcdraft
-            EtcdRaft:
-                Consenters:
-                - Host: orderer.bc4scm.de
-                  Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/tls/server.crt
-                - Host: orderer2.bc4scm.de
-                  Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer2.bc4scm.de/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer2.bc4scm.de/tls/server.crt
-                - Host: orderer3.bc4scm.de
-                  Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer3.bc4scm.de/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer3.bc4scm.de/tls/server.crt
-                - Host: orderer4.bc4scm.de
-                  Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer4.bc4scm.de/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer4.bc4scm.de/tls/server.crt
-                - Host: orderer5.bc4scm.de
-                  Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer5.bc4scm.de/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer5.bc4scm.de/tls/server.crt
-            Addresses:
-                - orderer.bc4scm.de:7050
-                - orderer2.bc4scm.de:7050
-                - orderer3.bc4scm.de:7050
-                - orderer4.bc4scm.de:7050
-                - orderer5.bc4scm.de:7050
-
-            Organizations:
-            - *OrdererOrg
             Capabilities:
-                <<: *OrdererCapabilities
+                <<: *ApplicationCapabilities
+
+    IBOSupplierChannel:
+        Consortium: SCMConsortium
+        <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-            - <<: *OrdererOrg
-        Consortiums:
-            SampleConsortium:
-                Organizations:
                 - *IBO
-                - *Retailer
                 - *Supplier
+            Capabilities:
+                <<: *ApplicationCapabilities
+
+    IBOLogisticChannel:
+        Consortium: SCMConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *IBO
                 - *Logistic
+            Capabilities:
+                <<: *ApplicationCapabilities

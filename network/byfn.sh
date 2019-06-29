@@ -109,11 +109,7 @@ function networkUp() {
     export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
     export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
   fi
-  if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
-    COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
-  elif [ "${CONSENSUS_TYPE}" == "etcdraft" ]; then
-    COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_RAFT2}"
-  fi
+
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
     COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
   fi
@@ -122,18 +118,6 @@ function networkUp() {
   if [ $? -ne 0 ]; then
     echo "ERROR !!!! Unable to start network"
     exit 1
-  fi
-
-  if [ "$CONSENSUS_TYPE" == "kafka" ]; then
-    sleep 1
-    echo "Sleeping 10s to allow $CONSENSUS_TYPE cluster to complete booting"
-    sleep 9
-  fi
-
-  if [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
-    sleep 1
-    echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
-    sleep 14
   fi
 
   # now run the end to end script
@@ -169,11 +153,7 @@ function upgradeNetwork() {
       export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
       export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
     fi
-    if [ "${CONSENSUS_TYPE}" == "kafka" ]; then
-      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_KAFKA}"
-    elif [ "${CONSENSUS_TYPE}" == "etcdraft" ]; then
-      COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_RAFT2}"
-    fi
+
     if [ "${IF_COUCHDB}" == "couchdb" ]; then
       COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
     fi
@@ -222,7 +202,7 @@ function upgradeNetwork() {
 function networkDown() {
 
   # stop kafka and zookeeper containers in case we're running with kafka consensus-type
-  docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_RAFT2 -f $COMPOSE_FILE_CA -f $COMPOSE_FILE_ORG3 down --volumes --remove-orphans
+  docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA down --volumes --remove-orphans
 
   # Don't remove the generated artifacts -- note, the ledgers are always removed
   if [ "$MODE" != "restart" ]; then
@@ -423,12 +403,6 @@ CHANNEL_NAME="iboretailerchannel"
 COMPOSE_FILE=docker-compose-cli.yaml
 #
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
-# org3 docker compose file
-COMPOSE_FILE_ORG3=docker-compose-org3.yaml
-# kafka and zookeeper compose file
-COMPOSE_FILE_KAFKA=docker-compose-kafka.yaml
-# two additional etcd/raft orderers
-COMPOSE_FILE_RAFT2=docker-compose-etcdraft2.yaml
 # certificate authorities compose file
 COMPOSE_FILE_CA=docker-compose-ca.yaml
 #

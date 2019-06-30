@@ -24,7 +24,7 @@
         "peer0.supplier.bc4scm.de": {
             "url": "grpcs://localhost:11051",
             "tlsCACerts": {
-                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
+                "path": "crypto-config/peerOrganizations/supplier.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
             },
             "grpcOptions": {
                 "ssl-target-name-override": "peer0.supplier.bc4scm.de"
@@ -33,7 +33,7 @@
         "peer1.supplier.bc4scm.de": {
             "url": "grpcs://localhost:12051",
             "tlsCACerts": {
-                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
+                "path": "crypto-config/peerOrganizations/supplier.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
             },
             "grpcOptions": {
                 "ssl-target-name-override": "peer1.supplier.bc4scm.de"

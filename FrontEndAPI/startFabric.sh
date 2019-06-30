@@ -27,9 +27,11 @@ IBO_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/ibo.bc4scm.de/users/Ad
 IBO_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls/ca.crt
 Retailer_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/retailer.bc4scm.de/users/Admin@retailer.bc4scm.de/msp
 Retailer_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls/ca.crt
+Supplier_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplier.bc4scm.de/users/Admin@supplier.bc4scm.de/msp
+Supplier_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/supplier.bc4scm.de/peers/peer0.supplier.bc4scm.de/tls/ca.crt
 ORDERER_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp/tlscacerts/tlsca.bc4scm.de-cert.pem
 set -x
-
+#
 echo "Installing smart contract on peer0.ibo.bc4scm.de"
 docker exec \
   -e CORE_PEER_LOCALMSPID=IBOMSP \
@@ -43,12 +45,14 @@ docker exec \
     -p "$CC_SRC_PATH" \
     -l "$CC_RUNTIME_LANGUAGE"
 
-echo "Installing smart contract on peer0.retailer.bc4scm.de"
+
+#
+echo "Installing smart contract on peer0.supplier.bc4scm.de"
 docker exec \
-  -e CORE_PEER_LOCALMSPID=RetailerMSP \
-  -e CORE_PEER_ADDRESS=peer0.retailer.bc4scm.de:9051 \
-  -e CORE_PEER_MSPCONFIGPATH=${Retailer_MSPCONFIGPATH} \
-  -e CORE_PEER_TLS_ROOTCERT_FILE=${Retailer_TLS_ROOTCERT_FILE} \
+  -e CORE_PEER_LOCALMSPID=SupplierMSP \
+  -e CORE_PEER_ADDRESS=peer0.supplier.bc4scm.de:11051 \
+  -e CORE_PEER_MSPCONFIGPATH=${Supplier_MSPCONFIGPATH} \
+  -e CORE_PEER_TLS_ROOTCERT_FILE=${Supplier_TLS_ROOTCERT_FILE} \
   cli \
   peer chaincode install \
     -n scmlogic \
@@ -56,19 +60,21 @@ docker exec \
     -p "$CC_SRC_PATH" \
     -l "$CC_RUNTIME_LANGUAGE"
 
-echo "Instantiating smart contract on iboretailerchannel"
+
+#
+echo "Instantiating smart contract on ibo"
 docker exec \
   -e CORE_PEER_LOCALMSPID=IBOMSP \
   -e CORE_PEER_MSPCONFIGPATH=${IBO_MSPCONFIGPATH} \
   cli \
   peer chaincode instantiate \
     -o orderer.bc4scm.de:7050 \
-    -C iboretailerchannel \
+    -C ibosupplierchannel \
     -n scmlogic \
     -l "$CC_RUNTIME_LANGUAGE" \
     -v 1.0 \
     -c '{"Args":[]}' \
-    -P "AND('IBOMSP.member','RetailerMSP.member')" \
+    -P "AND('IBOMSP.member','SupplierMSP.member')" \
     --tls \
     --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
     --peerAddresses peer0.ibo.bc4scm.de:7051 \
@@ -77,6 +83,7 @@ docker exec \
 echo "Waiting for instantiation request to be committed ..."
 sleep 10
 
+#
 echo "Submitting initLedger transaction to smart contract on iboretailerchannel"
 docker exec \
   -e CORE_PEER_LOCALMSPID=IBOMSP \
@@ -84,14 +91,14 @@ docker exec \
   cli \
   peer chaincode invoke \
     -o orderer.bc4scm.de:7050 \
-    -C iboretailerchannel \
+    -C ibosupplierchannel \
     -n scmlogic \
     -c '{"function":"initLedger","Args":[]}' \
     --waitForEvent \
     --tls \
     --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
     --peerAddresses peer0.ibo.bc4scm.de:7051 \
-    --peerAddresses peer0.retailer.bc4scm.de:9051 \
+    --peerAddresses peer0.supplier.bc4scm.de:11051 \
     --tlsRootCertFiles ${IBO_TLS_ROOTCERT_FILE} \
-    --tlsRootCertFiles ${Retailer_TLS_ROOTCERT_FILE}
+    --tlsRootCertFiles ${Supplier_TLS_ROOTCERT_FILE}
 set +x

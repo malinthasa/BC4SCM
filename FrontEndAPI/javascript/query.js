@@ -7,11 +7,11 @@
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-ibo.json');
+const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-supplier.json');
 
 async function main() {
     try {
-        let user = 'user1';
+        let user = 'user3';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -26,8 +26,11 @@ async function main() {
         }
 
         // Create a new gateway for connecting to our peer node.
+
         const gateway = new Gateway();
+
         await gateway.connect(ccpPath, { wallet, identity: user, discovery: { enabled: true, asLocalhost: true } });
+
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('ibosupplierchannel');
@@ -41,6 +44,7 @@ async function main() {
         // const result = await contract.evaluateTransaction('queryAllProducts');
 
         const result = await contract.evaluateTransaction('queryAllProducts','BR0');
+          console.log(`******************************************Came here`);
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
     } catch (error) {

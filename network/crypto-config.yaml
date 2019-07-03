@@ -35,7 +35,7 @@ PeerOrgs:
     Template:
       Count: 2
     Users:
-      Count: 1
+      Count: 2
 
   - Name: Logistic
     Domain: logistic.bc4scm.de

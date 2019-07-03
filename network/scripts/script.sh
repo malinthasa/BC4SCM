@@ -146,6 +146,7 @@ createChannel
 createSpecificChannel 0 1 ibosupplierchannel channelIBOSupplier.tx
 joinSpecificChannelWithRetry 0 1 ibosupplierchannel
 joinSpecificChannelWithRetry 0 3 ibosupplierchannel
+joinSpecificChannelWithRetry 1 3 ibosupplierchannel
 
 ## Join all the peers to the channel
 echo "Having all peers join the channel..."

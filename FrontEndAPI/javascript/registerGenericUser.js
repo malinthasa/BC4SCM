@@ -7,12 +7,12 @@
 const { FileSystemWallet, Gateway, X509WalletMixin } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-supplier.json');
+const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-supplier.json";
 
 async function main() {
     try {
 
-        let user = 'user2';
+        let user = 'user3';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -47,16 +47,16 @@ async function main() {
 
 
         // To register the new organization
-        let registeredAffiliations = await affiliationService.getAll(adminIdentity);
-             await affiliationService.create({
-              name: 'supplier.department',
-              force: true}, adminIdentity);
+        // let registeredAffiliations = await affiliationService.getAll(adminIdentity);
+        //      await affiliationService.create({
+        //       name: 'supplier.department',
+        //       force: true}, adminIdentity);
 
-        // Register the user, enroll the user, and import the new identity into the wallet.
-        // const secret = await ca.register({ affiliation: 'ibo.department1', enrollmentID: user, role: 'client' }, adminIdentity);
-        // const enrollment = await ca.enroll({ enrollmentID: user, enrollmentSecret: secret });
-        // const userIdentity = X509WalletMixin.createIdentity('IBOMSP', enrollment.certificate, enrollment.key.toBytes());
-        // await wallet.import(user, userIdentity);
+      //  Register the user, enroll the user, and import the new identity into the wallet.
+        const secret = await ca.register({ affiliation: 'supplier.department', enrollmentID: user, role: 'client' }, adminIdentity);
+        const enrollment = await ca.enroll({ enrollmentID: user, enrollmentSecret: secret });
+        const userIdentity = X509WalletMixin.createIdentity('SupplierMSP', enrollment.certificate, enrollment.key.toBytes());
+        await wallet.import(user, userIdentity);
 
         console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');
 

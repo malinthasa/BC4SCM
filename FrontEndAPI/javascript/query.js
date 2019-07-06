@@ -11,7 +11,7 @@ const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-suppl
 
 async function main() {
     try {
-        let user = 'user3';
+        let user = 'user4';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);

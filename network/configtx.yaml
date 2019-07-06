@@ -96,7 +96,7 @@ Organizations:
 
         AnchorPeers:
             - Host: peer0.logistic.bc4scm.de
-              Port: 11051
+              Port: 13051
 
 Capabilities:
     Channel: &ChannelCapabilities

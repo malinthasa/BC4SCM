@@ -12,7 +12,7 @@ const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-su
 async function main() {
     try {
 
-        let user = 'user3';
+        let user = 'user4';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);

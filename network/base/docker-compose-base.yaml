@@ -54,7 +54,7 @@ services:
       - CORE_PEER_CHAINCODEADDRESS=peer1.ibo.bc4scm.de:8052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.ibo.bc4scm.de:8051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ibo.bc4scm.de:7051
+        - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ibo.bc4scm.de:7051
       - CORE_PEER_LOCALMSPID=IBOMSP
     volumes:
         - /var/run/:/host/var/run/
@@ -121,8 +121,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
       - CORE_PEER_CHAINCODEADDRESS=peer0.supplier.bc4scm.de:11052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.supplier.bc4scm.de:12051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.supplier.bc4scm.de:11051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.supplier.bc4scm.de:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.supplier.bc4scm.de:12051
       - CORE_PEER_LOCALMSPID=SupplierMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -143,8 +143,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
       - CORE_PEER_CHAINCODEADDRESS=peer1.supplier.bc4scm.de:12052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.supplier.bc4scm.de:11051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.supplier.bc4scm.de:12051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.supplier.bc4scm.de:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.supplier.bc4scm.de:11051
       - CORE_PEER_LOCALMSPID=SupplierMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -165,8 +165,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
       - CORE_PEER_CHAINCODEADDRESS=peer0.logistic.bc4scm.de:13052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.logistic.bc4scm.de:14051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.logistic.bc4scm.de:13051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.logistic.bc4scm.de:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.logistic.bc4scm.de:14051
       - CORE_PEER_LOCALMSPID=LogisticMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -187,8 +187,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
       - CORE_PEER_CHAINCODEADDRESS=peer1.logistic.bc4scm.de:14052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.logistic.bc4scm.de:13051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.logistic.bc4scm.de:14051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.logistic.bc4scm.de:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.logistic.bc4scm.de:13051
       - CORE_PEER_LOCALMSPID=LogisticMSP
     volumes:
       - /var/run/:/host/var/run/

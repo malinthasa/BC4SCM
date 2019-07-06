@@ -11,6 +11,8 @@ volumes:
   peer1.ibo.bc4scm.de:
   peer0.retailer.bc4scm.de:
   peer1.retailer.bc4scm.de:
+  peer0.supplier.bc4scm.de:
+  peer1.supplier.bc4scm.de:
 
 networks:
   byfn:
@@ -41,11 +43,28 @@ services:
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.retailer.bc4scm.de-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
     ports:
-      - "8054:7054"
+      - "8054:8054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.retailer.bc4scm.de-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/retailer.bc4scm.de/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca_peerRetailer
+    networks:
+      - byfn
+
+  ca2:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-supplier
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supplier.bc4scm.de-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY
+    ports:
+      - "9054:9054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.supplier.bc4scm.de-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/supplier.bc4scm.de/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerSupplier
     networks:
       - byfn
 
@@ -86,5 +105,21 @@ services:
     extends:
       file:  base/docker-compose-base.yaml
       service: peer1.retailer.bc4scm.de
+    networks:
+      - byfn
+
+  peer0.supplier.bc4scm.de:
+    container_name: peer0.supplier.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.supplier.bc4scm.de
+    networks:
+      - byfn
+
+  peer1.supplier.bc4scm.de:
+    container_name: peer1.supplier.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.supplier.bc4scm.de
     networks:
       - byfn

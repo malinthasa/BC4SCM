@@ -30,6 +30,15 @@ class SCMLogic extends Contract {
         console.info('============= END : Initialize Ledger ===========');
     }
 
+    async queryPrivateProduct(ctx, collectionName, productId) {
+        const productAsBytes = await ctx.stub.getPrivateData(collectionName, productId);
+        if (!productAsBytes || productAsBytes.length === 0) {
+            throw new Error(`${productId} does not exist`);
+        }
+        console.log(productAsBytes.toString());
+        return productAsBytes.toString();
+    }
+
     async queryProduct(ctx, productId) {
         const productAsBytes = await ctx.stub.getState(productId);
         if (!productAsBytes || productAsBytes.length === 0) {
@@ -39,7 +48,22 @@ class SCMLogic extends Contract {
         return productAsBytes.toString();
     }
 
-    async createProduct(ctx, productId, make, model, color, owner) {
+    async createPrivateProduct(ctx, collectionName, productId,  id ,batchno, type, date) {
+        console.info('============= START : Create Product ===========');
+
+        const product = {
+            id,
+            docType: 'bearing',
+            batchno,
+            type,
+            date,
+        };
+
+        await ctx.stub.putPrivateData(collectionName, productId, Buffer.from(JSON.stringify(product)));
+        console.info('============= END : Created Private Product ===========');
+    }
+
+    async createProduct(ctx, productId, id ,batchno, type, date) {
         console.info('============= START : Create Product ===========');
 
         const product = {

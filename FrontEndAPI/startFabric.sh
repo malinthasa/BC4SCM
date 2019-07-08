@@ -90,6 +90,7 @@ docker exec \
     --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
     --peerAddresses peer0.ibo.bc4scm.de:7051 \
     --tlsRootCertFiles ${IBO_TLS_ROOTCERT_FILE} \
+    --collections-config ${CC_SRC_PATH}/collection_config.json
 
 
 echo "Waiting for instantiation request to be committed ..."

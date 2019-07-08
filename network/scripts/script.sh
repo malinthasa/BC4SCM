@@ -156,47 +156,13 @@ echo "Having all peers join the channel..."
 echo "Updating anchor peers for ibo..."
 updateSpecificAnchorPeers 0 1 ibosupplierchannel
 updateSpecificAnchorPeers 0 3 ibosupplierchannel
-# updateAnchorPeers 0 1
-# echo "Updating anchor peers for retailer..."
-# updateAnchorPeers 0 2
-# echo "Updating anchor peers for supplier..."
-# updateAnchorPeers 0 3
-# echo "Updating anchor peers for logistic..."
-# updateAnchorPeers 0 4
+
 #
 if [ "${NO_CHAINCODE}" != "true" ]; then
 	echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-#
 # 	## Install chaincode on peer0.ibo and peer0.retailer
  	echo "Installing chaincode on peer0.ibo..."
  	installChaincodeOnSpecificNode 0 1
-# 	echo "Install chaincode on peer0.retailer..."
-# 	installChaincode 0 2
-# 	echo "Install chaincode on peer0.supplier..."
-# 	installChaincode 0 3
-# 	echo "Install chaincode on peer0.logistic..."
-# 	installChaincode 0 4
-#
-# 	# Instantiate chaincode on peer0.retailer
-# 	echo "Instantiating chaincode on peer0.retailer..."
-# 	instantiateChaincode 0 2
-#
-# 	# Query chaincode on peer0.ibo
-# 	echo "Querying chaincode on peer0.ibo..."
-# 	chaincodeQuery 0 1 100
-#
-# 	# Invoke chaincode on peer0.ibo and peer0.retailer
-# 	echo "Sending invoke transaction on peer0.ibo peer0.retailer..."
-# 	chaincodeInvoke 0 1 0 2
-#
-# 	## Install chaincode on peer1.retailer
-# 	echo "Installing chaincode on peer1.retailer..."
-# 	installChaincode 1 2
-#
-# 	# Query on chaincode on peer1.retailer, check if the result is 90
-# 	echo "Querying chaincode on peer1.retailer..."
-# 	chaincodeQuery 1 2 90
-#
 fi
 
 echo "========= Network execution completed =========== "

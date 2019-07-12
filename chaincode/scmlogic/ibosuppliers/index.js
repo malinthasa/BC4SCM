@@ -4,7 +4,7 @@
 
 'use strict';
 
-const SCMLogic = require('./lib/scmlogic');
+const SCMLogic = require('./lib/ibosupplierlogic');
 
 module.exports.SCMLogic = SCMLogic;
 module.exports.contracts = [ SCMLogic ];

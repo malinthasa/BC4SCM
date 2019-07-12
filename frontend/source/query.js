@@ -36,7 +36,7 @@ async function main() {
         const network = await gateway.getNetwork('ibosupplierchannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('scmlogic');
+        const contract = network.getContract('scmsupplierlogic');
 
         // Evaluate the specified transaction.
         // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')

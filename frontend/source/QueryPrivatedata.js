@@ -34,7 +34,7 @@ async function main() {
         const network = await gateway.getNetwork('ibosupplierchannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('scmlogic');
+        const contract = network.getContract('scmsupplierlogic');
         const result = await contract.evaluateTransaction('queryPrivateProduct','collectionIBOSupplierA','BR200');
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 

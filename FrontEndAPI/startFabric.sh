@@ -13,10 +13,10 @@ starttime=$(date +%s)
 
 CC_RUNTIME_LANGUAGE=node # chaincode runtime language is node.js
 CC_SRC_PATH=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
-CC_SRC_PATH_SUPPLIER=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
-CC_SRC_PATH_RETAILER=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
-CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
-CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
+CC_SRC_PATH_SUPPLIER=/opt/gopath/src/github.com/chaincode/scmlogic/ibosuppliers
+CC_SRC_PATH_RETAILER=/opt/gopath/src/github.com/chaincode/scmlogic/iboretailers
+CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/ibologistics
+CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/customers
 
 # clean the keystore
 rm -rf ./hfc-key-store
@@ -39,7 +39,8 @@ SupplierB_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm
 SupplierB_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm.de/peers/peer0.supplierb.bc4scm.de/tls/ca.crt
 ORDERER_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp/tlscacerts/tlsca.bc4scm.de-cert.pem
 set -x
-#
+
+
 echo "Installing smart contract on peer0.ibo.bc4scm.de"
 docker exec \
   -e CORE_PEER_LOCALMSPID=IBOMSP \
@@ -48,24 +49,13 @@ docker exec \
   -e CORE_PEER_TLS_ROOTCERT_FILE=${IBO_TLS_ROOTCERT_FILE} \
   cli \
   peer chaincode install \
-    -n scmlogic \
+    -n scmsupplierlogic \
     -v 1.0 \
-    -p "$CC_SRC_PATH" \
+    -p "$CC_SRC_PATH_SUPPLIER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
 
-echo "Installing smart contract on peer0.supplier.bc4scm.de"
-docker exec \
-  -e CORE_PEER_LOCALMSPID=SupplierMSP \
-  -e CORE_PEER_ADDRESS=peer0.supplier.bc4scm.de:11051 \
-  -e CORE_PEER_MSPCONFIGPATH=${Supplier_MSPCONFIGPATH} \
-  -e CORE_PEER_TLS_ROOTCERT_FILE=${Supplier_TLS_ROOTCERT_FILE} \
-  cli \
-  peer chaincode install \
-    -n scmlogic \
-    -v 1.0 \
-    -p "$CC_SRC_PATH" \
-    -l "$CC_RUNTIME_LANGUAGE"
+
 
 echo "Installing smart contract on peer0.supplierA.bc4scm.de"
 docker exec \
@@ -75,9 +65,9 @@ docker exec \
   -e CORE_PEER_TLS_ROOTCERT_FILE=${SupplierA_TLS_ROOTCERT_FILE} \
   cli \
   peer chaincode install \
-    -n scmlogic \
+    -n scmsupplierlogic \
     -v 1.0 \
-    -p "$CC_SRC_PATH" \
+    -p "$CC_SRC_PATH_SUPPLIER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
 echo "Installing smart contract on peer0.supplierB.bc4scm.de"
@@ -88,9 +78,9 @@ docker exec \
   -e CORE_PEER_TLS_ROOTCERT_FILE=${SupplierB_TLS_ROOTCERT_FILE} \
   cli \
   peer chaincode install \
-    -n scmlogic \
+    -n scmsupplierlogic \
     -v 1.0 \
-    -p "$CC_SRC_PATH" \
+    -p "$CC_SRC_PATH_SUPPLIER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
 echo "Installing smart contract on peer0.retailer.bc4scm.de"
@@ -114,16 +104,16 @@ docker exec \
   peer chaincode instantiate \
     -o orderer.bc4scm.de:7050 \
     -C ibosupplierchannel \
-    -n scmlogic \
+    -n scmsupplierlogic \
     -l "$CC_RUNTIME_LANGUAGE" \
     -v 1.0 \
     -c '{"Args":[]}' \
-    -P "OR('IBOMSP.member','SupplierMSP.member', 'SupplierAMSP.member', 'SupplierBMSP.member')" \
+    -P "OR('IBOMSP.member', 'SupplierAMSP.member', 'SupplierBMSP.member')" \
     --tls \
     --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
     --peerAddresses peer0.ibo.bc4scm.de:7051 \
     --tlsRootCertFiles ${IBO_TLS_ROOTCERT_FILE} \
-    --collections-config ${CC_SRC_PATH}/collection_config.json
+    --collections-config ${CC_SRC_PATH_SUPPLIER}/collection_config.json
 
 
 echo "Waiting for instantiation request to be committed ..."
@@ -138,13 +128,15 @@ docker exec \
   peer chaincode invoke \
     -o orderer.bc4scm.de:7050 \
     -C ibosupplierchannel \
-    -n scmlogic \
+    -n scmsupplierlogic \
     -c '{"function":"initLedger","Args":[]}' \
     --waitForEvent \
     --tls \
     --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
     --peerAddresses peer0.ibo.bc4scm.de:7051 \
-    --peerAddresses peer0.supplier.bc4scm.de:11051 \
+    --peerAddresses peer0.suppliera.bc4scm.de:13051 \
+    --peerAddresses peer0.supplierb.bc4scm.de:15051 \
     --tlsRootCertFiles ${IBO_TLS_ROOTCERT_FILE} \
-    --tlsRootCertFiles ${Supplier_TLS_ROOTCERT_FILE}
+    --tlsRootCertFiles ${SupplierA_TLS_ROOTCERT_FILE} \
+    --tlsRootCertFiles ${SupplierB_TLS_ROOTCERT_FILE}
 set +x

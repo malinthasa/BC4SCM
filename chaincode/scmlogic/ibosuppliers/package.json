@@ -1,7 +1,7 @@
 {
-    "name": "scmlogic",
+    "name": "ibosupplierlogic",
     "version": "1.0.0",
-    "description": "IBO Suuplier Constracts",
+    "description": "IBO Supplier Constracts",
     "main": "index.js",
     "engines": {
         "node": ">=8",

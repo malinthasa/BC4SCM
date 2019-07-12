@@ -15,6 +15,10 @@ volumes:
   peer1.supplier.bc4scm.de:
   peer0.logistic.bc4scm.de:
   peer1.logistic.bc4scm.de:
+  peer0.suppliera.bc4scm.de:
+  peer1.suppliera.bc4scm.de:
+  peer0.supplierb.bc4scm.de:
+  peer1.supplierb.bc4scm.de:
 
 networks:
   byfn:
@@ -77,6 +81,38 @@ services:
     networks:
       - byfn
 
+  peer0.suppliera.bc4scm.de:
+    container_name: peer0.suppliera.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.suppliera.bc4scm.de
+    networks:
+      - byfn
+
+  peer1.suppliera.bc4scm.de:
+    container_name: peer1.suppliera.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.suppliera.bc4scm.de
+    networks:
+      - byfn
+
+  peer0.supplierb.bc4scm.de:
+    container_name: peer0.supplierb.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.supplierb.bc4scm.de
+    networks:
+      - byfn
+
+  peer1.supplierb.bc4scm.de:
+    container_name: peer1.supplierb.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.supplierb.bc4scm.de
+    networks:
+      - byfn
+
   peer0.logistic.bc4scm.de:
     container_name: peer0.logistic.bc4scm.de
     extends:
@@ -129,5 +165,9 @@ services:
       - peer1.supplier.bc4scm.de
       - peer0.logistic.bc4scm.de
       - peer1.logistic.bc4scm.de
+      - peer0.suppliera.bc4scm.de
+      - peer1.suppliera.bc4scm.de
+      - peer0.supplierb.bc4scm.de
+      - peer1.supplierb.bc4scm.de
     networks:
       - byfn

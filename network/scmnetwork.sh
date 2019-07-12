@@ -108,6 +108,8 @@ function networkUp() {
     export BYFN_CA2_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/retailer.bc4scm.de/ca && ls *_sk)
     export BYFN_CA3_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplier.bc4scm.de/ca && ls *_sk)
     export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
+    export BYFN_CA5_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/suppliera.bc4scm.de/ca && ls *_sk)
+    export BYFN_CA6_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplierb.bc4scm.de/ca && ls *_sk)
   fi
 
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
@@ -185,6 +187,14 @@ function replacePrivateKey() {
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  cd crypto-config/peerOrganizations/suppliera.bc4scm.de/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed $OPTS "s/CA5_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  cd crypto-config/peerOrganizations/supplierb.bc4scm.de/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed $OPTS "s/CA6_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
   # If MacOSX, remove the temporary backup of the docker-compose file
   if [ "$ARCH" == "Darwin" ]; then
     rm docker-compose-e2e.yamlt
@@ -310,6 +320,46 @@ function generateChannelArtifacts() {
 
   if [ $res -ne 0 ]; then
     echo "Failed to generate anchor peer update for SupplierMSP..."
+    exit 1
+  fi
+  echo
+
+  echo
+  echo "#################################################################"
+  echo "#######    Generating anchor peer update for SupplierAMSP   ##########"
+  echo "#################################################################"
+  set -x
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierAMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierAMSP
+  res=$?
+  set +x
+
+  set -x
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierAMSPanchors.tx -channelID "ibosupplierchannel" -asOrg SupplierAMSP
+  res=$?
+  set +x
+
+  if [ $res -ne 0 ]; then
+    echo "Failed to generate anchor peer update for SupplierAMSP..."
+    exit 1
+  fi
+  echo
+
+  echo
+  echo "#################################################################"
+  echo "#######    Generating anchor peer update for SupplierBMSP   ##########"
+  echo "#################################################################"
+  set -x
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierBMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierBMSP
+  res=$?
+  set +x
+
+  set -x
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierBMSPanchors.tx -channelID "ibosupplierchannel" -asOrg SupplierBMSP
+  res=$?
+  set +x
+
+  if [ $res -ne 0 ]; then
+    echo "Failed to generate anchor peer update for SupplierBMSP..."
     exit 1
   fi
   echo

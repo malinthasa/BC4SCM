@@ -147,6 +147,10 @@ createSpecificChannel 0 1 ibosupplierchannel channelIBOSupplier.tx
 joinSpecificChannelWithRetry 0 1 ibosupplierchannel
 joinSpecificChannelWithRetry 0 3 ibosupplierchannel
 joinSpecificChannelWithRetry 1 3 ibosupplierchannel
+joinSpecificChannelWithRetry 0 4 ibosupplierchannel
+joinSpecificChannelWithRetry 0 5 ibosupplierchannel
+joinSpecificChannelWithRetry 1 4 ibosupplierchannel
+joinSpecificChannelWithRetry 1 5 ibosupplierchannel
 
 ## Join all the peers to the channel
 echo "Having all peers join the channel..."
@@ -156,6 +160,8 @@ echo "Having all peers join the channel..."
 echo "Updating anchor peers for ibo..."
 updateSpecificAnchorPeers 0 1 ibosupplierchannel
 updateSpecificAnchorPeers 0 3 ibosupplierchannel
+updateSpecificAnchorPeers 0 4 ibosupplierchannel
+updateSpecificAnchorPeers 0 5 ibosupplierchannel
 
 #
 if [ "${NO_CHAINCODE}" != "true" ]; then

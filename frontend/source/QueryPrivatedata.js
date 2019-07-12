@@ -7,7 +7,7 @@
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-supplier.json');
+const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-supplierA.json');
 
 async function main() {
     try {
@@ -35,7 +35,7 @@ async function main() {
 
         // Get the contract from the network.
         const contract = network.getContract('scmlogic');
-        const result = await contract.evaluateTransaction('queryPrivateProduct','collectionIBOSupplierA','BR38');
+        const result = await contract.evaluateTransaction('queryPrivateProduct','collectionIBOSupplierA','BR200');
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
     } catch (error) {

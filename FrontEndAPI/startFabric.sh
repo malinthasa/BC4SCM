@@ -13,6 +13,10 @@ starttime=$(date +%s)
 
 CC_RUNTIME_LANGUAGE=node # chaincode runtime language is node.js
 CC_SRC_PATH=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
+CC_SRC_PATH_SUPPLIER=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
+CC_SRC_PATH_RETAILER=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
+CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
+CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
 
 # clean the keystore
 rm -rf ./hfc-key-store
@@ -29,6 +33,10 @@ Retailer_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/retailer.bc4scm.d
 Retailer_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls/ca.crt
 Supplier_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplier.bc4scm.de/users/Admin@supplier.bc4scm.de/msp
 Supplier_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/supplier.bc4scm.de/peers/peer0.supplier.bc4scm.de/tls/ca.crt
+SupplierA_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/suppliera.bc4scm.de/users/Admin@suppliera.bc4scm.de/msp
+SupplierA_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/suppliera.bc4scm.de/peers/peer0.suppliera.bc4scm.de/tls/ca.crt
+SupplierB_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm.de/users/Admin@supplierb.bc4scm.de/msp
+SupplierB_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm.de/peers/peer0.supplierb.bc4scm.de/tls/ca.crt
 ORDERER_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp/tlscacerts/tlsca.bc4scm.de-cert.pem
 set -x
 #
@@ -46,7 +54,6 @@ docker exec \
     -l "$CC_RUNTIME_LANGUAGE"
 
 
-#
 echo "Installing smart contract on peer0.supplier.bc4scm.de"
 docker exec \
   -e CORE_PEER_LOCALMSPID=SupplierMSP \
@@ -60,7 +67,33 @@ docker exec \
     -p "$CC_SRC_PATH" \
     -l "$CC_RUNTIME_LANGUAGE"
 
-echo "Installing smart contract on peer0.supplier.bc4scm.de"
+echo "Installing smart contract on peer0.supplierA.bc4scm.de"
+docker exec \
+  -e CORE_PEER_LOCALMSPID=SupplierAMSP \
+  -e CORE_PEER_ADDRESS=peer0.suppliera.bc4scm.de:13051 \
+  -e CORE_PEER_MSPCONFIGPATH=${SupplierA_MSPCONFIGPATH} \
+  -e CORE_PEER_TLS_ROOTCERT_FILE=${SupplierA_TLS_ROOTCERT_FILE} \
+  cli \
+  peer chaincode install \
+    -n scmlogic \
+    -v 1.0 \
+    -p "$CC_SRC_PATH" \
+    -l "$CC_RUNTIME_LANGUAGE"
+
+echo "Installing smart contract on peer0.supplierB.bc4scm.de"
+docker exec \
+  -e CORE_PEER_LOCALMSPID=SupplierBMSP \
+  -e CORE_PEER_ADDRESS=peer0.supplierb.bc4scm.de:15051 \
+  -e CORE_PEER_MSPCONFIGPATH=${SupplierB_MSPCONFIGPATH} \
+  -e CORE_PEER_TLS_ROOTCERT_FILE=${SupplierB_TLS_ROOTCERT_FILE} \
+  cli \
+  peer chaincode install \
+    -n scmlogic \
+    -v 1.0 \
+    -p "$CC_SRC_PATH" \
+    -l "$CC_RUNTIME_LANGUAGE"
+
+echo "Installing smart contract on peer0.retailer.bc4scm.de"
 docker exec \
   -e CORE_PEER_LOCALMSPID=RetailerMSP \
   -e CORE_PEER_ADDRESS=peer0.retailer.bc4scm.de:9051 \
@@ -85,7 +118,7 @@ docker exec \
     -l "$CC_RUNTIME_LANGUAGE" \
     -v 1.0 \
     -c '{"Args":[]}' \
-    -P "OR('IBOMSP.member','SupplierMSP.member')" \
+    -P "OR('IBOMSP.member','SupplierMSP.member', 'SupplierAMSP.member', 'SupplierBMSP.member')" \
     --tls \
     --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
     --peerAddresses peer0.ibo.bc4scm.de:7051 \

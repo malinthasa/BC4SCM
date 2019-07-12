@@ -96,7 +96,45 @@ Organizations:
 
         AnchorPeers:
             - Host: peer0.logistic.bc4scm.de
-              Port: 13051
+              Port: 17051
+
+    - &SupplierA
+        Name: SupplierAMSP
+        ID: SupplierAMSP
+        MSPDir: crypto-config/peerOrganizations/suppliera.bc4scm.de/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('SupplierAMSP.admin', 'SupplierAMSP.peer', 'SupplierAMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('SupplierAMSP.admin', 'SupplierAMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('SupplierAMSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.suppliera.bc4scm.de
+              Port: 15051
+
+    - &SupplierB
+        Name: SupplierBMSP
+        ID: SupplierBMSP
+        MSPDir: crypto-config/peerOrganizations/supplierb.bc4scm.de/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('SupplierBMSP.admin', 'SupplierBMSP.peer', 'SupplierBMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('SupplierBMSP.admin', 'SupplierBMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('SupplierBMSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.supplierb.bc4scm.de
+              Port: 17051
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -189,6 +227,8 @@ Profiles:
                     - *Retailer
                     - *Supplier
                     - *Logistic
+                    - *SupplierA
+                    - *SupplierB
     IBOCommonChannel:
         Consortium: SCMConsortium
         <<: *ChannelDefaults
@@ -199,6 +239,8 @@ Profiles:
                 - *Retailer
                 - *Supplier
                 - *Logistic
+                - *SupplierA
+                - *SupplierB
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -220,6 +262,8 @@ Profiles:
             Organizations:
                 - *IBO
                 - *Supplier
+                - *SupplierA
+                - *SupplierB
             Capabilities:
                 <<: *ApplicationCapabilities
 

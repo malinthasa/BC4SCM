@@ -80,3 +80,39 @@ services:
     container_name: ca_peerLogistic
     networks:
       - byfn
+
+  ca4:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-suppliera
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.suppliera.bc4scm.de-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${BYFN_CA5_PRIVATE_KEY}
+      - FABRIC_CA_SERVER_PORT=11054
+    ports:
+      - "11054:11054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.suppliera.bc4scm.de-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${BYFN_CA5_PRIVATE_KEY} -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/suppliera.bc4scm.de/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerSupplierA
+    networks:
+      - byfn
+
+  ca5:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-supplierb
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supplierb.bc4scm.de-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${BYFN_CA6_PRIVATE_KEY}
+      - FABRIC_CA_SERVER_PORT=12054
+    ports:
+      - "12054:12054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.supplierb.bc4scm.de-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${BYFN_CA6_PRIVATE_KEY} -b admin:adminpw -d'
+    volumes:
+       - ./crypto-config/peerOrganizations/supplierb.bc4scm.de/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerSupplierB
+    networks:
+      - byfn

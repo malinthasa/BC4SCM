@@ -7,7 +7,7 @@
 const { FileSystemWallet, Gateway, X509WalletMixin } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-supplier.json";
+const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-supplierA.json";
 
 async function main() {
     try {
@@ -49,13 +49,13 @@ async function main() {
         // To register the new organization
         // let registeredAffiliations = await affiliationService.getAll(adminIdentity);
         //      await affiliationService.create({
-        //       name: 'supplier.department',
+        //       name: 'suppliera.department',
         //       force: true}, adminIdentity);
 
       //  Register the user, enroll the user, and import the new identity into the wallet.
-        const secret = await ca.register({ affiliation: 'supplier.department', enrollmentID: user, role: 'client' }, adminIdentity);
+        const secret = await ca.register({ affiliation: 'suppliera.department', enrollmentID: user, role: 'client' }, adminIdentity);
         const enrollment = await ca.enroll({ enrollmentID: user, enrollmentSecret: secret });
-        const userIdentity = X509WalletMixin.createIdentity('SupplierMSP', enrollment.certificate, enrollment.key.toBytes());
+        const userIdentity = X509WalletMixin.createIdentity('SupplierAMSP', enrollment.certificate, enrollment.key.toBytes());
         await wallet.import(user, userIdentity);
 
         console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');

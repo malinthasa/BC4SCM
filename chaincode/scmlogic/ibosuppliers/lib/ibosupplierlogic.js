@@ -8,23 +8,23 @@ class SCMLogic extends Contract {
     async initLedger(ctx) {
         console.info('============= START : Initialize Ledger ===========');
         const orders = [
-            {
-                id: 'BR0',
-                batchno: '#12',
-                type: 'tp01',
-                date: '24062019',
-            },
-            {
-                id: 'BR1',
-                batchno: '#13',
-                type: 'tp004',
-                date: '18052004',
-            }
+          {
+              orderID: 'ORD0001',
+              productID: 'IBO0001',
+              CADHash: 'QmXJaC6CjKN7QBwvCNyHUP3y11KYWuMPRsG1RBqvc31TMh',
+              specHash: 'QmXJuy6CjKN7QBwvCNyHUP3y11KYWuMPRsG1RBqvc31TMg',
+              requirementHash: 'QmXJaC6CjKN7QBwvCNyHUP3y11KYWuMPRsG1RByuyu1TMg',
+              serialNo: '7676',
+              date: '2019/07/13',
+              description: 'ordered supply',
+              supplierID: "SupA",
+              status: "created",
+              agreed:false
+          }
         ];
 
         for (let i = 0; i < orders.length; i++) {
-            orders[i].docType = 'bearing';
-            await ctx.stub.putState('BR' + i, Buffer.from(JSON.stringify(orders[i])));
+            await ctx.stub.putState(orders[i].orderID, Buffer.from(JSON.stringify(orders[i])));
             console.info('Added <--> ', orders[i]);
         }
         console.info('============= END : Initialize Ledger ===========');
@@ -39,18 +39,25 @@ class SCMLogic extends Contract {
         return productAsBytes.toString();
     }
 
-    async addPrivateOrder(ctx, collectionName, productId,  id ,batchno, type, date) {
-        console.info('============= START : Create Product ===========');
+    async addPrivateOrder(ctx, collectionName, orderId, productId,  CADHash ,specHash,
+      requirementHash, serialNo, date, description, supplierID, status) {
+        console.info('============= START : Create Order ===========');
 
         const order = {
-            id,
-            docType: 'bearing',
-            batchno,
-            type,
-            date,
+          orderID: orderId,
+          productID: productId,
+          CADHash: CADHash,
+          specHash: specHash,
+          requirementHash: requirementHash,
+          serialNo: serialNo,
+          date: date,
+          description: description,
+          supplierID: supplierID,
+          status: status,
+          agreed:false
         };
 
-        await ctx.stub.putPrivateData(collectionName, productId, Buffer.from(JSON.stringify(order)));
+        await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
         console.info('============= END : Created Private Order ===========');
     }
 
@@ -101,17 +108,32 @@ class SCMLogic extends Contract {
         console.info('============= END : changeProductOwner ===========');
     }
 
-    async updatePrivateOrder(ctx, collectionName, productNumber, newOwner) {
+    async updatePrivateOrderStatus(ctx, collectionName, orderId, status) {
         console.info('============= START : changeProductOwner ===========');
 
-        const productAsBytes = await ctx.stub.getPrivateData(collectionName, productId);
+        const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
         if (!productAsBytes || productAsBytes.length === 0) {
             throw new Error(`${productNumber} does not exist`);
         }
         const order = JSON.parse(productAsBytes.toString());
-        product.owner = newOwner;
+        product.status = status;
 
-        await ctx.stub.putPrivateData(collectionName, productId, Buffer.from(JSON.stringify(order)));
+        await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
+
+        console.info('============= END : changeProductOwner ===========');
+    }
+
+    async updatePrivateOrderAgree(ctx, collectionName, orderId, agreed) {
+        console.info('============= START : changeProductOwner ===========');
+
+        const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
+        if (!productAsBytes || productAsBytes.length === 0) {
+            throw new Error(`${productNumber} does not exist`);
+        }
+        const order = JSON.parse(productAsBytes.toString());
+        product.agreed = agreed;
+
+        await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
 
         console.info('============= END : changeProductOwner ===========');
     }

@@ -3,36 +3,44 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
-// var productService = require('./productInfo');
+var productService = require('./productInfo');
 const path = require('path');
 const router = express.Router();
-app.use(express.static(path.join(__dirname + "/../Customers", 'resources')));
+app.use(express.static(path.join(__dirname + "/frontend/", 'resources')));
 
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname + "/../Customers"+ '/index.html'));
+  res.sendFile(path.join(__dirname + "/frontend/"+ '/index.html'));
   //__dirname : It will resolve to your project folder.
 });
 
 router.get('/home',function(req,res){
-  res.sendFile(path.join(__dirname + "/../Customers"+ '/index.html'));
+  res.sendFile(path.join(__dirname + "/frontend/"+ '/index.html'));
 });
 
 router.get('/info',function(req,res){
-  res.sendFile(path.join(__dirname + "/../Customers"+ '/info.html'));
+  res.sendFile(path.join(__dirname + "/frontend/"+ '/info.html'));
 });
 
 router.get('/history',function(req,res){
-    res.sendFile(path.join(__dirname + "/../Customers"+ '/history.html'));
+    res.sendFile(path.join(__dirname + "/frontend/"+ '/history.html'));
 });
 
-// app.get('/customers/products', function(req, res) {
-//   details = productService.getProductDetails().then(function(result) {
-//     console.log(result)
-//     res.send(result);
-// });
+app.get('/customers/productInfo', function(req, res) {
+  details = productService.getProductDetails().then(function(result) {
+    console.log(result)
+    res.send(result);
+});
 
-// });
+});
+
+app.get('/customers/productHistory', function(req, res) {
+  details = productService.getProductHistory().then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
 
 //add the router
 app.use('/', router);

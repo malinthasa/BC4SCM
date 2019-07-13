@@ -110,6 +110,7 @@ function networkUp() {
     export BYFN_CA4_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/logistic.bc4scm.de/ca && ls *_sk)
     export BYFN_CA5_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/suppliera.bc4scm.de/ca && ls *_sk)
     export BYFN_CA6_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/supplierb.bc4scm.de/ca && ls *_sk)
+    export BYFN_CA7_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/customer.bc4scm.de/ca && ls *_sk)
   fi
 
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
@@ -195,6 +196,10 @@ function replacePrivateKey() {
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/CA6_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  cd crypto-config/peerOrganizations/customer.bc4scm.de/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed $OPTS "s/CA7_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
   # If MacOSX, remove the temporary backup of the docker-compose file
   if [ "$ARCH" == "Darwin" ]; then
     rm docker-compose-e2e.yamlt
@@ -267,6 +272,11 @@ function generateChannelArtifacts() {
   res=$?
   set +x
 
+  set -x
+  configtxgen -profile IBOCustomerChannel -outputCreateChannelTx ./channel-artifacts/channelIBOCustomer.tx -channelID "ibocustomerchannel"
+  res=$?
+  set +x
+
   if [ $res -ne 0 ]; then
     echo "Failed to generate channel configuration transaction..."
     exit 1
@@ -277,11 +287,15 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for iboMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors.tx -channelID $CHANNEL_NAME -asOrg IBOMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg IBOMSP
   res=$?
 
   set -x
-  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors.tx -channelID "ibosupplierchannel" -asOrg IBOMSP
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors_IBOSupplierChannel.tx -channelID "ibosupplierchannel" -asOrg IBOMSP
+  res=$?
+
+  set -x
+  configtxgen -profile IBOCustomerChannel -outputAnchorPeersUpdate ./channel-artifacts/IBOMSPanchors_IBOCustomerChannel.tx -channelID "ibocustomerchannel" -asOrg IBOMSP
   res=$?
 
   set +x
@@ -294,9 +308,15 @@ function generateChannelArtifacts() {
   echo "#################################################################"
   echo "#######    Generating anchor peer update for retailerMSP   ##########"
   echo "#################################################################"
+
   set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/RetailerMSPanchors.tx -channelID $CHANNEL_NAME -asOrg RetailerMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/RetailerMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg RetailerMSP
   res=$?
+
+  set -x
+  configtxgen -profile IBOCustomerChannel -outputAnchorPeersUpdate ./channel-artifacts/RetailerMSPanchors_IBOCustomerChannel.tx -channelID "ibocustomerchannel" -asOrg RetailerMSP
+  res=$?
+
   set +x
   if [ $res -ne 0 ]; then
     echo "Failed to generate anchor peer update for RetailerMSP..."
@@ -306,15 +326,32 @@ function generateChannelArtifacts() {
 
   echo
   echo "#################################################################"
+  echo "#######    Generating anchor peer update for customerMSP   ##########"
+  echo "#################################################################"
+
+  set -x
+  configtxgen -profile IBOCustomerChannel -outputAnchorPeersUpdate ./channel-artifacts/CustomerMSPanchors_IBOCustomerChannel.tx -channelID "ibocustomerchannel" -asOrg CustomerMSP
+  res=$?
+
+
+  set +x
+  if [ $res -ne 0 ]; then
+    echo "Failed to generate anchor peer update for CustomerMSP..."
+    exit 1
+  fi
+  echo
+
+  echo
+  echo "#################################################################"
   echo "#######    Generating anchor peer update for SupplierMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg SupplierMSP
   res=$?
   set +x
 
   set -x
-  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors.tx -channelID "ibosupplierchannel" -asOrg SupplierMSP
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors_IBOSupplierChannel.tx -channelID "ibosupplierchannel" -asOrg SupplierMSP
   res=$?
   set +x
 
@@ -329,12 +366,12 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for SupplierAMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierAMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierAMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierAMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg SupplierAMSP
   res=$?
   set +x
 
   set -x
-  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierAMSPanchors.tx -channelID "ibosupplierchannel" -asOrg SupplierAMSP
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierAMSPanchors_IBOSupplierChannel.tx -channelID "ibosupplierchannel" -asOrg SupplierAMSP
   res=$?
   set +x
 
@@ -349,12 +386,12 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for SupplierBMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierBMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SupplierBMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierBMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg SupplierBMSP
   res=$?
   set +x
 
   set -x
-  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierBMSPanchors.tx -channelID "ibosupplierchannel" -asOrg SupplierBMSP
+  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierBMSPanchors_IBOSupplierChannel.tx -channelID "ibosupplierchannel" -asOrg SupplierBMSP
   res=$?
   set +x
 
@@ -369,7 +406,7 @@ function generateChannelArtifacts() {
   echo "#######    Generating anchor peer update for LogisticMSP   ##########"
   echo "#################################################################"
   set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/LogisticMSPanchors.tx -channelID $CHANNEL_NAME -asOrg LogisticMSP
+  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/LogisticMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg LogisticMSP
   res=$?
   set +x
   if [ $res -ne 0 ]; then

@@ -16,7 +16,7 @@ CC_SRC_PATH=/opt/gopath/src/github.com/chaincode/scmlogic/javascript
 CC_SRC_PATH_SUPPLIER=/opt/gopath/src/github.com/chaincode/scmlogic/ibosuppliers
 CC_SRC_PATH_RETAILER=/opt/gopath/src/github.com/chaincode/scmlogic/iboretailers
 CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/ibologistics
-CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/customers
+CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/ibocustomers
 
 # clean the keystore
 rm -rf ./hfc-key-store
@@ -37,6 +37,8 @@ SupplierA_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/suppliera.bc4scm
 SupplierA_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/suppliera.bc4scm.de/peers/peer0.suppliera.bc4scm.de/tls/ca.crt
 SupplierB_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm.de/users/Admin@supplierb.bc4scm.de/msp
 SupplierB_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm.de/peers/peer0.supplierb.bc4scm.de/tls/ca.crt
+Customer_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/customer.bc4scm.de/users/Admin@customer.bc4scm.de/msp
+Customer_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/customer.bc4scm.de/peers/peer0.customer.bc4scm.de/tls/ca.crt
 ORDERER_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp/tlscacerts/tlsca.bc4scm.de-cert.pem
 set -x
 
@@ -54,8 +56,18 @@ docker exec \
     -p "$CC_SRC_PATH_SUPPLIER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
-
-
+echo "Installing smart contract on peer0.ibo.bc4scm.de"
+docker exec \
+  -e CORE_PEER_LOCALMSPID=IBOMSP \
+  -e CORE_PEER_ADDRESS=peer0.ibo.bc4scm.de:7051 \
+  -e CORE_PEER_MSPCONFIGPATH=${IBO_MSPCONFIGPATH} \
+  -e CORE_PEER_TLS_ROOTCERT_FILE=${IBO_TLS_ROOTCERT_FILE} \
+  cli \
+  peer chaincode install \
+    -n scmcustomerlogic \
+    -v 1.0 \
+    -p "$CC_SRC_PATH_CUSTOMER" \
+    -l "$CC_RUNTIME_LANGUAGE"
 
 echo "Installing smart contract on peer0.supplierA.bc4scm.de"
 docker exec \
@@ -81,6 +93,32 @@ docker exec \
     -n scmsupplierlogic \
     -v 1.0 \
     -p "$CC_SRC_PATH_SUPPLIER" \
+    -l "$CC_RUNTIME_LANGUAGE"
+
+echo "Installing smart contract on peer0.customer.bc4scm.de"
+docker exec \
+  -e CORE_PEER_LOCALMSPID=CustomerMSP \
+  -e CORE_PEER_ADDRESS=peer0.customer.bc4scm.de:19051 \
+  -e CORE_PEER_MSPCONFIGPATH=${Customer_MSPCONFIGPATH} \
+  -e CORE_PEER_TLS_ROOTCERT_FILE=${Customer_TLS_ROOTCERT_FILE} \
+  cli \
+  peer chaincode install \
+    -n scmcustomerlogic \
+    -v 1.0 \
+    -p "$CC_SRC_PATH_CUSTOMER" \
+    -l "$CC_RUNTIME_LANGUAGE"
+
+echo "Installing smart contract on peer0.retailer.bc4scm.de"
+docker exec \
+  -e CORE_PEER_LOCALMSPID=RetailerMSP \
+  -e CORE_PEER_ADDRESS=peer0.retailer.bc4scm.de:9051 \
+  -e CORE_PEER_MSPCONFIGPATH=${Retailer_MSPCONFIGPATH} \
+  -e CORE_PEER_TLS_ROOTCERT_FILE=${Retailer_TLS_ROOTCERT_FILE} \
+  cli \
+  peer chaincode install \
+    -n scmcustomerlogic \
+    -v 1.0 \
+    -p "$CC_SRC_PATH_RETAILER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
 echo "Installing smart contract on peer0.retailer.bc4scm.de"
@@ -115,6 +153,23 @@ docker exec \
     --tlsRootCertFiles ${IBO_TLS_ROOTCERT_FILE} \
     --collections-config ${CC_SRC_PATH_SUPPLIER}/collection_config.json
 
+echo "Instantiating IBO customer smart contract on ibo"
+docker exec \
+  -e CORE_PEER_LOCALMSPID=IBOMSP \
+  -e CORE_PEER_MSPCONFIGPATH=${IBO_MSPCONFIGPATH} \
+  cli \
+  peer chaincode instantiate \
+    -o orderer.bc4scm.de:7050 \
+    -C ibocustomerchannel \
+    -n scmcustomerlogic \
+    -l "$CC_RUNTIME_LANGUAGE" \
+    -v 1.0 \
+    -c '{"Args":[]}' \
+    -P "OR('IBOMSP.member', 'RetailerMSP.member', 'CustomerMSP.member')" \
+    --tls \
+    --cafile ${ORDERER_TLS_ROOTCERT_FILE} \
+    --peerAddresses peer0.ibo.bc4scm.de:7051 \
+    --tlsRootCertFiles ${IBO_TLS_ROOTCERT_FILE} \
 
 echo "Waiting for instantiation request to be committed ..."
 sleep 10

@@ -17,6 +17,8 @@ volumes:
   peer1.suppliera.bc4scm.de:
   peer0.supplierb.bc4scm.de:
   peer1.supplierb.bc4scm.de:
+  peer0.customer.bc4scm.de:
+  peer1.customer.bc4scm.de:
 
 networks:
   byfn:
@@ -106,6 +108,23 @@ services:
     networks:
       - byfn
 
+  ca6:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-customer
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.customer.bc4scm.de-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA7_PRIVATE_KEY
+    ports:
+      - "13054:13054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.customer.bc4scm.de-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA7_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/customer.bc4scm.de/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerCustomer
+    networks:
+      - byfn
+
   orderer.bc4scm.de:
     extends:
       file:   base/docker-compose-base.yaml
@@ -191,5 +210,21 @@ services:
     extends:
       file:  base/docker-compose-base.yaml
       service: peer1.supplierb.bc4scm.de
+    networks:
+      - byfn
+
+  peer0.customer.bc4scm.de:
+    container_name: peer0.customer.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.customer.bc4scm.de
+    networks:
+      - byfn
+
+  peer1.customer.bc4scm.de:
+    container_name: peer1.customer.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.customer.bc4scm.de
     networks:
       - byfn

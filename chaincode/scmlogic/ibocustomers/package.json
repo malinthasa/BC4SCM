@@ -1,7 +1,7 @@
 {
-    "name": "scmlogic",
+    "name": "ibocustomerlogic",
     "version": "1.0.0",
-    "description": "SCMLogic contract implemented in JavaScript",
+    "description": "IBO Customer Logic",
     "main": "index.js",
     "engines": {
         "node": ">=8",

@@ -19,6 +19,8 @@ volumes:
   peer1.suppliera.bc4scm.de:
   peer0.supplierb.bc4scm.de:
   peer1.supplierb.bc4scm.de:
+  peer0.customer.bc4scm.de:
+  peer1.customer.bc4scm.de:
 
 networks:
   byfn:
@@ -129,6 +131,22 @@ services:
     networks:
       - byfn
 
+  peer0.customer.bc4scm.de:
+    container_name: peer0.customer.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.customer.bc4scm.de
+    networks:
+      - byfn
+
+  peer1.customer.bc4scm.de:
+    container_name: peer1.customer.bc4scm.de
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.customer.bc4scm.de
+    networks:
+      - byfn
+
   cli:
     container_name: cli
     image: hyperledger/fabric-tools:$IMAGE_TAG
@@ -169,5 +187,7 @@ services:
       - peer1.suppliera.bc4scm.de
       - peer0.supplierb.bc4scm.de
       - peer1.supplierb.bc4scm.de
+      - peer0.customer.bc4scm.de
+      - peer1.customer.bc4scm.de
     networks:
       - byfn

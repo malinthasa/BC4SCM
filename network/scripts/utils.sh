@@ -13,6 +13,7 @@ PEER0_Supplier_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peer
 PEER0_SupplierA_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/suppliera.bc4scm.de/peers/peer0.suppliera.bc4scm.de/tls/ca.crt
 PEER0_SupplierB_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/supplierb.bc4scm.de/peers/peer0.supplierb.bc4scm.de/tls/ca.crt
 PEER0_Logistic_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/logistic.bc4scm.de/peers/peer0.logistic.bc4scm.de/tls/ca.crt
+PEER0_Customer_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/customer.bc4scm.de/peers/peer0.customer.bc4scm.de/tls/ca.crt
 
 # verify the result of the end-to-end test
 verifyResult() {
@@ -92,6 +93,16 @@ setGlobals() {
       CORE_PEER_ADDRESS=peer0.logistic.bc4scm.de:17051
     else
       CORE_PEER_ADDRESS=peer1.logistic.bc4scm.de:18051
+    fi
+
+  elif [ $ORG -eq 7 ]; then
+    CORE_PEER_LOCALMSPID="CustomerMSP"
+    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_Customer_CA
+    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/customer.bc4scm.de/users/Admin@customer.bc4scm.de/msp
+    if [ $PEER -eq 0 ]; then
+      CORE_PEER_ADDRESS=peer0.customer.bc4scm.de:19051
+    else
+      CORE_PEER_ADDRESS=peer1.customer.bc4scm.de:20051
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="

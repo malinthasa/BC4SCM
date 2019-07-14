@@ -15,7 +15,8 @@ class SCMLogic extends Contract {
                 status: 'ordered supply',
                 owner: "IBO",
                 decCertID: "",
-                type: "bearing"
+                type: "bearing",
+                certificateOfCompliance:""
             }
         ];
 

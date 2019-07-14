@@ -7,12 +7,12 @@ const path = require('path');
 const ccpPath = path.resolve(__dirname, '..', '..',"..", 'network', 'connection-ibo.json');
 
 module.exports = {
-	registerOrder: async function (oid, pid, chash, rhash, shash, serial, desc, date) {
+	updateProductStatus: async function (oid, status) {
 		return new Promise(async(resolve, reject) => {
 			try {
 
         // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), 'wallet');
+        const walletPath = path.join(process.cwd(), '../IBO/wallet');
         const wallet = new FileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
@@ -28,15 +28,13 @@ module.exports = {
         const gateway = new Gateway();
         await gateway.connect(ccpPath, { wallet, identity: 'userIBO', discovery: { enabled: true, asLocalhost: true } });
 				// Get the network (channel) our contract is deployed to.
-				const network = await gateway.getNetwork('ibosupplierchannel');
+				const network = await gateway.getNetwork('ibocustomerchannel');
 
 				// Get the contract from the network.
-				const contract = network.getContract('scmsupplierlogic');
+				const contract = network.getContract('scmcustomerlogic');
 
-        await contract.submitTransaction('addPrivateOrder',
-        'collectionIBOSupplierA',oid,pid, chash, shash, rhash, serial,date,
-         desc, 'supplierA', 'Placed Order');
-        console.log('Transaction has been submitted');
+        await contract.submitTransaction('changeProductStatus', pid, status, date);
+
 				return;
 
 			} catch (error) {

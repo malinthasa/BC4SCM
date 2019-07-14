@@ -47,10 +47,13 @@
              $("#date").val(orderinfo.date);
              $("#des").val(orderinfo.description);
              $("#status").val(orderinfo.status);
+             $("#productID").val(orderinfo.productID);
           });
 
           $("#updateOrder").on("click", function () {
             var dec = $("#des").val();
+            var pid = $("#productID").val();
+            var date = $("#date").val();
 
             $.ajax({
                url: "/supplier/updateOrder",
@@ -62,9 +65,11 @@
             .done(function( data ) {
                console.log( "Sample of data:", data );
                product=JSON.parse(JSON.parse(data));
+            });
 
             
-            });
+
+
           });
 
           $("#UpdateOrderStatus").on("click", function () {
@@ -160,6 +165,7 @@
                       <h4>Order details</h4>
                     </div>
                     <div class="card-body">
+                      <input id="productID" type="hiddent" class="form-control"></input>
                       <form>
                         <div class="form-group">
                           <label for="">CAD Hash</label>

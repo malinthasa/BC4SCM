@@ -39,13 +39,12 @@
           var date = $("#date").val();
 
           $.ajax({
-             url: "/ibo/sell",
+             url: "/retailer/sell",
              data:{pid:proId, cutomerId:cutomerId, date:date}
-
           })
           .done(function( data ) {
              console.log( "Sample of data:", data );
-
+             alert("Transaction has been submitted");
           });
         });
     });

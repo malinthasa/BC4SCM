@@ -7,6 +7,7 @@ var orderService = require('./orderService');
 var ordersService = require('./ordersService');
 var updateService = require('./updateService');
 var updateServiceStatus = require('./updateOrderStatus');
+var updateProductService = require('./updateProductStatus');
 const path = require('path');
 const router = express.Router();
 app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
@@ -40,6 +41,17 @@ app.get('/supplier/getorder', function(req, res) {
 
 });
 });
+
+app.get('/supplier/updateProduct', function(req, res) {
+
+  details = updateProductService.updateProductStatus(req.query.pid, req.query.status, req.query.date).then(function(result) {
+
+  res.send(result);
+
+});
+});
+
+
 
 
 app.get('/supplier/updateOrder', function(req, res) {

@@ -47,7 +47,7 @@
           for (i = 0; i < product.length; i++) {
             transactionContent = transactionContent + '<tr><td>'+product[i].Key
             +'</td><td>'+product[i].Record.date
-            +'</td><td>'+product[i].Record.IBOAgreed+'</td><td><div class="form-group"><form method="GET" action="/order"><input type="hidden" name="orderId" value="'+product[i].Key+'" /> <input id="vieworder'+i.toString()+'" type="submit" value="View" class="btn btn-primary"></form></div></td></tr>';
+            +'</td><td>'+product[i].Record.SupplierAgreed+'</td><td><div class="form-group"><form method="GET" action="/order"><input type="hidden" name="orderId" value="'+product[i].Key+'" /> <input id="vieworder'+i.toString()+'" type="submit" value="View" class="btn btn-primary"></form></div></td></tr>';
           }
          $("#tb").html(transactionContent);
 
@@ -158,7 +158,7 @@
                                           <tr>
                                             <th>Order ID</th>
                                             <th>Date</th>
-                                            <th>IBO Agreement</th>
+                                            <th>Supplier Agreement</th>
                                             <th>Action</th>
                                           </tr>
                                         </thead>

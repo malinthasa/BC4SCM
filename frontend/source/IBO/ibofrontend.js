@@ -69,8 +69,8 @@ app.get('/ibo/updateProduct', function(req, res) {
 
 app.get('/customer/addorder', function(req, res) {
   details = productService.registerProduct(req.query.oid, req.query.pid, req.query.chash, req.query.rhash, req.query.shash, req.query.serial, req.query.desc, req.query.date).then(function(result) {
-    console.log(result)
-    res.send(result);
+    console.log()
+    res.send();
 });
 
 });

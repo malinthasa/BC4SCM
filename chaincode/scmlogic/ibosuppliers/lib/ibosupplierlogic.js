@@ -164,6 +164,7 @@ class SCMLogic extends Contract {
         }
         const order = JSON.parse(productAsBytes.toString());
         order.description = description;
+        
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
 

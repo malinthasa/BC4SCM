@@ -4,6 +4,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 var productService = require('./productInfo');
+var productService1 = require('./productInfoService');
 const path = require('path');
 const router = express.Router();
 app.use(express.static(path.join(__dirname + "/frontend/", 'resources')));
@@ -27,7 +28,7 @@ router.get('/history',function(req,res){
 });
 
 app.get('/customers/productInfo', function(req, res) {
-  details = productService.getProductDetails().then(function(result) {
+  details = productService.getProductDetails(req.query.prid).then(function(result) {
     console.log(result)
     res.send(result);
 });
@@ -35,7 +36,7 @@ app.get('/customers/productInfo', function(req, res) {
 });
 
 app.get('/customers/productHistory', function(req, res) {
-  details = productService.getProductHistory().then(function(result) {
+  details = productService1.getProductHistory(req.query.prid).then(function(result) {
     console.log(result)
     res.send(result);
 });
@@ -44,7 +45,7 @@ app.get('/customers/productHistory', function(req, res) {
 
 //add the router
 app.use('/', router);
-app.listen(process.env.port || 3000);
+app.listen(process.env.port || 3004);
 
 console.log('Running at Port 3000');
 

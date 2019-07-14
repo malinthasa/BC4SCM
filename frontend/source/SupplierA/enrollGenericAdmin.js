@@ -17,7 +17,7 @@ async function main() {
     try {
         // Create a new CA client for interacting with the CA.
         const caInfo = ccp.certificateAuthorities['ca.suppliera.bc4scm.de'];
-        const caTLSCACertsPath = path.resolve(__dirname, '..', '..', 'network', caInfo.tlsCACerts.path);
+        const caTLSCACertsPath = path.resolve(__dirname, '..', '..','..', 'network', caInfo.tlsCACerts.path);
         const caTLSCACerts = fs.readFileSync(caTLSCACertsPath);
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName);
 

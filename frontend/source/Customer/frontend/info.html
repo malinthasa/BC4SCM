@@ -32,9 +32,10 @@
     $(document).ready(function () {
         $("#productInfoDev").hide();
         $("#viewinfo").on("click", function () {
-
+          pid = $("#productIdNo").val();
           $.ajax({
-             url: "/customers/productInfo"
+             url: "/customers/productInfo",
+             data: {prid: pid}
           })
           .done(function( data ) {
              console.log( "Sample of data:", data );
@@ -163,7 +164,7 @@
                   <form>
                     <div class="form-group">
                       <label>Product ID</label>
-                      <input type="text" placeholder="Product ID" class="form-control">
+                      <input id="productIdNo" type="text" placeholder="Product ID" class="form-control">
                     </div>
 
                     <div class="form-group">

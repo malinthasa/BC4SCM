@@ -12,7 +12,7 @@ const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-ib
 async function main() {
     try {
 
-        let user = 'user4';
+        let user = 'userIBO';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -47,7 +47,7 @@ async function main() {
         // To register the new organization
         let registeredAffiliations = await affiliationService.getAll(adminIdentity);
              await affiliationService.create({
-              name: 'ibo.department',
+              name: 'ibo.department1',
               force: true}, adminIdentity);
 
         console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');

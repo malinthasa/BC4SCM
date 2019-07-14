@@ -3,34 +3,86 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
-var productService = require('./orderInfo');
+var productService = require('./registerProduct');
+var orderService = require('./registerOrder');
+var ordersQueryService = require('./orderService');
+var ordesQueryService = require('./ordersService');
+var agreeSupply = require('./agreeSupplyChanges');
 const path = require('path');
 const router = express.Router();
-app.use(express.static(path.join(__dirname + "/../IBO", 'resources')));
+app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname + "/../IBO"+ '/login.html'));
+  res.sendFile(path.join(__dirname + "/frontend"+ '/login.html'));
   //__dirname : It will resolve to your project folder.
 });
 
 router.get('/home',function(req,res){
-  res.sendFile(path.join(__dirname + "/../IBO"+ '/index.html'));
+  res.sendFile(path.join(__dirname + "/frontend"+ '/index.html'));
 });
 
 router.get('/network',function(req,res){
-  res.sendFile(path.join(__dirname + "/../IBO"+ '/network.html'));
+  res.sendFile(path.join(__dirname + "/frontend"+ '/network.html'));
 });
 
-router.get('/transactions',function(req,res){
-    res.sendFile(path.join(__dirname + "/../IBO"+ '/transactions.html'));
+router.get('/supply',function(req,res){
+    res.sendFile(path.join(__dirname + "/frontend"+ '/pendingOrders.html'));
+});
+
+router.get('/placeorder',function(req,res){
+    res.sendFile(path.join(__dirname + "/frontend"+ '/placeSupplyOrder.html'));
+});
+
+
+router.get('/orders',function(req,res){
+    res.sendFile(path.join(__dirname + "/frontend"+ '/customerOrder.html'));
 });
 
 app.get('/supplier/orders', function(req, res) {
-  details = productService.getProductDetails().then(function(result) {
+  details = orderService.registerOrder(req.query.oid, req.query.pid, req.query.chash, req.query.rhash, req.query.shash, req.query.serial, req.query.desc, req.query.date).then(function(result) {
     console.log(result)
     res.send(result);
 });
 
+});
+
+app.get('/customer/addorder', function(req, res) {
+  details = productService.registerProduct(req.query.oid, req.query.pid, req.query.chash, req.query.rhash, req.query.shash, req.query.serial, req.query.desc, req.query.date).then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
+
+
+
+app.get('/ibo/viewAllSupplyOrders', function(req, res) {
+  details = ordersQueryService.getOrders().then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
+
+app.get('/ibo/viewSupplyOrder', function(req, res) {
+  details = ordesQueryService.getOrder(req.query.id).then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
+
+app.get('/ibo/agreeOrder', function(req, res) {
+  details = agreeSupply.agreeSupplyChange(req.query.id).then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
+
+
+router.get('/order',function(req,res){
+  res.sendFile(path.join(__dirname + "/frontend"+ '/order.html'));
 });
 
 //add the router
@@ -43,41 +95,4 @@ console.log('Running at Port 3000');
 var server = app.listen(8081, function () {
   var host = server.address().address
   var port = server.address().port
-  console.log("Retialer app listening at %s:%s Port", host, port)
 });
-
-
-app.get('/RetrailerView', function (req, res) {
-  var html='';
-  html +="<body>";
-  html += "<form action='/getItemInfo'  method='post' name='form1'>";
-  html += "Item ID:</p><input type= 'text' name='itemid'>";
-  html += "<input type='submit' value='submit'>";
-  html += "</form>";
-  html += "</body>";
-  res.send(html);
-});
-
-app.post('/getItemInfo', urlencodedParser, function (req, res){
-
-  var reply='';
-  reply += "Item Details";
-  details = productService.getProductDetails(req.body.itemid).then(function(result) {
-    bearing = JSON.parse(JSON.parse(result))
-    reply += "<br/>";
-    reply += "<br/>";
-    reply += bearing.id;
-    reply += "<br/>"
-    reply += bearing.docType;
-    reply += "<br/>"
-    reply += bearing.type;
-    reply += "<br/>"
-    reply += bearing.batchno;
-    reply += "<br/>"
-    reply += bearing.date;
-    res.send(reply);
-});
-
-
-
- });

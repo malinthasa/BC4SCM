@@ -5,13 +5,13 @@ const {
 } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection-ibo.json');
+const ccpPath = path.resolve(__dirname, '..', '..',"..", 'network', 'connection-ibo.json');
 
 module.exports = {
 	getProductDetails: async function () {
 		return new Promise(async(resolve, reject) => {
 			try {
-				let user = 'user1';
+				let user = 'userIBO';
 				// Create a new file system based wallet for managing identities.
 				const walletPath = path.join(process.cwd(), 'wallet');
 				const wallet = new FileSystemWallet(walletPath);

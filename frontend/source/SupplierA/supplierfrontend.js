@@ -3,33 +3,71 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
-var productService = require('./addPrivateData');
+var orderService = require('./orderService');
+var ordersService = require('./ordersService');
+var updateService = require('./updateService');
+var updateServiceStatus = require('./updateOrderStatus');
 const path = require('path');
 const router = express.Router();
-app.use(express.static(path.join(__dirname + "/../Suppliers", 'resources')));
+app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname + "/../Suppliers"+ '/login.html'));
+  res.sendFile(path.join(__dirname + "/frontend"+ '/login.html'));
   //__dirname : It will resolve to your project folder.
 });
 
 router.get('/home',function(req,res){
-  res.sendFile(path.join(__dirname + "/../Suppliers"+ '/index.html'));
+  res.sendFile(path.join(__dirname + "/frontend"+ '/index.html'));
 });
 
-router.get('/network',function(req,res){
-  res.sendFile(path.join(__dirname + "/../Suppliers"+ '/network.html'));
+router.get('/orders',function(req,res){
+  res.sendFile(path.join(__dirname + "/frontend"+ '/pendingOrders.html'));
 });
 
-router.get('/transactions',function(req,res){
-    res.sendFile(path.join(__dirname + "/../Suppliers"+ '/transactions.html'));
+router.get('/order',function(req,res){
+  res.sendFile(path.join(__dirname + "/frontend"+ '/order.html'));
 });
 
-app.get('/supplier/addorder', function(req, res) {
-   productService.main();
+router.get('/vieworder',function(req,res){
+    res.sendFile(path.join(__dirname + "/frontend"+ '/viewSupplyOrder.html'));
+});
+
+app.get('/supplier/getorder', function(req, res) {
+
+  details = ordersService.getOrder(req.query.id).then(function(result) {
+
+  res.send(result);
+
+});
+});
+
+
+app.get('/supplier/updateOrder', function(req, res) {
+
+  details = updateService.updateOrder(req.query.id, req.query.des).then(function(result) {
+
+  res.send(result);
+
+});
+});
+app.get('/supplier/updateOrderStatus', function(req, res) {
+
+  details = updateServiceStatus.updateOrderStatus(req.query.id, req.query.status).then(function(result) {
+
+  res.send(result);
+
+});
+});
+
+
+app.get('/supplier/viewAllOrders', function(req, res) {
+  details = orderService.getOrders().then(function(result) {
+    console.log(result)
+    res.send(result);
 
 });
 
+});
 //add the router
 app.use('/', router);
 app.listen(process.env.port || 3001);

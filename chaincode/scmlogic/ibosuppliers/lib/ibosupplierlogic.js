@@ -19,7 +19,8 @@ class SCMLogic extends Contract {
               description: 'ordered supply',
               supplierID: "SupA",
               status: "created",
-              agreed:false
+              IBOAgreed:false,
+              SupplierAgreed:false
           }
         ];
 
@@ -54,7 +55,8 @@ class SCMLogic extends Contract {
           description: description,
           supplierID: supplierID,
           status: status,
-          agreed:false
+          IBOAgreed:false,
+          SupplierAgreed:false
         };
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
@@ -108,6 +110,36 @@ class SCMLogic extends Contract {
         console.info('============= END : changeProductOwner ===========');
     }
 
+    async updatePrivateOrderIBOAgreed(ctx, collectionName, orderId, IBOAgreed) {
+        console.info('============= START : changeProductOwner ===========');
+
+        const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
+        if (!productAsBytes || productAsBytes.length === 0) {
+            throw new Error(`${productNumber} does not exist`);
+        }
+        const order = JSON.parse(productAsBytes.toString());
+        order.IBOAgreed = IBOAgreed;
+
+        await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
+
+        console.info('============= END : changeProductOwner ===========');
+    }
+
+    async updatePrivateOrderSupplierAgreed(ctx, collectionName, orderId, SupplierAgreed) {
+        console.info('============= START : changeProductOwner ===========');
+
+        const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
+        if (!productAsBytes || productAsBytes.length === 0) {
+            throw new Error(`${productNumber} does not exist`);
+        }
+        const order = JSON.parse(productAsBytes.toString());
+        order.SupplierAgreed = SupplierAgreed;
+
+        await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
+
+        console.info('============= END : changeProductOwner ===========');
+    }
+
     async updatePrivateOrderStatus(ctx, collectionName, orderId, status) {
         console.info('============= START : changeProductOwner ===========');
 
@@ -116,14 +148,14 @@ class SCMLogic extends Contract {
             throw new Error(`${productNumber} does not exist`);
         }
         const order = JSON.parse(productAsBytes.toString());
-        product.status = status;
+        order.status = status;
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
 
         console.info('============= END : changeProductOwner ===========');
     }
 
-    async updatePrivateOrderAgree(ctx, collectionName, orderId, agreed) {
+    async updatePrivateOrder(ctx, collectionName, orderId, description) {
         console.info('============= START : changeProductOwner ===========');
 
         const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
@@ -131,11 +163,11 @@ class SCMLogic extends Contract {
             throw new Error(`${productNumber} does not exist`);
         }
         const order = JSON.parse(productAsBytes.toString());
-        product.agreed = agreed;
+        order.description = description;
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
 
-        console.info('============= END : changeProductOwner ===========');
+        console.info('============= END : changeOrder===========');
     }
 
 }

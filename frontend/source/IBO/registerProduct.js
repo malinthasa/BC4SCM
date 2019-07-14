@@ -1,6 +1,3 @@
-/*
- * SPDX-License-Identifier: Apache-2.0
- */
 
 'use strict';
 
@@ -9,8 +6,10 @@ const path = require('path');
 
 const ccpPath = path.resolve(__dirname, '..', '..',"..", 'network', 'connection-ibo.json');
 
-async function main() {
-    try {
+module.exports = {
+	registerProduct: async function (oid, pid, chash, rhash, shash, serial, desc, date) {
+		return new Promise(async(resolve, reject) => {
+			try {
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
@@ -18,36 +17,30 @@ async function main() {
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
-        const userExists = await wallet.exists('user4');
+        const userExists = await wallet.exists('userIBO');
         if (!userExists) {
-            console.log('An identity for the user "user1" does not exist in the wallet');
+            console.log('An identity for the user userIBO does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             return;
         }
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccpPath, { wallet, identity: 'user4', discovery: { enabled: true, asLocalhost: true } });
+        await gateway.connect(ccpPath, { wallet, identity: 'userIBO', discovery: { enabled: true, asLocalhost: true } });
+				// Get the network (channel) our contract is deployed to.
+				const network = await gateway.getNetwork('ibocustomerchannel');
 
-        // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('ibocustomerchannel');
+				// Get the contract from the network.
+				const contract = network.getContract('scmcustomerlogic');
 
-        // Get the contract from the network.
-        const contract = network.getContract('scmcustomerlogic');
+        await contract.submitTransaction('registerProduct', pid,date,desc);
 
-        // Submit the specified transaction.
-        // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
-        // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('registerProduct', "IBO0002",'2019/07/07','bearing');
-        console.log('Transaction has been submitted');
+				return;
 
-        // Disconnect from the gateway.
-        await gateway.disconnect();
+			} catch (error) {
+				return reject('Failed to evaluate transaction');
+			}
+		})
 
-    } catch (error) {
-        console.error(`Failed to submit transaction: ${error}`);
-        process.exit(1);
-    }
-}
-
-main();
+	}
+};

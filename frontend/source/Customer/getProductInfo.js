@@ -11,7 +11,7 @@ const ccpPath = path.resolve(__dirname, '..', '..', "..", 'network', 'connection
 
 async function main() {
     try {
-        let user = 'user4';
+        let user = 'userCustomer';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -38,7 +38,7 @@ async function main() {
         // Get the contract from the network.
         const contract = network.getContract('scmcustomerlogic');
 
-        const result = await contract.evaluateTransaction('queryProduct','IBO0002');
+        const result = await contract.evaluateTransaction('queryProduct','IBO0003');
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
     } catch (error) {

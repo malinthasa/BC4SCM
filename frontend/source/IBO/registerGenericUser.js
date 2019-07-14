@@ -12,7 +12,7 @@ const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-ib
 async function main() {
     try {
 
-        let user = 'user4';
+        let user = 'userIBO';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -21,7 +21,7 @@ async function main() {
         // Check to see if we've already enrolled the user.
         const userExists = await wallet.exists(user);
         if (userExists) {
-            console.log('An identity for the user "user1" already exists in the wallet');
+            console.log('An identity for the user "userIBO" already exists in the wallet');
             return;
         }
         console.log("========================User Not found===========================")
@@ -46,7 +46,7 @@ async function main() {
         let affiliationService = ca.newAffiliationService();
 
       //  Register the user, enroll the user, and import the new identity into the wallet.
-        const secret = await ca.register({ affiliation: 'ibo.department', enrollmentID: user, role: 'client' }, adminIdentity);
+        const secret = await ca.register({ affiliation: 'ibo.department1', enrollmentID: user, role: 'client' }, adminIdentity);
         const enrollment = await ca.enroll({ enrollmentID: user, enrollmentSecret: secret });
         const userIdentity = X509WalletMixin.createIdentity('IBOMSP', enrollment.certificate, enrollment.key.toBytes());
         await wallet.import(user, userIdentity);
@@ -54,7 +54,7 @@ async function main() {
         console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');
 
     } catch (error) {
-        console.error(`Failed to register user "user1": ${error}`);
+        console.error(`Failed to register user "userIBO": ${error}`);
         process.exit(1);
     }
 }

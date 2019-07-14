@@ -93,8 +93,8 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
-          <div class="sidenav-header-inner text-center"><img src="img/avatar-512.png" alt="person" class="img-fluid rounded-circle">
-            <h2 class="h5">IBO Supply Department</h2>
+          <div class="sidenav-header-inner text-center"><img src="img/avatar.jpeg" alt="person" class="img-fluid rounded-circle">
+            <h2 class="h5">Supplier A</h2>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>S</strong><strong class="text-primary"></strong></a></div>
@@ -103,9 +103,9 @@
         <div class="main-menu">
             <h5 class="sidenav-heading">Main</h5>
             <ul id="side-main-menu" class="side-menu list-unstyled">
-              <li><a href="home"> <i class="icon-home"></i>Home                             </a></li>
-              <li><a href="order"> <i class="fa fa-shopping-cart"></i>Order                             </a></li>
-              <li><a href="pendingOrders"> <i class="fa fa-clock-o"></i>Pending Orders                             </a></li>
+                <li><a href="home"> <i class="icon-home"></i>Home                             </a></li>
+                <li><a href="orders"> <i class="fa fa-check"></i>Orders status                             </a></li>
+              <li><a href="orders"> <i class="fa fa-clock-o"></i>Orders                             </a></li>
 
             </ul>
           </div>
@@ -119,7 +119,7 @@
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">Order Management</strong></div></a></div>
+                  <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">Supplier-A portal</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Languages dropdown    -->
                 <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
@@ -143,7 +143,7 @@
           <div class="container-fluid">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Order       </li>
+              <li class="breadcrumb-item active">Orders       </li>
             </ul>
           </div>
         </div>
@@ -151,7 +151,7 @@
             <div class="container-fluid">
               <!-- Page Header-->
               <header>
-                <h1 class="h3 display">Place Supply Order            </h1>
+                <h1 class="h3 display">Managing Orders  </h1>
               </header>
               <div class="row">
                 <div class="col-lg-6">
@@ -167,7 +167,7 @@
                           <input type="button" value="Get Hash" class="btn btn-primary btn-xs">
                         </div>
                         <div class="form-group">
-                            <label for="">Requirement Report Hash</label>
+                            <label for="">Requirement Document Hash</label>
                             <input type="text" class="form-control" id="reqhash">
                             <input type="button" value="Get Hash" class="btn btn-primary btn-xs">
                         </div>
@@ -192,16 +192,19 @@
                           <label>Date</label>
                           <input id="date" type="date" placeholder="" class="form-control">
                         </div>
-                          <div class="form-group raw">
-                        <div class="form-group">
+                        
+                          <div class="form-group">
+                              <div class="row">  
+                        <div class="form-group col-lg-2">
                           <input id="updateOrder" type="button" value="Update" class="btn btn-primary">
-                        </div>
-                        <div class="form-group">
+                      </div>
+                        <div class="form-group col-lg-2">
                           <input id="AgreeOrder" type="button" value="Agree" class="btn btn-primary">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-lg-2">
                           <input id="UpdateOrderStatus" type="button" value="Update Status" class="btn btn-primary">
                         </div>
+                      </div>
                       </div>
                       </form>
                     </div>

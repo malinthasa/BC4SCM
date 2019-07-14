@@ -101,20 +101,6 @@ class SCMLogic extends Contract {
     }
 
 
-    async changeProductOwner(ctx, productNumber, newOwner) {
-        console.info('============= START : changeProductOwner ===========');
-
-        const productAsBytes = await ctx.stub.getState(productNumber);
-        if (!productAsBytes || productAsBytes.length === 0) {
-            throw new Error(`${productNumber} does not exist`);
-        }
-        const product = JSON.parse(productAsBytes.toString());
-        product.owner = newOwner;
-
-        await ctx.stub.putState(productNumber, Buffer.from(JSON.stringify(product)));
-        console.info('============= END : changeProductOwner ===========');
-    }
-
     async registerProduct(ctx, productId ,date, type) {
         console.info('============= START : Registering Product ===========');
 
@@ -132,7 +118,7 @@ class SCMLogic extends Contract {
         console.info('============= END : Created Product ===========');
     }
 
-    async changeProductOwner(ctx, productId, newOwner) {
+    async changeProductOwner(ctx, productId, newOwner, date) {
         console.info('============= START : changeProductOwner ===========');
 
         const productAsBytes = await ctx.stub.getState(productId);

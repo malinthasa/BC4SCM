@@ -8,6 +8,7 @@ var orderService = require('./registerOrder');
 var ordersQueryService = require('./orderService');
 var ordesQueryService = require('./ordersService');
 var agreeSupply = require('./agreeSupplyChanges');
+var sellProduct = require('./sellService');
 const path = require('path');
 const router = express.Router();
 app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
@@ -38,6 +39,10 @@ router.get('/orders',function(req,res){
     res.sendFile(path.join(__dirname + "/frontend"+ '/customerOrder.html'));
 });
 
+router.get('/sell',function(req,res){
+    res.sendFile(path.join(__dirname + "/frontend"+ '/sellProduct.html'));
+});
+
 app.get('/supplier/orders', function(req, res) {
   details = orderService.registerOrder(req.query.oid, req.query.pid, req.query.chash, req.query.rhash, req.query.shash, req.query.serial, req.query.desc, req.query.date).then(function(result) {
     console.log(result)
@@ -45,6 +50,16 @@ app.get('/supplier/orders', function(req, res) {
 });
 
 });
+
+app.get('/ibo/sell', function(req, res) {
+  details = sellProduct.sellProduct(req.query.pid, req.query.cutomerId, req.query.date).then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
+
+
 
 app.get('/customer/addorder', function(req, res) {
   details = productService.registerProduct(req.query.oid, req.query.pid, req.query.chash, req.query.rhash, req.query.shash, req.query.serial, req.query.desc, req.query.date).then(function(result) {

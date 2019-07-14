@@ -42,8 +42,8 @@ module.exports = {
 				// Get the contract from the network.
 				const contract = network.getContract('scmcustomerlogic');
 
-	      const result = await contract.evaluateTransaction('getProductHistory','id);
-				return resolve(result)
+	      const result = await contract.evaluateTransaction('getProductHistory',id);
+				return resolve(result);
 
 			} catch (error) {
 				return reject('Failed to evaluate transaction');

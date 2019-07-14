@@ -29,9 +29,15 @@ router.get('/history',function(req,res){
 
 app.get('/customers/productInfo', function(req, res) {
   details = productService.getProductDetails(req.query.prid).then(function(result) {
+
     console.log(result)
     res.send(result);
-});
+  }).catch(function(rej) {
+    console.log("********************dggd***********************");
+    return res.sendStatus(400).json({
+      error: 'Missing id'
+    })
+    });;
 
 });
 

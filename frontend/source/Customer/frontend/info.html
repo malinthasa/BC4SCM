@@ -48,7 +48,15 @@
              $('#status').html(product.status);
              $('#date').html(product.date);
              $("#productInfoDev").show();
-          });
+          }).fail(function(data, textStatus, xhr) {
+                 console.log("**********dfgfd***********************");
+                 console.log("error", data.status);
+                 alert("adadddaad")
+                 console.log("STATUS: "+xhr);
+            }).always(function() {
+                 //TO-DO after fail/done request.
+                 console.log("ended");
+            });
         });
     });
   </script>

@@ -9,22 +9,18 @@ class SCMLogic extends Contract {
         console.info('============= START : Initialize Ledger ===========');
         const products = [
             {
-                id: 'BR0',
-                batchno: '#12',
-                type: 'tp01',
-                date: '24062019',
-            },
-            {
-                id: 'BR1',
-                batchno: '#13',
-                type: 'tp004',
-                date: '18052004',
+                productID: 'IBO0001',
+                serialNo: '7676',
+                date: '2019/07/13',
+                status: 'ordered supply',
+                owner: "IBO",
+                decCertID: "",
+                type: "bearing"
             }
         ];
 
         for (let i = 0; i < products.length; i++) {
-            products[i].docType = 'bearing';
-            await ctx.stub.putState('BR' + i, Buffer.from(JSON.stringify(products[i])));
+            await ctx.stub.putState(products[i].productID, Buffer.from(JSON.stringify(products[i])));
             console.info('Added <--> ', products[i]);
         }
         console.info('============= END : Initialize Ledger ===========');
@@ -48,7 +44,48 @@ class SCMLogic extends Contract {
         return productAsBytes.toString();
     }
 
-    async createPrivateProduct(ctx, collectionName, productId,  id ,batchno, type, date) {
+    async getProductHistory(ctx, productId) {
+        const productAsBytes = await ctx.stub.getHistoryForKey(productId);
+        let allResults = [];
+        while (true) {
+          let res = await productAsBytes.next();
+
+          if (res.value && res.value.value.toString()) {
+            let jsonRes = {};
+            console.log(res.value.value.toString('utf8'));
+
+            if (true && true === true) {
+              jsonRes.TxId = res.value.tx_id;
+              jsonRes.Timestamp = res.value.timestamp;
+              jsonRes.IsDelete = res.value.is_delete.toString();
+              try {
+                jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
+              } catch (err) {
+                console.log(err);
+                jsonRes.Value = res.value.value.toString('utf8');
+              }
+            } else {
+              jsonRes.Key = res.value.key;
+              try {
+                jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+              } catch (err) {
+                console.log(err);
+                jsonRes.Record = res.value.value.toString('utf8');
+              }
+            }
+            allResults.push(jsonRes);
+          }
+          if (res.done) {
+            console.log('end of data');
+            await productAsBytes.close();
+            console.info(allResults);
+            return allResults;
+          }
+        }
+
+    }
+
+    async registerPrivateProduct(ctx, collectionName, productId,  id ,batchno, type, date) {
         console.info('============= START : Create Product ===========');
 
         const product = {
@@ -63,84 +100,6 @@ class SCMLogic extends Contract {
         console.info('============= END : Created Private Product ===========');
     }
 
-    async createProduct(ctx, productId, id ,batchno, type, date) {
-        console.info('============= START : Create Product ===========');
-
-        const product = {
-            id,
-            docType: 'bearing',
-            batchno,
-            type,
-            date,
-        };
-
-        await ctx.stub.putState(productId, Buffer.from(JSON.stringify(product)));
-        console.info('============= END : Create Product ===========');
-    }
-
-    async queryAllProducts(ctx) {
-        const startKey = 'BR0';
-        const endKey = 'BR999';
-
-        const iterator = await ctx.stub.getStateByRange(startKey, endKey);
-
-        const allResults = [];
-        while (true) {
-            const res = await iterator.next();
-
-            if (res.value && res.value.value.toString()) {
-                console.log(res.value.value.toString('utf8'));
-
-                const Key = res.value.key;
-                let Record;
-                try {
-                    Record = JSON.parse(res.value.value.toString('utf8'));
-                } catch (err) {
-                    console.log(err);
-                    Record = res.value.value.toString('utf8');
-                }
-                allResults.push({ Key, Record });
-            }
-            if (res.done) {
-                console.log('end of data');
-                await iterator.close();
-                console.info(allResults);
-                return JSON.stringify(allResults);
-            }
-        }
-    }
-
-    async queryAllPrivateProducts(ctx,collectionName) {
-        const startKey = '';
-        const endKey = '';
-
-        var {iterator} = await ctx.stub.getPrivateDataByRange(collectionName, startKey, endKey);
-
-        const allResults = [];
-        while (true) {
-            const res = await iterator.next();
-
-            if (res.value && res.value.value.toString()) {
-                console.log(res.value.value.toString('utf8'));
-
-                const Key = res.value.key;
-                let Record;
-                try {
-                    Record = JSON.parse(res.value.value.toString('utf8'));
-                } catch (err) {
-                    console.log(err);
-                    Record = res.value.value.toString('utf8');
-                }
-                allResults.push({ Key, Record });
-            }
-            if (res.done) {
-                console.log('end of data');
-                await iterator.close();
-                console.info(allResults);
-                return JSON.stringify(allResults);
-            }
-        }
-    }
 
     async changeProductOwner(ctx, productNumber, newOwner) {
         console.info('============= START : changeProductOwner ===========');
@@ -153,6 +112,54 @@ class SCMLogic extends Contract {
         product.owner = newOwner;
 
         await ctx.stub.putState(productNumber, Buffer.from(JSON.stringify(product)));
+        console.info('============= END : changeProductOwner ===========');
+    }
+
+    async registerProduct(ctx, productId ,date, type) {
+        console.info('============= START : Registering Product ===========');
+
+        const product = {
+          productID: productId,
+          serialNo: '',
+          date: date,
+          status: 'Process Initiated',
+          owner: "IBO",
+          decCertID: "",
+          type: type
+        };
+
+        await ctx.stub.putState(product.productID, Buffer.from(JSON.stringify(product)));
+        console.info('============= END : Created Product ===========');
+    }
+
+    async changeProductOwner(ctx, productId, newOwner) {
+        console.info('============= START : changeProductOwner ===========');
+
+        const productAsBytes = await ctx.stub.getState(productId);
+        if (!productAsBytes || productAsBytes.length === 0) {
+            throw new Error(`${productNumber} does not exist`);
+        }
+        const product = JSON.parse(productAsBytes.toString());
+        product.owner = newOwner;
+        product.date = date;
+        product.status = "Owner changed to "+ newOwner
+
+        await ctx.stub.putState(productId, Buffer.from(JSON.stringify(product)));
+        console.info('============= END : changeProductOwner ===========');
+    }
+
+    async changeProductStatus(ctx, productId, status, date) {
+        console.info('============= START : changeProductOwner ===========');
+
+        const productAsBytes = await ctx.stub.getState(productId);
+        if (!productAsBytes || productAsBytes.length === 0) {
+            throw new Error(`${productNumber} does not exist`);
+        }
+        const product = JSON.parse(productAsBytes.toString());
+        product.status = status;
+        product.date = date;
+
+        await ctx.stub.putState(productId, Buffer.from(JSON.stringify(product)));
         console.info('============= END : changeProductOwner ===========');
     }
 

@@ -22,8 +22,8 @@ router.get('/home',function(req,res){
   res.sendFile(path.join(__dirname + "/frontend"+ '/index.html'));
 });
 
-router.get('/network',function(req,res){
-  res.sendFile(path.join(__dirname + "/frontend"+ '/network.html'));
+router.get('/adminPanel',function(req,res){
+  res.sendFile(path.join(__dirname + "/frontend"+ '/adminPanel.html'));
 });
 
 router.get('/supply',function(req,res){

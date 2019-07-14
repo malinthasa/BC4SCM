@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Supplier A</title>
+    <title>IBO</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -59,32 +59,43 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
-          <div class="sidenav-header-inner text-center"><img src="img/logo-ibo.jpg" alt="person" class="img-fluid rounded-circle">
+          <div class="sidenav-header-inner text-center"><img src="img/logo-ibo.jpg" alt="person" class="img-fluid img-thumbnail">
             <h2 class="h5">IBO GmbH</h2>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
-          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>IBO</strong><strong class="text-primary"></strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-          <h5 class="sidenav-heading">Main</h5>
-          <ul id="side-main-menu" class="side-menu list-unstyled">
-            <li><a href="home"> <i class="icon-home"></i>Home                             </a></li>
-            <li><a href="network"> <i class="icon-home"></i>Network                             </a></li>
 
-            <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Orders</a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="orders"> <i class="icon-form"></i>Create Product                             </a></li>
-              </ul>
-            </li>
-            <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Supply </a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="supply"> <i class="icon-form"></i>Supply                             </a></li>
-                <li><a href="placeorder"> <i class="icon-form"></i>Place Supply Order                             </a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+            <h5 class="sidenav-heading">Main</h5>
+            <ul id="side-main-menu" class="side-menu list-unstyled">
+              <li><a href="home"> <i class="icon-home"></i>Home                             </a></li>
+              <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-user"></i>Admin panel </a>
+                <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                  <li><a href="adminPanel"> <i class="icon-form"></i>Add Supplier                             </a></li>
+                  <li><a href="adminPanel"> <i class="icon-form"></i>Add Retailer                             </a></li>
+                  <li><a href="adminPanel"> <i class="icon-form"></i>Add Logistics                             </a></li>
+                </ul>
+              </li>
+              <li><a href="#exampledropdownDropdown1" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Orders</a>
+                <ul id="exampledropdownDropdown1" class="collapse list-unstyled ">
+                  <li><a href="orders"> <i class="fa fa-product-hunt"></i>Create Product                             </a></li>
+                </ul>
+              </li>
+              <li><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-industry"></i>Supplier </a>
+                <ul id="exampledropdownDropdown2" class="collapse list-unstyled ">
+                  <li><a href="supply"> <i class="fa fa-check"></i>Orders Status                             </a></li>
+                  <li><a href="placeorder"> <i class="fa fa-file"></i>Place Supplier Order                             </a></li>
+                </ul>
+                <li><a href="#exampledropdownDropdown3" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-money"></i>Sell</a>
+                  <ul id="exampledropdownDropdown3" class="collapse list-unstyled ">
+                    <li><a href="sell"> <i class="fa fa-file"></i>Sell Product                             </a></li>
+                  </ul>
+                </li>
+              </li>
+            </ul>
+          </div>
 
       </div>
     </nav>
@@ -95,7 +106,7 @@
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">Order Management</strong></div></a></div>
+                  <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">IBO Portal</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Languages dropdown    -->
                 <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
@@ -137,15 +148,18 @@
                     </div>
                     <div class="card-body">
                       <form>
+                      <div class="form-group">
+                          <label for="">Declaration of Compliance Certificate Hash</label>
+                          <input type="text" class="form-control" id="chash">
+                          <input type="button" value="Get Hash" class="btn btn-primary btn-xs">
+                        </div>
                         <div class="form-group">
                           <label for="">Product ID</label>
                           <input type="text" class="form-control" id="pid">
-
                         </div>
                         <div class="form-group">
-                          <label for="">Customer Id</label>
+                          <label for="">Customer ID</label>
                           <input type="text" class="form-control" id="cutomerId">
-
                         </div>
                         <div class="form-group">
                           <label for="">Description</label>

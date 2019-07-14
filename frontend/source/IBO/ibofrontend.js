@@ -59,7 +59,13 @@ app.get('/ibo/sell', function(req, res) {
 
 });
 
+app.get('/ibo/updateProduct', function(req, res) {
+  details = sellProduct.sellProduct(req.query.pid, req.query.owner, req.query.date).then(function(result) {
+    console.log(result)
+    res.send(result);
+});
 
+});
 
 app.get('/customer/addorder', function(req, res) {
   details = productService.registerProduct(req.query.oid, req.query.pid, req.query.chash, req.query.rhash, req.query.shash, req.query.serial, req.query.desc, req.query.date).then(function(result) {

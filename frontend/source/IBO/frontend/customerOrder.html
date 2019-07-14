@@ -40,16 +40,13 @@
           var serial = $("#serial").val();
           var desc = $("#des").val();
           var date = $("#date").val();
-
-
           $.ajax({
              url: "/customer/addorder",
              data:{oid:orderId, pid:proId, chash:chash, shash:shash, rhash:rhash, serial:serial, desc:desc, date:date}
-
           })
           .done(function( data ) {
              console.log( "Sample of data:", data );
-
+             alert("Product has been submitted");
           });
         });
     });

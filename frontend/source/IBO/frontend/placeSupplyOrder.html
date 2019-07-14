@@ -44,13 +44,18 @@
              url: "/supplier/orders",
              data:{oid:orderId, pid:proId, chash:chash, shash:shash, rhash:rhash, serial:serial, desc:desc, date:date}
           })
-          .done(function( data ) {
-             console.log( "Sample of data:", data );
+          .done(function(data) {
+             console.log("Sample of data:", data);
+           });
 
-
-          });
-
-        
+           $.ajax({
+              url: "/ibo/updateProduct",
+              data:{pid:proId, owner:"SupplierA", date:date}
+           })
+           .done(function(data) {
+              console.log( "Sample of data:", data );
+              alert("Product has been submitted");
+            });
         });
     });
   </script>

@@ -19,8 +19,8 @@ class SCMLogic extends Contract {
               description: 'ordered supply',
               supplierID: "SupA",
               status: "created",
-              IBOAgreed:false,
-              SupplierAgreed:false
+              IBOAgreed:"false",
+              SupplierAgreed:"false"
           }
         ];
 
@@ -55,8 +55,8 @@ class SCMLogic extends Contract {
           description: description,
           supplierID: supplierID,
           status: status,
-          IBOAgreed:false,
-          SupplierAgreed:false
+          IBOAgreed:"true",
+          SupplierAgreed:"false"
         };
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
@@ -149,22 +149,25 @@ class SCMLogic extends Contract {
         }
         const order = JSON.parse(productAsBytes.toString());
         order.status = status;
+        order.SupplierAgreed = "true";
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
 
         console.info('============= END : changeProductOwner ===========');
     }
 
-    async updatePrivateOrder(ctx, collectionName, orderId, description) {
+    async updatePrivateOrder(ctx, collectionName, orderId, description, IBOagreed, Supplieragreed) {
         console.info('============= START : changeProductOwner ===========');
 
-        const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
+          const productAsBytes = await ctx.stub.getPrivateData(collectionName, orderId);
         if (!productAsBytes || productAsBytes.length === 0) {
             throw new Error(`${productNumber} does not exist`);
         }
         const order = JSON.parse(productAsBytes.toString());
+        order.IBOAgreed = IBOagreed;
+        order.SupplierAgreed = Supplieragreed;
         order.description = description;
-        
+
 
         await ctx.stub.putPrivateData(collectionName, orderId, Buffer.from(JSON.stringify(order)));
 

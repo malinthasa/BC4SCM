@@ -45,31 +45,27 @@
              $("#spechash").val(orderinfo.specHash);
              $("#serial").val(orderinfo.serialNo);
              $("#date").val(orderinfo.date);
+             $("#status").val(orderinfo.status);
              $("#des").val(orderinfo.description);
              $("#status").val(orderinfo.status);
           });
 
-          $("#updateOrder").on("click", function () {
-
+            $("#updateOrder").on("click", function () {
+            var newDescription = $("#des").val();
             $.ajax({
-               url: "/supplier/updateOrder",
+               url: "/ibo/updateOrder",
                data: {
                  id: orderId,
-                 des: "New Description 123"
+                 des: newDescription,
+                 ibo: "true",
+                 supplier: "false"
                },
             })
             .done(function( data ) {
                console.log( "Sample of data:", data );
-               product=JSON.parse(JSON.parse(data));
 
-               $('#authentic').html("Verified");
-               $('#productID').html(product.productID);
-               $('#type').html(product.type);
-               $('#owner').html(product.owner);
-               $('#status').html(product.status);
-               $('#date').html(product.date);
-               $("#productInfoDev").show();
             });
+              alert("Order updated successfully");
           });
 
           $("#AgreeOrder").on("click", function () {
@@ -83,9 +79,8 @@
             .done(function( data ) {
 
             });
+              alert("Order updated successfully");
           });
-
-          AgreeOrder
 
     });
   </script>
@@ -139,7 +134,7 @@
 
       </div>
     </nav>
-    
+
     <div class="page">
       <!-- navbar-->
       <header class="header">
@@ -213,10 +208,14 @@
                             <input id="des" type="textarea" placeholder="" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Status</label>
+                            <input id="status" type="textarea" placeholder="" class="form-control">
+                        </div>
+                        <div class="form-group">
                           <label>Date</label>
                           <input id="date" type="date" placeholder="" class="form-control">
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group raw">
                           <div class="row">
                         <div class="form-group col-lg-2">
                           <input id="updateOrder" type="button" value="Update" class="btn btn-primary">

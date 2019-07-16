@@ -47,7 +47,7 @@
           .done(function(data) {
              console.log("Sample of data:", data);
            });
-
+           alert("Order added successfully");
            $.ajax({
               url: "/ibo/updateProduct",
               data:{pid:proId, owner:"SupplierA", date:date}

@@ -12,7 +12,7 @@ const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-re
 async function main() {
     try {
 
-        let user = 'user4';
+        let user = 'userRetailer';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -21,7 +21,7 @@ async function main() {
         // Check to see if we've already enrolled the user.
         const userExists = await wallet.exists(user);
         if (userExists) {
-            console.log('An identity for the user "user1" already exists in the wallet');
+            console.log('An identity for the user "userRetailer" already exists in the wallet');
             return;
         }
         console.log("========================User Not found===========================")
@@ -47,7 +47,7 @@ async function main() {
         // To register the new organization
         let registeredAffiliations = await affiliationService.getAll(adminIdentity);
              await affiliationService.create({
-              name: 'retailer.department',
+              name: 'retailer.department5',
               force: true}, adminIdentity);
 
         console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');

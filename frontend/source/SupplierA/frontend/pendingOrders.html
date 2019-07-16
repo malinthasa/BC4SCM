@@ -47,6 +47,7 @@
           for (i = 0; i < product.length; i++) {
             transactionContent = transactionContent + '<tr><td>'+product[i].Key
             +'</td><td>'+product[i].Record.date
+            +'</td><td>'+product[i].Record.status
             +'</td><td>'+product[i].Record.IBOAgreed+'</td><td><div class="form-group"><form method="GET" action="/order"><input type="hidden" name="orderId" value="'+product[i].Key+'" /> <input id="vieworder'+i.toString()+'" type="submit" value="View" class="btn btn-primary"></form></div></td></tr>';
           }
          $("#tb").html(transactionContent);
@@ -76,10 +77,10 @@
             <ul id="side-main-menu" class="side-menu list-unstyled">
               <li><a href="home"> <i class="icon-home"></i>Home                             </a></li>
               <li><a href="orders"> <i class="fa fa-check"></i>Orders status                             </a></li>
-  
+
             </ul>
           </div>
-  
+
         </div>
       </nav>
     <div class="page">
@@ -136,7 +137,9 @@
                                           <tr>
                                             <th>Order ID</th>
                                             <th>Date</th>
+                                            <th>Status</th>
                                             <th>IBO Agreement</th>
+
                                             <th>Action</th>
                                           </tr>
                                         </thead>
@@ -144,7 +147,9 @@
                                           <div id="orders">
                                           <th>Order ID</th>
                                           <th>Date</th>
+                                          <th>Status</th>
                                           <th>IBO Agreement</th>
+
                                           <th>Action</th>
                                         </div>
                                         </tbody>

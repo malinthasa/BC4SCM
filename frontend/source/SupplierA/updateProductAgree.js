@@ -7,7 +7,7 @@ const path = require('path');
 const ccpPath = path.resolve(__dirname, '..', '..',"..", 'network', 'connection-supplierA.json');
 
 module.exports = {
-	updateOrder: async function (orderId,des, ibo, supplier) {
+	agreeSupplyChange: async function (oid) {
 		return new Promise(async(resolve, reject) => {
 			try {
 
@@ -32,11 +32,10 @@ module.exports = {
 
 				// Get the contract from the network.
 				const contract = network.getContract('scmsupplierlogic');
-        console.log(des);
-				console.log(orderId);
-          await contract.submitTransaction('updatePrivateOrder', 'collectionIBOSupplierA',orderId,des, ibo, supplier);
-        console.log(result);
-				return resolve(result)
+
+        await contract.submitTransaction('updatePrivateOrderSupplierAgreed', "collectionIBOSupplierA", oid, "true");
+
+				return;
 
 			} catch (error) {
 				return reject('Failed to evaluate transaction');

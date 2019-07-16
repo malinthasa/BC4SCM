@@ -8,6 +8,8 @@ var ordersService = require('./ordersService');
 var updateService = require('./updateService');
 var updateServiceStatus = require('./updateOrderStatus');
 var updateProductService = require('./updateProductStatus');
+var updateServiceAgree = require('./updateProductAgree');
+
 const path = require('path');
 const router = express.Router();
 app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
@@ -56,7 +58,7 @@ app.get('/supplier/updateProduct', function(req, res) {
 
 app.get('/supplier/updateOrder', function(req, res) {
 
-  details = updateService.updateOrder(req.query.id, req.query.des).then(function(result) {
+  details = updateService.updateOrder(req.query.id, req.query.des, req.query.ibo, req.query.supplier).then(function(result) {
 
   res.send(result);
 
@@ -71,6 +73,15 @@ app.get('/supplier/updateOrderStatus', function(req, res) {
 });
 });
 
+
+app.get('/supplier/agreeOrder', function(req, res) {
+
+  details = updateServiceAgree.updateAgree(req.query.id).then(function(result) {
+
+  res.send(result);
+
+});
+});
 
 app.get('/supplier/viewAllOrders', function(req, res) {
   details = orderService.getOrders().then(function(result) {

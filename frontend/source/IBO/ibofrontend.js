@@ -9,6 +9,7 @@ var ordersQueryService = require('./orderService');
 var ordesQueryService = require('./ordersService');
 var agreeSupply = require('./agreeSupplyChanges');
 var sellProduct = require('./sellService');
+var updateOrder = require('./orderUpdateService');
 const path = require('path');
 const router = express.Router();
 app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
@@ -95,6 +96,14 @@ app.get('/ibo/viewSupplyOrder', function(req, res) {
 
 app.get('/ibo/agreeOrder', function(req, res) {
   details = agreeSupply.agreeSupplyChange(req.query.id).then(function(result) {
+    console.log(result)
+    res.send(result);
+});
+
+});
+
+app.get('/ibo/updateOrder', function(req, res) {
+  details = updateOrder.updateOrder(req.query.id, req.query.des, req.query.ibo, req.query.supplier).then(function(result) {
     console.log(result)
     res.send(result);
 });

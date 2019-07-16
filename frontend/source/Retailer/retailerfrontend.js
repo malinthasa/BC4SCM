@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const path = require('path');
 const router = express.Router();
+var sellService = require('./sellService');
 app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
 
 router.get('/',function(req,res){
@@ -23,7 +24,7 @@ router.get('/sell',function(req,res){
 
 
 app.get('/retailer/sell', function(req, res) {
-  details = sellProduct.sellProduct(req.query.pid, req.query.cutomerId, req.query.date).then(function(result) {
+  details = sellService.sellProduct(req.query.pid, req.query.cutomerId, req.query.date).then(function(result) {
     console.log(result)
     res.send(result);
 });

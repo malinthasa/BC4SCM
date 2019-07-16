@@ -12,7 +12,7 @@ const ccpPath = "/home/malintha/Projects/BlockChain/BC4SCM/network/connection-re
 async function main() {
     try {
 
-        let user = 'user4';
+        let user = 'userRetailer';
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
@@ -46,9 +46,9 @@ async function main() {
         let affiliationService = ca.newAffiliationService();
 
       //  Register the user, enroll the user, and import the new identity into the wallet.
-        const secret = await ca.register({ affiliation: 'ibo.department', enrollmentID: user, role: 'client' }, adminIdentity);
+        const secret = await ca.register({ affiliation: 'retailer.department5', enrollmentID: user, role: 'client' }, adminIdentity);
         const enrollment = await ca.enroll({ enrollmentID: user, enrollmentSecret: secret });
-        const userIdentity = X509WalletMixin.createIdentity('IBOMSP', enrollment.certificate, enrollment.key.toBytes());
+        const userIdentity = X509WalletMixin.createIdentity('RetailerMSP', enrollment.certificate, enrollment.key.toBytes());
         await wallet.import(user, userIdentity);
 
         console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');

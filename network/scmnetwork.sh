@@ -341,25 +341,25 @@ function generateChannelArtifacts() {
   fi
   echo
 
-  echo
-  echo "#################################################################"
-  echo "#######    Generating anchor peer update for SupplierMSP   ##########"
-  echo "#################################################################"
-  set -x
-  configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg SupplierMSP
-  res=$?
-  set +x
-
-  set -x
-  configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors_IBOSupplierChannel.tx -channelID "ibosupplierchannel" -asOrg SupplierMSP
-  res=$?
-  set +x
-
-  if [ $res -ne 0 ]; then
-    echo "Failed to generate anchor peer update for SupplierMSP..."
-    exit 1
-  fi
-  echo
+  # echo
+  # echo "#################################################################"
+  # echo "#######    Generating anchor peer update for SupplierMSP   ##########"
+  # echo "#################################################################"
+  # set -x
+  # configtxgen -profile IBOCommonChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors_IBOCommonChannel.tx -channelID $CHANNEL_NAME -asOrg SupplierMSP
+  # res=$?
+  # set +x
+  #
+  # set -x
+  # configtxgen -profile IBOSupplierChannel -outputAnchorPeersUpdate ./channel-artifacts/SupplierMSPanchors_IBOSupplierChannel.tx -channelID "ibosupplierchannel" -asOrg SupplierMSP
+  # res=$?
+  # set +x
+  #
+  # if [ $res -ne 0 ]; then
+  #   echo "Failed to generate anchor peer update for SupplierMSP..."
+  #   exit 1
+  # fi
+  # echo
 
   echo
   echo "#################################################################"

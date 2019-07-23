@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
-    <!-- Favicon-->
-
 
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -39,7 +37,7 @@
           })
           .done(function( data ) {
              console.log( "Sample of data:", data );
-             product=JSON.parse(JSON.parse(data));
+             product=JSON.parse(data);
 
              $('#authentic').html("Verified");
              $('#productID').html(product.productID);
@@ -49,7 +47,6 @@
              $('#date').html(product.date);
              $("#productInfoDev").show();
           }).fail(function(data, textStatus, xhr) {
-                 console.log("**********dfgfd***********************");
                  console.log("error", data.status);
                  alert("Not valid product")
                  console.log("STATUS: "+xhr);

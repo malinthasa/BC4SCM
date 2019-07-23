@@ -176,7 +176,7 @@ echo "Having all peers join the channel..."
 echo "Updating anchor peers for ibo..."
 updateSpecificAnchorPeers 0 1 ibosupplierchannel IBOMSPanchors_IBOSupplierChannel
 
-updateSpecificAnchorPeers 0 3 ibosupplierchannel SupplierMSPanchors_IBOSupplierChannel
+# updateSpecificAnchorPeers 0 3 ibosupplierchannel SupplierMSPanchors_IBOSupplierChannel
 updateSpecificAnchorPeers 0 4 ibosupplierchannel SupplierAMSPanchors_IBOSupplierChannel
 updateSpecificAnchorPeers 0 5 ibosupplierchannel SupplierBMSPanchors_IBOSupplierChannel
 

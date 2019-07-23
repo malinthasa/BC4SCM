@@ -39,7 +39,7 @@
           })
           .done(function(data1) {
              console.log( "Sample of data:", data1 );
-             orderinfo=JSON.parse(JSON.parse(data1))
+             orderinfo=JSON.parse(data1);
              $("#cadhash").val(orderinfo.CADHash);
              $("#reqhash").val(orderinfo.requirementHash);
              $("#spechash").val(orderinfo.specHash);

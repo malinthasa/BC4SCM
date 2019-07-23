@@ -7,7 +7,6 @@
 # Exit on first error
 set -e
 
-# don't rewrite paths for Windows Git Bash users
 export MSYS_NO_PATHCONV=1
 starttime=$(date +%s)
 
@@ -19,7 +18,6 @@ CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/ibologistics
 CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/ibocustomers
 
 # clean the keystore
-rm -rf ./hfc-key-store
 
 # launch network; create channel and join peer to channel
 cd ../network

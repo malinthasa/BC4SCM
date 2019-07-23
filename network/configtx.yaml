@@ -4,7 +4,7 @@
 #
 
 ---
-
+  # Organizations
 Organizations:
 
     - &OrdererOrg
@@ -96,7 +96,7 @@ Organizations:
 
         AnchorPeers:
             - Host: peer0.logistic.bc4scm.de
-              Port: 17051
+              Port: 13051
 
     - &SupplierA
         Name: SupplierAMSP
@@ -244,7 +244,6 @@ Profiles:
                 Organizations:
                     - *IBO
                     - *Retailer
-                    - *Supplier
                     - *Logistic
                     - *SupplierA
                     - *SupplierB
@@ -257,7 +256,6 @@ Profiles:
             Organizations:
                 - *IBO
                 - *Retailer
-                - *Supplier
                 - *Logistic
                 - *SupplierA
                 - *SupplierB
@@ -283,7 +281,6 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *IBO
-                - *Supplier
                 - *SupplierA
                 - *SupplierB
             Capabilities:

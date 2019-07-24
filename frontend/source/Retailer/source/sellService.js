@@ -4,10 +4,10 @@
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', '..',"..", "..",'network', 'connection-ibo.json');
+const ccpPath = path.resolve(__dirname, '..', '..', "..",'..','network', 'connection-retailer.json');
 
 module.exports = {
-	updateOrder: async function (oid, des, ibo, supplier) {
+	sellProduct: async function (pid, customerId, date) {
 		return new Promise(async(resolve, reject) => {
 			try {
 
@@ -17,23 +17,25 @@ module.exports = {
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
-        const userExists = await wallet.exists('userIBO');
+        const userExists = await wallet.exists('userRetailer');
         if (!userExists) {
             console.log('An identity for the user userIBO does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             return;
         }
 
+        // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccpPath, { wallet, identity: 'userIBO', discovery: { enabled: true, asLocalhost: true } });
+        await gateway.connect(ccpPath, { wallet, identity: 'userRetailer', discovery: { enabled: true, asLocalhost: true } });
 				// Get the network (channel) our contract is deployed to.
-				const network = await gateway.getNetwork('ibosupplierchannel');
+				const network = await gateway.getNetwork('ibocustomerchannel');
 
 				// Get the contract from the network.
-				const contract = network.getContract('scmsupplierlogic');
-				console.log(ibo, supplier);
+				const contract = network.getContract('scmcustomerlogic');
 
-				const result = await contract.submitTransaction('updatePrivateOrder','collectionIBOSupplierA', oid, des, ibo, supplier);
+				console.log(pid)
+
+        await contract.submitTransaction('changeProductOwner', pid, customerId, date);
 
 				return;
 
@@ -41,5 +43,6 @@ module.exports = {
 				return reject('Failed to evaluate transaction');
 			}
 		})
+
 	}
 };

@@ -17,9 +17,14 @@ CC_SRC_PATH_RETAILER=/opt/gopath/src/github.com/chaincode/scmlogic/iboretailers
 CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/ibologistics
 CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/ibocustomers
 
-# clean the keystore
+# clean current deployment
+docker stop $(docker ps -aq)
+echo y | docker rm  $(docker ps -aq)
+echo y | docker rmi $(docker images -q)
+echo y | docker network prune
 
 # launch network; create channel and join peer to channel
+cd ..
 echo y | ./scmnetwork.sh down
 echo y | ./scmnetwork.sh up -a -n -s couchdb
 
@@ -171,7 +176,6 @@ docker exec \
 echo "Waiting for instantiation request to be committed ..."
 sleep 10
 
-#
 echo "Submitting initLedger transaction to smart contract on iboretailerchannel"
 docker exec \
   -e CORE_PEER_LOCALMSPID=IBOMSP \

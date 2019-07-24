@@ -12,36 +12,36 @@ var sellProduct = require('./sellService');
 var updateOrder = require('./orderUpdateService');
 const path = require('path');
 const router = express.Router();
-app.use(express.static(path.join(__dirname + "/frontend", '/resources')));
+app.use(express.static(path.join(__dirname + "/.." +"/frontend", '/resources')));
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname + "/frontend"+ '/login.html'));
+  res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/login.html'));
   //__dirname : It will resolve to your project folder.
 });
 
 router.get('/home',function(req,res){
-  res.sendFile(path.join(__dirname + "/frontend"+ '/index.html'));
+  res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/index.html'));
 });
 
 router.get('/adminPanel',function(req,res){
-  res.sendFile(path.join(__dirname + "/frontend"+ '/adminPanel.html'));
+  res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/adminPanel.html'));
 });
 
 router.get('/supply',function(req,res){
-    res.sendFile(path.join(__dirname + "/frontend"+ '/pendingOrders.html'));
+    res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/pendingOrders.html'));
 });
 
 router.get('/placeorder',function(req,res){
-    res.sendFile(path.join(__dirname + "/frontend"+ '/placeSupplyOrder.html'));
+    res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/placeSupplyOrder.html'));
 });
 
 
 router.get('/orders',function(req,res){
-    res.sendFile(path.join(__dirname + "/frontend"+ '/customerOrder.html'));
+    res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/customerOrder.html'));
 });
 
 router.get('/sell',function(req,res){
-    res.sendFile(path.join(__dirname + "/frontend"+ '/sellProduct.html'));
+    res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/sellProduct.html'));
 });
 
 app.get('/supplier/orders', function(req, res) {
@@ -112,7 +112,7 @@ app.get('/ibo/updateOrder', function(req, res) {
 
 
 router.get('/order',function(req,res){
-  res.sendFile(path.join(__dirname + "/frontend"+ '/order.html'));
+  res.sendFile(path.join(__dirname + "/.." + "/frontend"+ '/order.html'));
 });
 
 //add the router

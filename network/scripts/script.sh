@@ -188,7 +188,6 @@ updateSpecificAnchorPeers 0 7 ibocustomerchannel CustomerMSPanchors_IBOCustomerC
 
 #
 if [ "${NO_CHAINCODE}" != "true" ]; then
-	echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 # 	## Install chaincode on peer0.ibo and peer0.retailer
  	echo "Installing chaincode on peer0.ibo..."
  	installChaincodeOnSpecificNode 0 1

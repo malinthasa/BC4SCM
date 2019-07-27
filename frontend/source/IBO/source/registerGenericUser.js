@@ -44,6 +44,10 @@ async function main() {
         const adminIdentity = gateway.getCurrentIdentity();
 
         let affiliationService = ca.newAffiliationService();
+        let registeredAffiliations = await affiliationService.getAll(adminIdentity);
+             await affiliationService.create({
+              name: 'ibo.department1',
+              force: true}, adminIdentity);
 
       //  Register the user, enroll the user, and import the new identity into the wallet.
         const secret = await ca.register({ affiliation: 'ibo.department1', enrollmentID: user, role: 'client' }, adminIdentity);

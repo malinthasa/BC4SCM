@@ -118,19 +118,6 @@ docker exec \
     -p "$CC_SRC_PATH_RETAILER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
-echo "Installing smart contract on peer0.retailer.bc4scm.de"
-docker exec \
-  -e CORE_PEER_LOCALMSPID=RetailerMSP \
-  -e CORE_PEER_ADDRESS=peer0.retailer.bc4scm.de:9051 \
-  -e CORE_PEER_MSPCONFIGPATH=${Retailer_MSPCONFIGPATH} \
-  -e CORE_PEER_TLS_ROOTCERT_FILE=${Retailer_TLS_ROOTCERT_FILE} \
-  cli \
-  peer chaincode install \
-    -n scmlogic \
-    -v 1.0 \
-    -p "$CC_SRC_PATH" \
-    -l "$CC_RUNTIME_LANGUAGE"
-#
 echo "Instantiating smart contract on ibo"
 docker exec \
   -e CORE_PEER_LOCALMSPID=IBOMSP \

@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6d96407e-af4d-47da-85c2-f31f01820c9f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/chaincode/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/IBOSCM.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Retailer/frontend/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/ibocustomers/lib/ibocustomerlogic.js" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/scmlogic/ibocustomers/lib/ibocustomerlogic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/collection_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/lib/scmlogic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/scmlogic/javascript/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/prepare_clients.sh" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/prepare_clients.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/getProductInfo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/admin/0ea89b648ca15127b149905e3483691d4e8030b03eb4636096b89f0257a3d8da-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/admin/0ea89b648ca15127b149905e3483691d4e8030b03eb4636096b89f0257a3d8da-pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/admin/admin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/admin/e9d5e2938c44a28c077c23f636a4de12e48cb1774f839bd976055f5312f78847-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/userCustomer/e9d5e2938c44a28c077c23f636a4de12e48cb1774f839bd976055f5312f78847-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/userCustomer/e9d5e2938c44a28c077c23f636a4de12e48cb1774f839bd976055f5312f78847-pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/userCustomer/userCustomer" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/Customer/source/wallet/userCustomer/userCustomer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/ibofrontend.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/IBO/source/ibofrontend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/registerGenericUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/IBO/source/registerGenericUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/admin/3efa8108d2313ed866f8ee21d8b6ce87b2f65d7002831f1654c47f258da0106c-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/admin/ac42fcb62774277a5ad766046075020cadd37f505bc3bacef9f8558632f16538-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/admin/ac42fcb62774277a5ad766046075020cadd37f505bc3bacef9f8558632f16538-pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/admin/admin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/userIBO/3efa8108d2313ed866f8ee21d8b6ce87b2f65d7002831f1654c47f258da0106c-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/userIBO/3efa8108d2313ed866f8ee21d8b6ce87b2f65d7002831f1654c47f258da0106c-pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/IBO/source/wallet/userIBO/userIBO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/admin/5d9efb613dca7677986dd844c6dc59265f5222fe58592ce696d80b4eca423ec6-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/admin/a04307d1ac5e215affd7e50c7607c35280df4e903243de22115b0cc21f4e0b62-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/admin/a04307d1ac5e215affd7e50c7607c35280df4e903243de22115b0cc21f4e0b62-pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/admin/admin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/userSupplierA/5d9efb613dca7677986dd844c6dc59265f5222fe58592ce696d80b4eca423ec6-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/userSupplierA/5d9efb613dca7677986dd844c6dc59265f5222fe58592ce696d80b4eca423ec6-pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/userSupplierA/userSupplierA" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/source/SupplierA/source/wallet/userSupplierA/userSupplierA" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/reset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/network/reset.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/startFabric.sh" beforeDir="false" afterPath="$PROJECT_DIR$/network/startFabric.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/IBO/source/registerGenericAffliation.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="562">
+              <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/registerGenericUser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="9" column="58" selection-start-line="9" selection-start-column="58" selection-end-line="9" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/Retailer/frontend/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="718">
+              <caret line="50" column="40" lean-forward="true" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/Customer/start-client.sh">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/IBO/start-client.sh">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/Retailer/start-client.sh">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/SupplierA/start-client.sh">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/prepare_clients.sh">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/IBO/source/registerGenericUser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>affiliationService</find>
+      <find>department</find>
+      <find>ibo</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/chaincode/readme.md" />
+        <option value="$PROJECT_DIR$/chaincode/scmlogic/ibocustomers/lib/ibocustomerlogic.js" />
+        <option value="$PROJECT_DIR$/frontend/source/IBO/source/ibofrontend.js" />
+        <option value="$PROJECT_DIR$/frontend/source/IBO/source/registerGenericUser.js" />
+        <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/customerfrontend.js" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/enrollGenericAdmin.js" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/registerGenericAffliation.js" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/productInfo.js" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/getProductHistory.js" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/productInfoService.js" />
+        <option value="$PROJECT_DIR$/frontend/Customer/source/registerGenericUser.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/agreeSupplyChanges.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/enrollGenericAdmin.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/orderService.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/ordersService.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/orderUpdateService.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/productUpdateService.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/registerOrder.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/registerProduct.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/sellService.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/source/enrollGenericAdmin.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/source/getProductInfo.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/source/registerGenericAffliation.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/source/registerGenericUser.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/source/retailerfrontend.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/source/sellService.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/enrollGenericAdmin.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/orderService.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/ordersService.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/registerGenericAffliation.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/registerGenericUser.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/updateOrderStatus.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/updateProductAgree.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/updateProductStatus.js" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/source/updateService.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/registerGenericUser.js" />
+        <option value="$PROJECT_DIR$/frontend/IBO/source/registerGenericAffliation.js" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/frontend/login.html" />
+        <option value="$PROJECT_DIR$/frontend/Customer/start-client.sh" />
+        <option value="$PROJECT_DIR$/frontend/IBO/start-client.sh" />
+        <option value="$PROJECT_DIR$/frontend/Retailer/start-client.sh" />
+        <option value="$PROJECT_DIR$/frontend/SupplierA/start-client.sh" />
+        <option value="$PROJECT_DIR$/frontend/prepare_clients.sh" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/BC4SCM.iml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="723" />
+    <option name="y" value="27" />
+    <option name="width" value="1197" />
+    <option name="height" value="1007" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="ibocustomers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="ibocustomers" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="ibologistics" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="ibologistics" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="iboretailers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="iboretailers" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="ibosuppliers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="chaincode" type="462c0819:PsiDirectoryNode" />
+              <item name="scmlogic" type="462c0819:PsiDirectoryNode" />
+              <item name="ibosuppliers" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Customer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Customer" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Customer" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="wallet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="IBO" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="IBO" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Retailer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Retailer" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Retailer" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="SupplierA" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="SupplierA" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="SupplierB" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BC4SCM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BC4SCM" type="462c0819:PsiDirectoryNode" />
+              <item name="network" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/Retailer/frontend" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/Retailer/frontend" />
+      <recent name="$PROJECT_DIR$/frontend" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6d96407e-af4d-47da-85c2-f31f01820c9f" name="Default Changelist" comment="" />
+      <created>1564007362753</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1564007362753</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="723" y="27" width="1197" height="1007" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2657581" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/frontend/source/IBO/source/orderService.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/source/IBO/source/orderUpdateService.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/source/IBO/source/productUpdateService.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/source/IBO/source/registerGenericAffliation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" selection-start-line="46" selection-end-line="50" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/source/IBO/source/registerGenericUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="60" selection-start-line="45" selection-start-column="60" selection-end-line="45" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/network/startFabric.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Pictures/Screenshot from 2019-07-27 22-32-23.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="285">
+            <caret line="49" selection-start-line="49" selection-end-line="49" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/getProductHistory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="56" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/customerfrontend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="772">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/productInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/productInfoService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/enrollGenericAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="73" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/agreeSupplyChanges.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/ibofrontend.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/orderService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="51" lean-forward="true" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/ordersService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/orderUpdateService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="51" lean-forward="true" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/productUpdateService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="51" lean-forward="true" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/registerOrder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="46" lean-forward="true" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/registerProduct.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/sellService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="44" column="10" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/enrollGenericAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="67" lean-forward="true" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/getProductInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="84" selection-start-line="40" selection-start-column="84" selection-end-line="40" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/registerGenericAffliation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-45">
+          <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/retailerfrontend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="74" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/sellService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/enrollGenericAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="69" selection-start-line="19" selection-start-column="69" selection-end-line="19" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/orderService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/ordersService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/registerGenericAffliation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/registerGenericUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-83">
+          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/supplierfrontend.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/updateOrderStatus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="51" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/updateProductAgree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/updateProductStatus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="51" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/source/updateService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/network/reset.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/registerGenericAffliation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierB/enrollGenericAdmin.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/enrollGenericAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/source/registerGenericUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="55" column="60" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/registerGenericUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/source/registerGenericAffliation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/source/registerGenericUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="9" column="58" selection-start-line="9" selection-start-column="58" selection-end-line="9" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/frontend/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="718">
+          <caret line="50" column="40" lean-forward="true" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Customer/start-client.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/IBO/start-client.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/Retailer/start-client.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/SupplierA/start-client.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/prepare_clients.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>

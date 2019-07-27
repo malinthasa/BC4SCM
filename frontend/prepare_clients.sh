@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd source/Customer/
 node enrollGenericAdmin.js
 node registerGenericAffliation.js

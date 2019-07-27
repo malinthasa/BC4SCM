@@ -8,14 +8,14 @@ class SCMLogic extends Contract {
         console.info('============= START : Initialize Ledger ===========');
         const products = [
             {
-                productID: 'IBO0001',
+                productID: 'IBO0000',
                 serialNo: '7676',
                 date: '2019/07/13',
-                status: 'ordered supply',
+                status: 'Sample only.',
                 owner: "IBO",
                 decCertID: "",
                 type: "bearing",
-                certificateOfCompliance:""
+                certificateOfCompliance:"sample product"
             }
         ];
 
@@ -24,15 +24,6 @@ class SCMLogic extends Contract {
             console.info('Added <--> ', products[i]);
         }
         console.info('============= END : Initialize Ledger ===========');
-    }
-
-    async queryPrivateProduct(ctx, collectionName, productId) {
-        const productAsBytes = await ctx.stub.getPrivateData(collectionName, productId);
-        if (!productAsBytes || productAsBytes.length === 0) {
-            throw new Error(`${productId} does not exist`);
-        }
-        console.log(productAsBytes.toString());
-        return productAsBytes.toString();
     }
 
     async queryProduct(ctx, productId) {
@@ -83,21 +74,6 @@ class SCMLogic extends Contract {
           }
         }
 
-    }
-
-    async registerPrivateProduct(ctx, collectionName, productId,  id ,batchno, type, date) {
-        console.info('============= START : Create Product ===========');
-
-        const product = {
-            id,
-            docType: 'bearing',
-            batchno,
-            type,
-            date,
-        };
-
-        await ctx.stub.putPrivateData(collectionName, productId, Buffer.from(JSON.stringify(product)));
-        console.info('============= END : Created Private Product ===========');
     }
 
 

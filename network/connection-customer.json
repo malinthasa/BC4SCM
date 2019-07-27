@@ -1,0 +1,58 @@
+{
+    "name": "network-customer",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Customer",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "900"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Customer": {
+            "mspid": "CustomerMSP",
+            "peers": [
+                "peer0.customer.bc4scm.de",
+                "peer1.customer.bc4scm.de"
+            ],
+            "certificateAuthorities": [
+                "ca.customer.bc4scm.de"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.customer.bc4scm.de": {
+            "url": "grpcs://localhost:19051",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/customer.bc4scm.de/tlsca/tlsca.customer.bc4scm.de-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.customer.bc4scm.de"
+            }
+        },
+        "peer1.customer.bc4scm.de": {
+            "url": "grpcs://localhost:20051",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/customer.bc4scm.de/tlsca/tlsca.customer.bc4scm.de-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.customer.bc4scm.de"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.customer.bc4scm.de": {
+            "url": "https://localhost:13054",
+            "caName": "ca-customer",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/customer.bc4scm.de/tlsca/tlsca.customer.bc4scm.de-cert.pem"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

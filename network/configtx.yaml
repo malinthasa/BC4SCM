@@ -4,7 +4,7 @@
 #
 
 ---
-
+  # Organizations
 Organizations:
 
     - &OrdererOrg
@@ -96,7 +96,64 @@ Organizations:
 
         AnchorPeers:
             - Host: peer0.logistic.bc4scm.de
-              Port: 11051
+              Port: 13051
+
+    - &SupplierA
+        Name: SupplierAMSP
+        ID: SupplierAMSP
+        MSPDir: crypto-config/peerOrganizations/suppliera.bc4scm.de/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('SupplierAMSP.admin', 'SupplierAMSP.peer', 'SupplierAMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('SupplierAMSP.admin', 'SupplierAMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('SupplierAMSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.suppliera.bc4scm.de
+              Port: 15051
+
+    - &SupplierB
+        Name: SupplierBMSP
+        ID: SupplierBMSP
+        MSPDir: crypto-config/peerOrganizations/supplierb.bc4scm.de/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('SupplierBMSP.admin', 'SupplierBMSP.peer', 'SupplierBMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('SupplierBMSP.admin', 'SupplierBMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('SupplierBMSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.supplierb.bc4scm.de
+              Port: 17051
+
+    - &Customer
+        Name: CustomerMSP
+        ID: CustomerMSP
+        MSPDir: crypto-config/peerOrganizations/customer.bc4scm.de/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('CustomerMSP.admin', 'CustomerMSP.peer', 'CustomerMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('CustomerMSP.admin', 'CustomerMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('CustomerMSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.customer.bc4scm.de
+              Port: 19051
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -187,8 +244,10 @@ Profiles:
                 Organizations:
                     - *IBO
                     - *Retailer
-                    - *Supplier
                     - *Logistic
+                    - *SupplierA
+                    - *SupplierB
+                    - *Customer
     IBOCommonChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
@@ -197,8 +256,9 @@ Profiles:
             Organizations:
                 - *IBO
                 - *Retailer
-                - *Supplier
                 - *Logistic
+                - *SupplierA
+                - *SupplierB
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -209,6 +269,8 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *IBO
+                - *Retailer
+                - *Customer
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -219,7 +281,8 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *IBO
-                - *Supplier
+                - *SupplierA
+                - *SupplierB
             Capabilities:
                 <<: *ApplicationCapabilities
 

@@ -29,13 +29,37 @@ PeerOrgs:
     Users:
       Count: 1
 
+  - Name: Customer
+    Domain: customer.bc4scm.de
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
   - Name: Supplier
     Domain: supplier.bc4scm.de
     EnableNodeOUs: true
     Template:
       Count: 2
     Users:
-      Count: 1
+      Count: 2
+
+  - Name: SupplierA
+    Domain: suppliera.bc4scm.de
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 2
+
+  - Name: SupplierB
+    Domain: supplierb.bc4scm.de
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 2
 
   - Name: Logistic
     Domain: logistic.bc4scm.de

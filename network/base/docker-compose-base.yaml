@@ -13,10 +13,10 @@ services:
       file: peer-base.yaml
       service: orderer-base
     volumes:
-        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-        - ../crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp:/var/hyperledger/orderer/msp
-        - ../crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/tls/:/var/hyperledger/orderer/tls
-        - orderer.bc4scm.de:/var/hyperledger/production/orderer
+      - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ../crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/msp:/var/hyperledger/orderer/msp
+      - ../crypto-config/ordererOrganizations/bc4scm.de/orderers/orderer.bc4scm.de/tls/:/var/hyperledger/orderer/tls
+      - orderer.bc4scm.de:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
 
@@ -35,10 +35,10 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ibo.bc4scm.de:7051
       - CORE_PEER_LOCALMSPID=IBOMSP
     volumes:
-        - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls:/etc/hyperledger/fabric/tls
-        - peer0.ibo.bc4scm.de:/var/hyperledger/production
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer0.ibo.bc4scm.de:/var/hyperledger/production
     ports:
       - 7051:7051
 
@@ -54,13 +54,13 @@ services:
       - CORE_PEER_CHAINCODEADDRESS=peer1.ibo.bc4scm.de:8052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.ibo.bc4scm.de:8051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ibo.bc4scm.de:7051
+        - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ibo.bc4scm.de:7051
       - CORE_PEER_LOCALMSPID=IBOMSP
     volumes:
-        - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer1.ibo.bc4scm.de/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer1.ibo.bc4scm.de/tls:/etc/hyperledger/fabric/tls
-        - peer1.ibo.bc4scm.de:/var/hyperledger/production
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer1.ibo.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/ibo.bc4scm.de/peers/peer1.ibo.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer1.ibo.bc4scm.de:/var/hyperledger/production
 
     ports:
       - 8051:8051
@@ -80,10 +80,10 @@ services:
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.retailer.bc4scm.de:10051
       - CORE_PEER_LOCALMSPID=RetailerMSP
     volumes:
-        - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
-        - peer0.retailer.bc4scm.de:/var/hyperledger/production
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer0.retailer.bc4scm.de:/var/hyperledger/production
     ports:
       - 9051:9051
 
@@ -102,10 +102,10 @@ services:
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.bc4scm.de:9051
       - CORE_PEER_LOCALMSPID=RetailerMSP
     volumes:
-        - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer1.retailer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer1.retailer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
-        - peer1.retailer.bc4scm.de:/var/hyperledger/production
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer1.retailer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/retailer.bc4scm.de/peers/peer1.retailer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer1.retailer.bc4scm.de:/var/hyperledger/production
     ports:
       - 10051:10051
 
@@ -121,8 +121,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
       - CORE_PEER_CHAINCODEADDRESS=peer0.supplier.bc4scm.de:11052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.supplier.bc4scm.de:12051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.supplier.bc4scm.de:11051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.supplier.bc4scm.de:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.supplier.bc4scm.de:12051
       - CORE_PEER_LOCALMSPID=SupplierMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -143,8 +143,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
       - CORE_PEER_CHAINCODEADDRESS=peer1.supplier.bc4scm.de:12052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.supplier.bc4scm.de:11051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.supplier.bc4scm.de:12051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.supplier.bc4scm.de:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.supplier.bc4scm.de:11051
       - CORE_PEER_LOCALMSPID=SupplierMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -152,7 +152,95 @@ services:
       - ../crypto-config/peerOrganizations/supplier.bc4scm.de/peers/peer1.supplier.bc4scm.de/tls:/etc/hyperledger/fabric/tls
       - peer1.supplier.bc4scm.de:/var/hyperledger/production
     ports:
-    - 12051:12051
+      - 12051:12051
+
+  peer0.suppliera.bc4scm.de:
+    container_name: peer0.suppliera.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.suppliera.bc4scm.de
+      - CORE_PEER_ADDRESS=peer0.suppliera.bc4scm.de:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.suppliera.bc4scm.de:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.suppliera.bc4scm.de:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.suppliera.bc4scm.de:14051
+      - CORE_PEER_LOCALMSPID=SupplierAMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/suppliera.bc4scm.de/peers/peer0.suppliera.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/suppliera.bc4scm.de/peers/peer0.suppliera.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer0.suppliera.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 13051:13051
+
+  peer1.suppliera.bc4scm.de:
+    container_name: peer1.suppliera.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.suppliera.bc4scm.de
+      - CORE_PEER_ADDRESS=peer1.suppliera.bc4scm.de:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.suppliera.bc4scm.de:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.supplier.bc4scm.de:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.supplier.bc4scm.de:13051
+      - CORE_PEER_LOCALMSPID=SupplierAMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/suppliera.bc4scm.de/peers/peer1.suppliera.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/suppliera.bc4scm.de/peers/peer1.suppliera.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer1.suppliera.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 14051:14051
+
+  peer0.supplierb.bc4scm.de:
+    container_name: peer0.supplierb.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.supplierb.bc4scm.de
+      - CORE_PEER_ADDRESS=peer0.supplierb.bc4scm.de:15051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:15051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.supplierb.bc4scm.de:15052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:15052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.supplierb.bc4scm.de:15051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.supplierb.bc4scm.de:16051
+      - CORE_PEER_LOCALMSPID=SupplierBMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/supplierb.bc4scm.de/peers/peer0.supplierb.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/supplierb.bc4scm.de/peers/peer0.supplierb.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer0.supplierb.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 15051:15051
+
+  peer1.supplierb.bc4scm.de:
+    container_name: peer1.supplierb.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.supplierb.bc4scm.de
+      - CORE_PEER_ADDRESS=peer1.supplierb.bc4scm.de:16051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:16051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.supplierb.bc4scm.de:16052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:16052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.supplierb.bc4scm.de:16051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.supplierb.bc4scm.de:15051
+      - CORE_PEER_LOCALMSPID=SupplierBMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/supplierb.bc4scm.de/peers/peer1.supplierb.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/supplierb.bc4scm.de/peers/peer1.supplierb.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer1.supplierb.bc4scm.de:/var/hyperledger/production
+    ports:
+        - 16051:16051
 
   peer0.logistic.bc4scm.de:
     container_name: peer0.logistic.bc4scm.de
@@ -161,12 +249,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer0.logistic.bc4scm.de
-      - CORE_PEER_ADDRESS=peer0.logistic.bc4scm.de:13051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.logistic.bc4scm.de:13052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.logistic.bc4scm.de:14051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.logistic.bc4scm.de:13051
+      - CORE_PEER_ADDRESS=peer0.logistic.bc4scm.de:17051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:17051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.logistic.bc4scm.de:17052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:17052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.logistic.bc4scm.de:17051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.logistic.bc4scm.de:18051
       - CORE_PEER_LOCALMSPID=LogisticMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -174,7 +262,7 @@ services:
       - ../crypto-config/peerOrganizations/logistic.bc4scm.de/peers/peer0.logistic.bc4scm.de/tls:/etc/hyperledger/fabric/tls
       - peer0.logistic.bc4scm.de:/var/hyperledger/production
     ports:
-      - 13051:13051
+      - 17051:17051
 
   peer1.logistic.bc4scm.de:
     container_name: peer1.logistic.bc4scm.de
@@ -183,12 +271,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer1.logistic.bc4scm.de
-      - CORE_PEER_ADDRESS=peer1.logistic.bc4scm.de:14051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
-      - CORE_PEER_CHAINCODEADDRESS=peer1.logistic.bc4scm.de:14052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.logistic.bc4scm.de:13051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.logistic.bc4scm.de:14051
+      - CORE_PEER_ADDRESS=peer1.logistic.bc4scm.de:18051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:18051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.logistic.bc4scm.de:18052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:18052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.logistic.bc4scm.de:18051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.logistic.bc4scm.de:17051
       - CORE_PEER_LOCALMSPID=LogisticMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -196,4 +284,48 @@ services:
       - ../crypto-config/peerOrganizations/logistic.bc4scm.de/peers/peer1.logistic.bc4scm.de/tls:/etc/hyperledger/fabric/tls
       - peer1.logistic.bc4scm.de:/var/hyperledger/production
     ports:
-    - 14051:14051
+      - 18051:18051
+
+  peer0.customer.bc4scm.de:
+    container_name: peer0.customer.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.customer.bc4scm.de
+      - CORE_PEER_ADDRESS=peer0.customer.bc4scm.de:19051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:19051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.customer.bc4scm.de:19052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:19052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.customer.bc4scm.de:19051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.customer.bc4scm.de:20051
+      - CORE_PEER_LOCALMSPID=CustomerMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/customer.bc4scm.de/peers/peer0.customer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/customer.bc4scm.de/peers/peer0.customer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer0.customer.bc4scm.de:/var/hyperledger/production
+    ports:
+      - 19051:19051
+
+  peer1.customer.bc4scm.de:
+    container_name: peer1.customer.bc4scm.de
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.customer.bc4scm.de
+      - CORE_PEER_ADDRESS=peer1.customer.bc4scm.de:20051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:20051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.customer.bc4scm.de:20052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:20052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.customer.bc4scm.de:20051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.customer.bc4scm.de:19051
+      - CORE_PEER_LOCALMSPID=CustomerMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/customer.bc4scm.de/peers/peer1.customer.bc4scm.de/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/customer.bc4scm.de/peers/peer1.customer.bc4scm.de/tls:/etc/hyperledger/fabric/tls
+      - peer1.customer.bc4scm.de:/var/hyperledger/production
+    ports:
+        - 20051:20051

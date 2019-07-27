@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock 3 upload</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!-- loading the minified version -->
+<script src="https://unpkg.com/ipfs/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
+
+<script src="https://unpkg.com/fs-@1.0.0/index.js"></script>
+
+<!-- loading the human-readable (not minified) version -->
+<script src="https://unpkg.com/ipfs/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.js"></script>
+
+  <script src="vendor/ipfs/ipfs.js"></script>
+
+</head>
+<body>
+  <form action="/">
+    <fieldset>
+      <legend>Upload File</legend>
+      <input type="file" name="doc" id="doc">
+      <button type="button" onclick="upload()">Go!</button>
+      <br><br>
+      <button type="button" onclick="GetFile()">GET!</button>
+      <br><br>
+      <button type="button" onclick="CatFile()">CAT!</button>
+    </fieldset>
+  </form>
+  </br>
+  </br>
+  <a id="url"></a>
+  </br>
+  </br>
+  <img id="output">
+</body>
+</html>

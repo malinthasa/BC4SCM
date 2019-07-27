@@ -6,7 +6,7 @@
         "connection": {
             "timeout": {
                 "peer": {
-                    "endorser": "300"
+                    "endorser": "900"
                 }
             }
         }
@@ -17,6 +17,9 @@
             "peers": [
                 "peer0.supplier.bc4scm.de",
                 "peer1.supplier.bc4scm.de"
+            ],
+            "certificateAuthorities": [
+                "ca.supplier.bc4scm.de"
             ]
         }
     },
@@ -24,7 +27,7 @@
         "peer0.supplier.bc4scm.de": {
             "url": "grpcs://localhost:11051",
             "tlsCACerts": {
-                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
+                "path": "crypto-config/peerOrganizations/supplier.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
             },
             "grpcOptions": {
                 "ssl-target-name-override": "peer0.supplier.bc4scm.de"
@@ -33,10 +36,22 @@
         "peer1.supplier.bc4scm.de": {
             "url": "grpcs://localhost:12051",
             "tlsCACerts": {
-                "path": "org3-artifacts/crypto-config/peerOrganizations/org3.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
+                "path": "crypto-config/peerOrganizations/supplier.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
             },
             "grpcOptions": {
                 "ssl-target-name-override": "peer1.supplier.bc4scm.de"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.supplier.bc4scm.de": {
+            "url": "https://localhost:9054",
+            "caName": "ca-supplier",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/supplier.bc4scm.de/tlsca/tlsca.supplier.bc4scm.de-cert.pem"
+            },
+            "httpOptions": {
+                "verify": false
             }
         }
     }

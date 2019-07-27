@@ -1,0 +1,58 @@
+{
+    "name": "network-suppliera",
+    "version": "1.0.0",
+    "client": {
+        "organization": "SupplierA",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "900"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "SupplierA": {
+            "mspid": "SupplierAMSP",
+            "peers": [
+                "peer0.suppliera.bc4scm.de",
+                "peer1.suppliera.bc4scm.de"
+            ],
+            "certificateAuthorities": [
+                "ca.suppliera.bc4scm.de"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.suppliera.bc4scm.de": {
+            "url": "grpcs://localhost:13051",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/suppliera.bc4scm.de/tlsca/tlsca.suppliera.bc4scm.de-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.suppliera.bc4scm.de"
+            }
+        },
+        "peer1.suppliera.bc4scm.de": {
+            "url": "grpcs://localhost:14051",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/suppliera.bc4scm.de/tlsca/tlsca.suppliera.bc4scm.de-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.suppliera.bc4scm.de"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.suppliera.bc4scm.de": {
+            "url": "https://localhost:11054",
+            "caName": "ca-suppliera",
+            "tlsCACerts": {
+                "path": "crypto-config/peerOrganizations/suppliera.bc4scm.de/tlsca/tlsca.suppliera.bc4scm.de-cert.pem"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

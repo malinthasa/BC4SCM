@@ -1,0 +1,10 @@
+{
+  "name": "BC4SCM",
+  "version": "1.0.0",
+  "description": "BC4SCM Project Clients",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fabric-network": "^1.4.2",
+    "fabric-ca-client": "^1.4.4"
+  }
+}

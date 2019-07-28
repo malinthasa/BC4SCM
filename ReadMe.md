@@ -156,11 +156,39 @@ Customer - http://localhost:8083/
 
 1. Goto IBO front and login. Use username: admin, password: admin as credentials 
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+    ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/IBOlogin.png)
 
+2. Goto Orders -> Create Product in IBO frontend page
 
-1. Add new product by IBO - Here we are creating a product ID **IBO0100**
-2. Add new supply order by IBO to SupplierA - Here we refer the same product ID
+    ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibocreateorder.png)
+
+3. Fill the order details. You get hashes of the document by uploading the documents to IPFS using the client mentioned in
+   "Run Frontend Appication section"    
+     Note: Here we are creating a product with identification number **IBO0100**. You are supposed to use the same ID thourghout 
+      the demo
+      
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibocustomerorder.png)
+   
+4. Next IBO places an supply order for to get meterial to SupplierA. In IBO frontend click on Supplier-> Place Supplier Order.
+
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibosupplierorder.png)
+
+   Here IBO and the supplier agree on the documents offchain and you can fill the form. Use **IBO0100** as product ID.
+   This solution provides simples and reliable trustful method to discuss and agree on order requirement changes enabling 
+   all parties to come to a common ground on requirements. 
+   
+   For the demo, we use one requirements filed - descritption, where IBO and Suppier making chages back and forth, then
+   agree. Notice the descripion field "Medium-carbon steel of 0.30 wt% carbon"
+      
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibosupplierorderform.png)
+   
+   After placing orders, IBO can see the status of orders. Here IBO can see the status of the order and specially 
+   IBO can chck whether the supplier has agreed on the changes made by IBO or not. 
+   Click on Supplier-> Order Status
+   
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/iboorderstatus.png)
+       
+4. Add new supply order by IBO to SupplierA - Here we refer the same product ID
 3. Supplier check the order. Here Supplier can see IBO has already agreed for the order details. But the supplier wants to make change in the product description. The supplier makes that change and updates the order.
 4. Now IBO view the change again and propose another change.
 5. SupplierA view the order and propose another change.

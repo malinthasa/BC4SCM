@@ -5,6 +5,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "fabric-network": "^1.4.2",
-    "fabric-ca-client": "^1.4.4"
+    "fabric-ca-client": "^1.4.4",
+    "ipfs": "^0.36.4"
   }
 }

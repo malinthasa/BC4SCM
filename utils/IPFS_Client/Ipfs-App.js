@@ -18,7 +18,7 @@ function upload() {
         console.error(err);
         return;
       }
-      let url = `https://ipfs.io/ipfs/${result[0].hash}`;
+      let url = `${result[0].hash}`;
       console.log(`Url --> ${url}`);
       document.getElementById("url").innerHTML = url;
       document.getElementById("url").href = url;

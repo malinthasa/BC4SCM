@@ -95,7 +95,7 @@ app.get('/supplier/viewAllOrders', function(req, res) {
 app.use('/', router);
 app.listen(process.env.port || 3001);
 
-console.log('Running at Port 3001');
+console.log('Running at Port 8082');
 
 // Running Server Details.
 var server = app.listen(8082, function () {

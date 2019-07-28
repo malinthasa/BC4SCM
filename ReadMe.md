@@ -75,6 +75,9 @@ Installations process consists of two main tasks
 # 
 ##### Run Frontend Application
 
+
+**Note** : This prototype has been implemented for IBO, SupplierA, Retailer & Customer clients
+
 There are separate clients for each organization. These clients are inside {root_folder}/clients location.
 
     ├── Customer
@@ -85,14 +88,76 @@ There are separate clients for each organization. These clients are inside {root
     ├── SupplierA
     └── SupplierB
 
+1. Run IBO Frontend Application
 
+          1. Goto {root_folder}/clients/IBO folder
+          2. Run "start-client.sh" using ./start-client.sh command
+    
+    This script will run the IBO frontend application client on 8081 port. You can access this application by 
+    http://localhost:8081/ address
+    
+2. Run SupplierA Frontend Application
+
+        1. Goto {root_folder}/clients/SupplierA folder
+        2. Run "start-client.sh" using ./start-client.sh command
+    
+    This script will run the SupplierA frontend application client on 8082 port. You can access this application by 
+    http://localhost:8082/ address
+    
+3. Run Retailer Frontend Application
+
+        1. Goto {root_folder}/clients/Retailer folder
+        2. Run "start-client.sh" using ./start-client.sh command
+         
+   This script will run the Retailer frontend application client on 8084 port. You can access this application by 
+   http://localhost:8084/ address
+   
+4. Run Customer Frontend Application
+
+        1. Goto {root_folder}/clients/Customer folder
+        2. Run "start-client.sh" using ./start-client.sh command
+    
+    This script will run the Customer frontend application client on 8083 port. You can access this application by 
+    http://localhost:8083/ address
+    
+5. Run IPFS client to get hases of the documents
+
+        1. Goto {root_fodler}/utils/IPFS_Client folder
+        2. Run ipfs.html in your browser as local web page
+        
+    You can assess the IPFS client using 
 
 # 
 ##### How to use the frontend
 
-Please watch the video inside BC4SCM/demo folder
+Please watch the video inside BC4SCM/demo folder.
+
+Demo scenario : 
+
+                We start with a customer placing an order to IBO for some specific product. Here IBO creates new prodcudt
+                according to customer's specifications. There, IBO provides to an identification number for the product
+                This identification number will be used though put the scenario to identify the product. Next IBO contact
+                a supplier (here SupplierA) to place order for the raw material for the product. Here we use order number 
+                which is to identyfy the product and also the same product identification number created for the customers
+                order. To place order to the supplier, IBO will provide the hases of the documents, agrees offchain with
+                the supplier
 
 Steps
+
+Please use following addresses to access frontend clients
+
+IBO - http://localhost:8081/
+
+SupplierA - http://localhost:8082/
+
+Retailer - http://localhost:8084/
+
+Customer - http://localhost:8083/
+
+1. Goto IBO front and login. Use username: admin, password: admin as credentials 
+
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+
 
 1. Add new product by IBO - Here we are creating a product ID **IBO0100**
 2. Add new supply order by IBO to SupplierA - Here we refer the same product ID
@@ -125,3 +190,6 @@ Steps
 
 # 
 ##### Known bugs or errors
+
+Sometimes, the demo scenario faces inconsistance errors. If you are not getting the expected value in the browser UI,
+refresh the browser before you try again.

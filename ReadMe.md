@@ -187,6 +187,7 @@ Customer - http://localhost:8083/
    Click on Supplier-> Order Status
    
       ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/iboorderstatus.png)
+      
        
 4. Add new supply order by IBO to SupplierA - Here we refer the same product ID
 3. Supplier check the order. Here Supplier can see IBO has already agreed for the order details. But the supplier wants to make change in the product description. The supplier makes that change and updates the order.
@@ -205,19 +206,115 @@ Customer - http://localhost:8083/
 # 
 ##### Architecture of the system
 
-     Root Project Folder BC4SCM
+   **Root Project Folder BC4SCM**
      
     ├── chaincode - {Includes the chaincodes of separate Organizations}
     ├── demo      - {Includes the vedio of the demo}
     ├── frontend  - {Includes front end code for each Organization}
     ├── network   - {Includes Hyperledger network preparation code}
     └── readme.md
+    
+    
+   **chaincode Folder**
+    
+    ├── readme.md
+    └── scmlogic
+    
+   **scmlogic Folder**
+   
+    ├── ibocustomers
+    ├── ibologistics
+    ├── iboretailers
+    └── ibosuppliers
+    
+   **ibocustomers**
+    
+    ├── Customer
+    ├── IBO
+    ├── Logistic
+    ├── prepare_client_environments.sh
+    ├── Retailer
+    ├── SupplierA
+    └── SupplierB
+    
+   **Customer Folder**
+   
+    ├── frontend
+    ├── source
+    └── start-client.sh
+    
+    
+   **frontend Folder**
+   
+    ├── credits.txt
+    ├── history.html
+    ├── index.html
+    ├── info.html
+    ├── license.txt
+    ├── readme.txt
+    └── resources
+    
+    
+   **source Folder**
+   
+    ├── customerfrontend.js
+    ├── enrollGenericAdmin.js
+    ├── getProductHistory.js
+    ├── node_modules
+    ├── package.json
+    ├── package-lock.json
+    ├── productInfo.js
+    ├── productInfoService.js
+    ├── registerGenericAffliation.js
+    ├── registerGenericUser.js
+    └── wallet
 
-# 
-##### Assumptions for the development
+
+   **network Folder**
+   
+    ├── base
+    ├── bin
+    ├── channel-artifacts
+    ├── configtxgen
+    ├── configtxlator
+    ├── configtx.yaml
+    ├── connection-customer.json
+    ├── connection-ibo.json
+    ├── connection-logistic.json
+    ├── connection-retailer.json
+    ├── connection-supplierA.json
+    ├── connection-supplierB.json
+    ├── connection-supplier.json
+    ├── crypto-config
+    ├── crypto-config.yaml
+    ├── cryptogen
+    ├── discover
+    ├── docker-compose-ca.yaml
+    ├── docker-compose-cli.yaml
+    ├── docker-compose-couch-org3.yaml
+    ├── docker-compose-couch.yaml
+    ├── docker-compose-e2e-template.yaml
+    ├── docker-compose-e2e.yaml
+    ├── fabric-ca-client
+    ├── idemixgen
+    ├── orderer
+    ├── peer
+    ├── reset.sh
+    ├── scmnetwork.sh
+    ├── scripts
+    └── startFabric.sh
+
 
 # 
 ##### Known bugs or errors
 
+Bugs and error are listed below based on the severity
+
+
+Level0 - 
 Sometimes, the demo scenario faces inconsistance errors. If you are not getting the expected value in the browser UI,
 refresh the browser before you try again.
+
+Level1 - 
+
+

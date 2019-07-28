@@ -154,20 +154,21 @@ Retailer - http://localhost:8084/
 
 Customer - http://localhost:8083/
 
-1. Goto IBO front and login. Use username: admin, password: admin as credentials 
+1. Goto IBO front and login. Use username: admin, password: admin as credentials
 
     ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/IBOlogin.png)
 
-2. Goto Orders -> Create Product in IBO frontend page
+2. Goto Orders->Create Product in IBO frontend page
 
     ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibocreateorder.png)
 
-3. Fill the order details. You get hashes of the document by uploading the documents to IPFS using the client mentioned in
+3. Fill the order details. You can get hashes of the document by uploading the documents to IPFS using the client mentioned in
    "Run Frontend Appication section"    
-     Note: Here we are creating a product with identification number **IBO0100**. You are supposed to use the same ID thourghout 
-      the demo
+    
+    Note: Here we are creating a product with identification number **IBO0100**. You are supposed to use the same ID throughout 
+          the demo
       
-      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibocustomerorder.png)
+    ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibocustomerorder.png)
    
 4. Next IBO places an supply order for to get meterial to SupplierA. In IBO frontend click on Supplier-> Place Supplier Order.
 
@@ -183,15 +184,25 @@ Customer - http://localhost:8083/
       ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/ibosupplierorderform.png)
    
    After placing orders, IBO can see the status of orders. Here IBO can see the status of the order and specially 
-   IBO can chck whether the supplier has agreed on the changes made by IBO or not. 
+   IBO can check whether the supplier has agreed on the changes made by IBO or not. 
    Click on Supplier-> Order Status
    
       ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/iboorderstatus.png)
+          
+5. Now check the order from SupplierA client application. Goto SupplierA frontend and login using admin,admin credential
       
-       
-4. Add new supply order by IBO to SupplierA - Here we refer the same product ID
-3. Supplier check the order. Here Supplier can see IBO has already agreed for the order details. But the supplier wants to make change in the product description. The supplier makes that change and updates the order.
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/supplierlogin.png)
+      
+6. Supplier check the order. Here Supplier can see IBO has already agreed for the order details. But the supplier wants 
+    to make change in the product description. The supplier makes that change and updates the order.
+    
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/suppliervieworders.png)
+      
+      ![alt text](https://raw.githubusercontent.com/malinthasa/BC4SCM/master/demo/images/supplierordertable.png)
+    
 4. Now IBO view the change again and propose another change.
+
+
 5. SupplierA view the order and propose another change.
 6. IBO view the order and agree the change made by the supplier
 7. SupplierA view the order summary and verify that IBO has agreed for the changes and start progress on the order. Here you change the status of the product to "Started working"
@@ -311,10 +322,11 @@ Customer - http://localhost:8083/
 Bugs and error are listed below based on the severity
 
 
-Level0 - 
-Sometimes, the demo scenario faces inconsistance errors. If you are not getting the expected value in the browser UI,
-refresh the browser before you try again.
-
-Level1 - 
+1. Level0
+          
+      Sometimes, the demo scenario faces inconsistance errors. If you are not getting the expected value in the browser UI, refresh the browser before you try again.
 
 
+2. Level1
+ 
+      dwedw

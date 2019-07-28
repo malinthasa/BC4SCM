@@ -77,6 +77,13 @@ Installations process consists of two main tasks
 
 There are separate clients for each organization. These clients are inside {root_folder}/clients location.
 
+    ├── Customer
+    ├── IBO
+    ├── Logistic
+    ├── prepare_client_environments.sh
+    ├── Retailer
+    ├── SupplierA
+    └── SupplierB
 
 
 

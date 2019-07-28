@@ -2,7 +2,7 @@
 
 
 #
-##### Project Description
+### Project Description
 
 This solution provides different functions to different parties. Main users of the system
 are IBO, suppliers, retailers, 3PL and customers. IBO will have the ability to register
@@ -11,7 +11,7 @@ which will help them to have a more efficient and transparent business process.
 
      
 #        
-##### Prerequisites
+### Prerequisites
 
 1. Docker and Docker Compose
 
@@ -27,7 +27,7 @@ which will help them to have a more efficient and transparent business process.
         npm version 5.6.0
 
 # 
-##### Installation instructions
+### Installation instructions
 
 Installations process consists of two main tasks
 
@@ -73,7 +73,7 @@ Installations process consists of two main tasks
       instructions in "Run Frontend Application" section  
 
 # 
-##### Run Frontend Application
+### Run Frontend Application
 
 
 **Note** : This prototype has been implemented for IBO, SupplierA, Retailer & Customer clients
@@ -128,7 +128,7 @@ There are separate clients for each organization. These clients are inside {root
     You can assess the IPFS client using 
 
 # 
-##### How to use the frontend
+### How to use the frontend
 
 Please watch the video inside BC4SCM/demo folder.
 
@@ -142,7 +142,7 @@ Demo scenario :
                 order. To place order to the supplier, IBO will provide the hases of the documents, agrees offchain with
                 the supplier
 
-Steps
+###### Steps
 
 Please use following addresses to access frontend clients
 
@@ -204,7 +204,7 @@ Customer - http://localhost:8083/
 13. Customer verifies the authenticity of the product and the history of the product.
 
 # 
-##### Architecture of the system
+### Architecture of the system
 
    **Root Project Folder BC4SCM**
      
@@ -306,7 +306,7 @@ Customer - http://localhost:8083/
 
 
 # 
-##### Known bugs or errors
+### Known bugs or errors
 
 Bugs and error are listed below based on the severity
 

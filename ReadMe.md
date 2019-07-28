@@ -32,6 +32,17 @@ which will help them to have a more efficient and transparent business process.
 Installations process consists of two main tasks
 
 1. Starting up Docker based Hyperledger Fabric Blockchain network as the backend
+
+        Whats happnes here
+        
+        This step configures and starts up the blockchain infastructure. First, it removes exististing infastructure 
+        including all docker containers and atrifacts. Then it generates required certificate for all participants in 
+        the network. Once certificate generation is completed, it docker containers for the requested network and start
+        up a running environemtns. Once the environemt is ready it create channels, join peers to corresponding channels
+        and finally install chaincodes on each organization peers
+        
+
+         Steps
     
         1. Goto {root_folder}/network folder
         2. Run startFabric.sh shell script using ./startFabric.sh command
@@ -47,8 +58,25 @@ Installations process consists of two main tasks
 
 2. Installing and starting up frontend for each organization
 
+        What happens here
+        
+        This steps prepares the clients to interact with the backend blockchain. 
+        
+        
+        Steps
 
-After-Installation
+        1. Goto {root_folder}/clients folder.
+        2. Run prepare_client_environments.sh shell script by ./prepare_client_environments.sh command
+
+
+**Note**: This is an onetime operation. Once you have installed all components, you can use the application by using the 
+      instructions in "Run Frontend Application" section  
+
+# 
+##### Run Frontend Application
+
+There are separate clients for each organization. These clients are inside {root_folder}/clients location.
+
 
 
 

@@ -240,7 +240,7 @@ Profiles:
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
-            SampleConsortium:
+            IBOSCMConsortium:
                 Organizations:
                     - *IBO
                     - *Retailer
@@ -249,7 +249,7 @@ Profiles:
                     - *SupplierB
                     - *Customer
     IBOCommonChannel:
-        Consortium: SampleConsortium
+        Consortium: IBOSCMConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -263,7 +263,7 @@ Profiles:
                 <<: *ApplicationCapabilities
 
     IBOCustomerChannel:
-        Consortium: SampleConsortium
+        Consortium: IBOSCMConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -275,7 +275,7 @@ Profiles:
                 <<: *ApplicationCapabilities
 
     IBOSupplierChannel:
-        Consortium: SampleConsortium
+        Consortium: IBOSCMConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
@@ -287,7 +287,7 @@ Profiles:
                 <<: *ApplicationCapabilities
 
     IBOLogisticChannel:
-        Consortium: SampleConsortium
+        Consortium: IBOSCMConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults

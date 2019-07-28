@@ -26,6 +26,7 @@ class SCMLogic extends Contract {
         console.info('============= END : Initialize Ledger ===========');
     }
 
+   // Function to get the product providing product ID
     async queryProduct(ctx, productId) {
         const productAsBytes = await ctx.stub.getState(productId);
         if (!productAsBytes || productAsBytes.length === 0) {
@@ -35,6 +36,7 @@ class SCMLogic extends Contract {
         return productAsBytes.toString();
     }
 
+    // Function to get the history of a product providing product ID
     async getProductHistory(ctx, productId) {
         const productAsBytes = await ctx.stub.getHistoryForKey(productId);
         let allResults = [];
@@ -76,10 +78,11 @@ class SCMLogic extends Contract {
 
     }
 
-
+    // Function to register given product
     async registerProduct(ctx, productId ,date, type) {
-        console.info('============= START : Registering Product ===========');
 
+        // IBO is responsible for creating products.
+        // So the status of the product is set to "Process Initiated' and the owner to 'IBO'
         const product = {
           productID: productId,
           serialNo: '',
@@ -91,11 +94,10 @@ class SCMLogic extends Contract {
         };
 
         await ctx.stub.putState(product.productID, Buffer.from(JSON.stringify(product)));
-        console.info('============= END : Created Product ===========');
     }
 
+    // Function to change the owner of a given product
     async changeProductOwner(ctx, productId, newOwner, date) {
-        console.info('============= START : changeProductOwner ===========');
 
         const productAsBytes = await ctx.stub.getState(productId);
         if (!productAsBytes || productAsBytes.length === 0) {
@@ -107,11 +109,10 @@ class SCMLogic extends Contract {
         product.status = "Owner changed to "+ newOwner
 
         await ctx.stub.putState(productId, Buffer.from(JSON.stringify(product)));
-        console.info('============= END : changeProductOwner ===========');
     }
 
+    //  Function  to change the current status of the product
     async changeProductStatus(ctx, productId, status, date) {
-        console.info('============= START : changeProductOwner ===========');
 
         const productAsBytes = await ctx.stub.getState(productId);
         if (!productAsBytes || productAsBytes.length === 0) {
@@ -122,7 +123,6 @@ class SCMLogic extends Contract {
         product.date = date;
 
         await ctx.stub.putState(productId, Buffer.from(JSON.stringify(product)));
-        console.info('============= END : changeProductOwner ===========');
     }
 
 }

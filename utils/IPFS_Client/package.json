@@ -1,0 +1,8 @@
+{
+  "name": "BC4SCM",
+  "version": "1.0.0",
+  "description": "BC4SCM IPFS Client",
+  "dependencies": {
+    "ipfs": "^0.36.4"
+  }
+}

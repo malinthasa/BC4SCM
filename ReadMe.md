@@ -4,9 +4,7 @@
 #
 ### Project Description
 
-This solution provides different functions to different parties. Main users of the system are IBO, suppliers, retailers,
-3PL and customers. IBO will have the ability to register new products, query for product details, store and retrieve 
-important documents which will help them to have a more efficient and transparent business process.
+This solution provides different functions to different parties. Primary users of the system are IBO, suppliers, retailers, 3PL, and customers. IBO will have the ability to register new products, query for product details, store and retrieve essential documents which help them to have a more efficient and transparent business process.
 
      
 #        
@@ -32,13 +30,13 @@ Installations process consists of two main tasks
 
 1. Starting up Docker based Hyperledger Fabric Blockchain network as the backend
 
-        Whats happnes here
+       Whats happens here
         
-        This step configures and starts up the blockchain infastructure. First, it removes exististing infastructure 
-        including all docker containers and atrifacts. Then it generates required certificate for all participants in 
-        the network. Once certificate generation is completed, it docker containers for the requested network and start
-        up a running environemtns. Once the environemt is ready it create channels, join peers to corresponding channels
-        and finally install chaincodes on each organization peers.
+       This step configures and starts up the blockchain infrastructure. First, it removes existing infrastructure, 
+       including all docker containers and artifacts. Then it generates the required certificate for all participants in
+       the network. Once the certificate generation is completed, it docker containers for the requested network and 
+       tart up a running environment. Once the environment is ready, it creates channels, joins peers to corresponding
+       channels, and finally install chain codes on each organization peers.
         
 
          Steps
@@ -126,28 +124,28 @@ There are separate clients for each organization. These clients are inside {root
         2. Run ipfs.html in your browser as local web page
         
 
+**Note** : If you want to restart the application, you can re-run the instructions in "Run Frontend Application" section
 # 
 ### How to use the frontend
 
 Please watch the video inside BC4SCM/demo folder.
 
 Demo scenario : 
+                
+    We start with a customer placing an order to IBO for some specific product. Here IBO creates a new product according 
+    to customer's specifications. There, IBO provides an identification number for the product. This identification number 
+    is used throughout the scenario to identify the product. Next IBO contacts a supplier (here SupplierA) to place an order 
+    for the raw material for the product. Here we use order number, which is to identify the order and also the same 
+    product identification number created for the customer's order to refer the product. To place an order to the supplier, 
+    IBO  provides the hashes of the documents, agreed off-chain with the supplier. After reviewing the order requirements, 
+    supplier and IBO can change requirements and request other parties agreement for those changes. The supplier can p
+    roceed to work on the order after both parties agreed on the specifications. Once the order is ready, IBO starts 
+    manufacturing the product. When the product is completed, IBO sells that product to RetailerX. Then retailer sells 
+    that product to end customer called Customer1. Customer can query the product information using the Customer Portal,
+    which is open for public. Customers or any other party can view the history of the product and also verify product 
+    authenticity.
 
-                We start with a customer placing an order to IBO for some specific product. Here IBO creates new prodcudt
-                according to customer's specifications. There, IBO provides an identification number for the product.
-                This identification number will be used through out the scenario to identify the product. Next IBO contact
-                a supplier (here SupplierA) to place order for the raw material for the product. Here we use order number 
-                which is to identyfy the order and also the same product identification number created for the customers
-                order to refer the product. To place order to the supplier, IBO will provide the hases of the documents, 
-                agreed offchain with the supplier. After reviewing the order requirements, supplier and IBO can chnage 
-                requirements and request other parties agreement for those changes. Supplier can proceed working onthe 
-                order after both parties agreed on the specifications. Once ther order is ready, IBO starts manufacturing
-                the product. When product is completed, IBO sells that product to RetailerX. Then retailer sells that
-                product to end customer called Customer1. Customer can query the product information using Customer portal,
-                which is open for public. Customers or any other party can view the history of the product and also verify 
-                the product authenticity.
-
-###### Steps
+##### Steps
 
 Please use following addresses to access frontend clients
 
@@ -423,4 +421,4 @@ Bugs and error are listed below based on the severity
 
 2. Level1
  
-      dwedw
+      If something is not working even after  restarting the client/s, reinstall the apllication from the begining will solve the issue.

@@ -1,6 +1,8 @@
 
 'use strict';
 
+//call smart contract to get order details of a given supply order
+
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 
@@ -42,6 +44,5 @@ module.exports = {
 				return reject('Failed to evaluate transaction');
 			}
 		})
-
 	}
 };

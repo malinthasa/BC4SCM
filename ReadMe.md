@@ -416,8 +416,11 @@ Bugs and error are listed below based on the severity
 
 1. Level0
           
-      Sometimes, the demo scenario faces inconsistance errors. If you are not getting the expected value in the browser UI, refresh the browser before you try again.
+      Sometimes, the demo scenario faces inconsistent errors. If you are not getting the expected value in the browser UI, refresh the browser before you try again.
 
+1. Level1
+          
+      If refreshing the browser doesn't resolve the problems, restart the client.
 
 2. Level1
  

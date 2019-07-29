@@ -1,4 +1,7 @@
 'use strict';
+
+// Get history of a product
+
 const {
 	FileSystemWallet,
 	Gateway
@@ -42,7 +45,7 @@ module.exports = {
 				// Get the contract from the network.
 				const contract = network.getContract('scmcustomerlogic');
 
-	      const result = await contract.evaluateTransaction('getProductHistory',id);
+	            const result = await contract.evaluateTransaction('getProductHistory',id);
 				return resolve(result);
 
 			} catch (error) {

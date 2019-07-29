@@ -1,4 +1,7 @@
 'use strict';
+
+// Get product information of a product
+
 const {
 	FileSystemWallet,
 	Gateway

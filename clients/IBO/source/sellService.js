@@ -1,6 +1,8 @@
 
 'use strict';
 
+//call smart contract to see product, here we call change product owner chaincode function
+
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 

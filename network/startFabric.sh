@@ -17,19 +17,17 @@ CC_SRC_PATH_RETAILER=/opt/gopath/src/github.com/chaincode/scmlogic/iboretailers
 CC_SRC_PATH_LOGISTIC=/opt/gopath/src/github.com/chaincode/scmlogic/ibologistics
 CC_SRC_PATH_CUSTOMER=/opt/gopath/src/github.com/chaincode/scmlogic/ibocustomers
 
-# clean the keystore
 
 # launch network; create channel and join peer to channel
 echo y | ./scmnetwork.sh down
 echo y | ./scmnetwork.sh up -a -n -s couchdb
 
+# specifying certificate locations
 CONFIG_ROOT=/opt/gopath/src/github.com/hyperledger/fabric/peer
 IBO_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/ibo.bc4scm.de/users/Admin@ibo.bc4scm.de/msp
 IBO_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/ibo.bc4scm.de/peers/peer0.ibo.bc4scm.de/tls/ca.crt
 Retailer_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/retailer.bc4scm.de/users/Admin@retailer.bc4scm.de/msp
 Retailer_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/retailer.bc4scm.de/peers/peer0.retailer.bc4scm.de/tls/ca.crt
-Supplier_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplier.bc4scm.de/users/Admin@supplier.bc4scm.de/msp
-Supplier_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/supplier.bc4scm.de/peers/peer0.supplier.bc4scm.de/tls/ca.crt
 SupplierA_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/suppliera.bc4scm.de/users/Admin@suppliera.bc4scm.de/msp
 SupplierA_TLS_ROOTCERT_FILE=${CONFIG_ROOT}/crypto/peerOrganizations/suppliera.bc4scm.de/peers/peer0.suppliera.bc4scm.de/tls/ca.crt
 SupplierB_MSPCONFIGPATH=${CONFIG_ROOT}/crypto/peerOrganizations/supplierb.bc4scm.de/users/Admin@supplierb.bc4scm.de/msp
@@ -66,6 +64,8 @@ docker exec \
     -p "$CC_SRC_PATH_CUSTOMER" \
     -l "$CC_RUNTIME_LANGUAGE"
 
+# Notice : This chaincode is installed in Private data collections
+# Please find the PDC configurations in {root_folder}/chaincode/ibosuppliers/collection_config.json location
 echo "Installing smart contract on peer0.supplierA.bc4scm.de"
 docker exec \
   -e CORE_PEER_LOCALMSPID=SupplierAMSP \

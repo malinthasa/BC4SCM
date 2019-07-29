@@ -22,28 +22,9 @@ echo "Channel name : "$CHANNEL_NAME
 # import utils
 . scripts/utils.sh
 
-createChannel() {
-	setGlobals 0 1
-
-	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-                set -x
-		peer channel create -o orderer.bc4scm.de:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx >&log.txt
-		res=$?
-                set +x
-	else
-				set -x
-		peer channel create -o orderer.bc4scm.de:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
-		res=$?
-				set +x
-	fi
-	cat log.txt
-	verifyResult $res "Channel creation failed"
-	echo "===================== Channel '$CHANNEL_NAME' created ===================== "
-	echo
-}
-
+# Function to create channel
 createSpecificChannel() {
-	PEER=$1
+  PEER=$1
   ORG=$2
   CHANNEL_NAME=$3
 	CHANNEL_TX_NAME=$4
@@ -66,6 +47,7 @@ createSpecificChannel() {
 	echo
 }
 
+# Function to join a specific channel
 joinSpecificChannelWithRetry() {
   PEER=$1
   ORG=$2
@@ -90,17 +72,7 @@ joinSpecificChannelWithRetry() {
   verifyResult $res "After $MAX_RETRY attempts, peer${PEER}.org${ORG} has failed to join channel '$CHANNEL_NAME' "
 }
 
-joinChannel () {
-	for org in 1 2 3; do
-	    for peer in 0 1; do
-		joinChannelWithRetry $peer $org
-		echo "===================== peer${peer}.org${org} joined channel '$CHANNEL_NAME' ===================== "
-		sleep $DELAY
-		echo
-	    done
-	done
-}
-
+# Function to update Anchor peers
 updateSpecificAnchorPeers() {
   PEER=$1
   ORG=$2
@@ -126,6 +98,7 @@ updateSpecificAnchorPeers() {
   echo
 }
 
+# Function to install chaincode in a given peer
 installChaincodeOnSpecificNode() {
   PEER=$1
   ORG=$2
@@ -141,14 +114,12 @@ installChaincodeOnSpecificNode() {
   echo
 }
 
-## Create channel
-echo "Creating channel1..."
-createChannel
 
+# creating channels
 createSpecificChannel 0 1 ibosupplierchannel channelIBOSupplier.tx
 createSpecificChannel 0 1 ibocustomerchannel channelIBOCustomer.tx
 
-
+#joining channels
 joinSpecificChannelWithRetry 0 1 ibosupplierchannel
 joinSpecificChannelWithRetry 0 3 ibosupplierchannel
 joinSpecificChannelWithRetry 1 3 ibosupplierchannel
@@ -168,15 +139,11 @@ joinSpecificChannelWithRetry 0 2 ibocustomerchannel
 echo "Joining Retailer peer1 to IBOCustomerChannel"
 joinSpecificChannelWithRetry 1 2 ibocustomerchannel
 
-## Join all the peers to the channel
-echo "Having all peers join the channel..."
-# joinChannel
 #
 ## Set the anchor peers for each org in the channel
 echo "Updating anchor peers for ibo..."
 updateSpecificAnchorPeers 0 1 ibosupplierchannel IBOMSPanchors_IBOSupplierChannel
 
-# updateSpecificAnchorPeers 0 3 ibosupplierchannel SupplierMSPanchors_IBOSupplierChannel
 updateSpecificAnchorPeers 0 4 ibosupplierchannel SupplierAMSPanchors_IBOSupplierChannel
 updateSpecificAnchorPeers 0 5 ibosupplierchannel SupplierBMSPanchors_IBOSupplierChannel
 
@@ -184,11 +151,8 @@ updateSpecificAnchorPeers 0 1 ibocustomerchannel IBOMSPanchors_IBOCustomerChanne
 updateSpecificAnchorPeers 0 2 ibocustomerchannel RetailerMSPanchors_IBOCustomerChannel
 updateSpecificAnchorPeers 0 7 ibocustomerchannel CustomerMSPanchors_IBOCustomerChannel
 
-
-
 #
 if [ "${NO_CHAINCODE}" != "true" ]; then
-# 	## Install chaincode on peer0.ibo and peer0.retailer
  	echo "Installing chaincode on peer0.ibo..."
  	installChaincodeOnSpecificNode 0 1
 fi

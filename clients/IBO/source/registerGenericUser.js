@@ -24,7 +24,6 @@ async function main() {
             console.log('An identity for the user "userIBO" already exists in the wallet');
             return;
         }
-        console.log("========================User Not found===========================")
 
         // Check to see if we've already enrolled the admin user.
         const adminExists = await wallet.exists('admin');
@@ -36,9 +35,7 @@ async function main() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-          console.log("========================Up to this point===========================")
         await gateway.connect(ccpPath, { wallet, identity: 'admin', discovery: { enabled: true, asLocalhost: true } });
-        console.log("========================Up to this point1===========================")
         // Get the CA client object from the gateway for interacting with the CA.
         const ca = gateway.getClient().getCertificateAuthority();
         const adminIdentity = gateway.getCurrentIdentity();
@@ -52,7 +49,7 @@ async function main() {
         const userIdentity = X509WalletMixin.createIdentity('IBOMSP', enrollment.certificate, enrollment.key.toBytes());
         await wallet.import(user, userIdentity);
 
-        console.log('Successfully registered and enrolled admin user '+ user +' and imported it into the wallet');
+        console.log('Successfully registered and enrolled user '+ user +' and imported it into the wallet');
 
     } catch (error) {
         console.error(`Failed to register user "userIBO": ${error}`);

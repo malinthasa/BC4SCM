@@ -1,6 +1,8 @@
 
 'use strict';
 
+//call smart contract to update product owner
+
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 

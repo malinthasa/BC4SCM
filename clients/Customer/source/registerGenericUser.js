@@ -4,6 +4,9 @@
 
 'use strict';
 
+// Register a user
+//TODO Merge this with Affiliation creation function
+
 const { FileSystemWallet, Gateway, X509WalletMixin } = require('fabric-network');
 const path = require('path');
 
@@ -24,7 +27,6 @@ async function main() {
             console.log('An identity for the user "user1" already exists in the wallet');
             return;
         }
-        console.log("========================User Not found===========================")
 
         // Check to see if we've already enrolled the admin user.
         const adminExists = await wallet.exists('admin');

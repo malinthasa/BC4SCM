@@ -43,7 +43,6 @@ async function main() {
 
         let affiliationService = ca.newAffiliationService();
 
-
         // To register the new organization
         let registeredAffiliations = await affiliationService.getAll(adminIdentity);
              await affiliationService.create({

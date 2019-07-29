@@ -13,6 +13,8 @@ const ccpPath = path.resolve(__dirname, '..', '..', "..", 'network', 'connection
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
+// register admin user
+
 async function main() {
     try {
         // Create a new CA client for interacting with the CA.

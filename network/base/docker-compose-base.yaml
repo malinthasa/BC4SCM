@@ -7,6 +7,7 @@ version: '2'
 
 services:
 
+  # container for the orderer
   orderer.bc4scm.de:
     container_name: orderer.bc4scm.de
     extends:
@@ -20,6 +21,7 @@ services:
     ports:
       - 7050:7050
 
+  # container for the IBO organization peer1
   peer0.ibo.bc4scm.de:
     container_name: peer0.ibo.bc4scm.de
     extends:
@@ -42,6 +44,7 @@ services:
     ports:
       - 7051:7051
 
+  # container for the IBO organization peer2
   peer1.ibo.bc4scm.de:
     container_name: peer1.ibo.bc4scm.de
     extends:
@@ -65,6 +68,7 @@ services:
     ports:
       - 8051:8051
 
+  # container for the Retailer organization peer1
   peer0.retailer.bc4scm.de:
     container_name: peer0.retailer.bc4scm.de
     extends:
@@ -87,6 +91,7 @@ services:
     ports:
       - 9051:9051
 
+  # container for the Retailer organization peer2
   peer1.retailer.bc4scm.de:
     container_name: peer1.retailer.bc4scm.de
     extends:
@@ -109,7 +114,7 @@ services:
     ports:
       - 10051:10051
 
-
+  # container for the Supplier organization peer1
   peer0.supplier.bc4scm.de:
     container_name: peer0.supplier.bc4scm.de
     extends:
@@ -132,6 +137,7 @@ services:
     ports:
       - 11051:11051
 
+  # container for the Supplier organization peer2
   peer1.supplier.bc4scm.de:
     container_name: peer1.supplier.bc4scm.de
     extends:
@@ -154,6 +160,7 @@ services:
     ports:
       - 12051:12051
 
+  # container for the SupplierA organization peer1
   peer0.suppliera.bc4scm.de:
     container_name: peer0.suppliera.bc4scm.de
     extends:
@@ -176,6 +183,7 @@ services:
     ports:
       - 13051:13051
 
+  # container for the SupplierA organization peer2
   peer1.suppliera.bc4scm.de:
     container_name: peer1.suppliera.bc4scm.de
     extends:
@@ -198,6 +206,7 @@ services:
     ports:
       - 14051:14051
 
+  # container for the SupplierB organization peer1
   peer0.supplierb.bc4scm.de:
     container_name: peer0.supplierb.bc4scm.de
     extends:
@@ -220,6 +229,7 @@ services:
     ports:
       - 15051:15051
 
+  # container for the SupplierB organization peer2
   peer1.supplierb.bc4scm.de:
     container_name: peer1.supplierb.bc4scm.de
     extends:
@@ -242,6 +252,7 @@ services:
     ports:
         - 16051:16051
 
+  # container for the Logistic organization peer1
   peer0.logistic.bc4scm.de:
     container_name: peer0.logistic.bc4scm.de
     extends:
@@ -264,6 +275,7 @@ services:
     ports:
       - 17051:17051
 
+  # container for the Logistic organization peer2
   peer1.logistic.bc4scm.de:
     container_name: peer1.logistic.bc4scm.de
     extends:
@@ -286,6 +298,7 @@ services:
     ports:
       - 18051:18051
 
+  # container for the Customer organization peer1
   peer0.customer.bc4scm.de:
     container_name: peer0.customer.bc4scm.de
     extends:
@@ -308,6 +321,7 @@ services:
     ports:
       - 19051:19051
 
+  # container for the Customer organization peer2
   peer1.customer.bc4scm.de:
     container_name: peer1.customer.bc4scm.de
     extends:

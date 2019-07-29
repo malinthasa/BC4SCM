@@ -9,10 +9,10 @@ const path = require('path');
 const router = express.Router();
 app.use(express.static(path.join(__dirname + "/.." +"/frontend/", 'resources')));
 
+// contains resource mappings
 
 router.get('/',function(req,res){
   res.sendFile(path.join(__dirname + "/.." +"/frontend/"+ '/index.html'));
-  //__dirname : It will resolve to your project folder.
 });
 
 router.get('/home',function(req,res){
